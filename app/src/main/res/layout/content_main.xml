@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/alice_blue"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -72,16 +73,17 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:layout_marginLeft="@dimen/_26sdp"
-            android:layout_marginRight="@dimen/_26sdp"
+            android:background="@color/alice_blue"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
             android:orientation="vertical">
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                app:cardBackgroundColor="@color/yellow_orange">
+                app:cardElevation="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:cardBackgroundColor="@color/colorPrimary">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,8 +93,8 @@
                     >
                     <ImageView
                         android:id="@+id/ivlogo"
-                        android:layout_width="@dimen/_34sdp"
-                        android:layout_height="@dimen/_34sdp"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:src="@drawable/icon_file_a_case"/>
 
@@ -101,8 +103,8 @@
                         android:layout_height="wrap_content"
                         android:textColor="#fff"
                         android:textSize="@dimen/_13sdp"
-                        android:paddingBottom="@dimen/_16sdp"
-                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_10sdp"
 
                         android:fontFamily="@font/lato_regular"
                         android:text="FILE A CASE" />
@@ -112,9 +114,9 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardElevation="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_16sdp"
-                app:cardBackgroundColor="@color/cardview_light_background">
+                app:cardElevation="@dimen/_2sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                app:cardBackgroundColor="@color/colorPrimaryDark">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -124,18 +126,18 @@
                     >
                     <ImageView
                         android:id="@+id/ivlogo1"
-                        android:layout_width="@dimen/_34sdp"
-                        android:layout_height="@dimen/_34sdp"
+                        android:layout_width="@dimen/_45sdp"
+                        android:layout_height="@dimen/_45sdp"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:src="@drawable/icon_my_cases"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="#000"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/_13sdp"
-                        android:paddingBottom="@dimen/_16sdp"
-                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_10sdp"
+                        android:paddingTop="@dimen/_10sdp"
 
                         android:fontFamily="@font/lato_regular"
                         android:text="MY CASES" />

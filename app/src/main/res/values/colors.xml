@@ -3,9 +3,11 @@
 <!--    <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>-->
-    <color name="colorPrimary">#2a2b38</color>
-    <color name="colorPrimaryDark">#2a2b38</color>
+    <color name="colorPrimary">#109af5</color>
+    <color name="colorPrimaryDark">#01406c</color>
     <color name="colorAccent">#f76557</color>
+ <color name="white">#fff</color>
+ <color name="black">#000000</color>
  <color name="alice_blue">#F5F8F9</color>
     <color name="pattens_blue">#DCE6EC</color>
     <color name="dodger_blue">#1B83F1</color>
@@ -14,5 +16,12 @@
     <color name="havelock_blue">#488ADC</color>
     <color name="menu_selected_blue">#252945</color>
     <color name="yellow_orange">#F9921C</color>
+    <color name="transperent20">#aaaaaa</color>
+    <color name="txt_grey">#222222</color>
+    <color name="hint_grey">#636363</color>
+    <color name="grey">#d8d8d8</color>
+    <color name="facebook">#3B5998</color>
+
+
 
 </resources>
