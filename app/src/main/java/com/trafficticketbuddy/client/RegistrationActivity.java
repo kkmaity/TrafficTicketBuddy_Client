@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-public class LoginActivity extends BaseActivity {
+public class RegistrationActivity extends BaseActivity {
     private CardView cardLogin;
 
     @Override
@@ -16,18 +16,12 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registration);
         cardLogin=(CardView)findViewById(R.id.cardLogin);
         cardLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,MainActivity.class));
-            }
-        });
-        findViewById(R.id.txtRegister).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,RegistrationActivity.class));
+                startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
             }
         });
     }
