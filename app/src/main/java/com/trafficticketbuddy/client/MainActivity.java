@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 public class MainActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private LinearLayout linMyProfile;
+    private LinearLayout linMyProfile,linSettings,linFileCase,linMyCase,linMyCase_drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,16 @@ public class MainActivity extends BaseActivity {
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         linMyProfile=(LinearLayout)findViewById(R.id.linMyProfile);
+        linSettings=(LinearLayout)findViewById(R.id.linSettings);
+        linFileCase=(LinearLayout)findViewById(R.id.linFileCase);
+        linMyCase=(LinearLayout)findViewById(R.id.linMyCase);
+        linMyCase_drawer=(LinearLayout)findViewById(R.id.linMyCase_drawer);
         linMyProfile.setOnClickListener(this);
+        linSettings.setOnClickListener(this);
+        linFileCase.setOnClickListener(this);
+        linMyCase.setOnClickListener(this);
+        linMyCase_drawer.setOnClickListener(this);
+
 
     }
 
@@ -46,6 +55,18 @@ public class MainActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.linMyProfile:
                 startActivity(new Intent(MainActivity.this,MyProfileActivity.class));
+                break;
+                case R.id.linSettings:
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                break;
+                case R.id.linFileCase:
+                startActivity(new Intent(MainActivity.this,FileCaseActivity.class));
+                break;
+                case R.id.linMyCase:
+                startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
+                break;
+                case R.id.linMyCase_drawer:
+                startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
                 break;
         }
     }

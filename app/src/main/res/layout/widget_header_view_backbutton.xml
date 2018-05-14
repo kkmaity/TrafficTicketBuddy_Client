@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/_10sdp"
         android:src="@drawable/ic_arrow_back_white_24dp"/>
 
     <TextView
@@ -20,7 +21,7 @@
         android:singleLine="true"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/_10sdp"
-        android:text="Settings"
+        android:text=""
         android:textColor="@android:color/white" />
 
 

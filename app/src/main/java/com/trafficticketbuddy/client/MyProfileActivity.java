@@ -1,11 +1,13 @@
 package com.trafficticketbuddy.client;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.trafficticketbuddy.client.custom_views.HeaderView;
 
@@ -26,6 +28,9 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
     @Bind(R.id.toolbar)
     protected Toolbar toolbar;
 
+    @Bind(R.id.fab)
+    protected ImageView fab;
+
     private boolean isHideToolbarView = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
 
     private void initUi() {
         appBarLayout.addOnOffsetChangedListener(this);
-
+        fab.setOnClickListener(this);
         toolbarHeaderView.bindTo("John Doe", "Profile created 12-04-18");
         floatHeaderView.bindTo("John Doe", "Profile created 12-04-18");
     }
@@ -62,6 +67,16 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
         } else if (percentage < 1f && !isHideToolbarView) {
             toolbarHeaderView.setVisibility(View.GONE);
             isHideToolbarView = !isHideToolbarView;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+           case R.id.fab:
+               startActivity(new Intent(MyProfileActivity.this,EditProfileActivity.class));
+               break;
         }
     }
 }

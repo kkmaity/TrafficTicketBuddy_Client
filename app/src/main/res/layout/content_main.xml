@@ -85,6 +85,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 app:cardBackgroundColor="@color/colorPrimary">
                 <LinearLayout
+                    android:id="@+id/linFileCase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -118,6 +119,7 @@
                 android:layout_marginTop="@dimen/_20sdp"
                 app:cardBackgroundColor="@color/colorPrimaryDark">
                 <LinearLayout
+                    android:id="@+id/linMyCase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
