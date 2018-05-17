@@ -142,19 +142,19 @@
                                 android:gravity="center"
                                 >
                                 <TextView
-                                    android:id="@+id/etGender"
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/tvGender"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:textSize="@dimen/_11sdp"
                                     android:fontFamily="@font/lato_regular"
                                     android:background="@null"
                                     android:hint="Gender"
+                                    android:drawableRight="@drawable/ic_expand_more_black_24dp"
                                     android:textColor="@color/txt_grey"
                                     android:textColorHint="@color/hint_grey"
                                     android:inputType="textEmailAddress"
                                     android:maxLines="1"
                                     android:maxLength="150"
-                                    android:paddingRight="@dimen/_5sdp"
                                     android:paddingBottom="@dimen/_6sdp"
                                     android:paddingTop="@dimen/_6sdp"
                                     />
@@ -166,6 +166,7 @@
                                     android:gravity="center|end"
                                     android:layout_weight="1"
                                     >
+<!--
                                     <RadioGroup
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
@@ -187,6 +188,7 @@
                                             android:fontFamily="@font/lato_regular"
                                             android:layout_marginLeft="@dimen/_10sdp"/>
                                     </RadioGroup>
+-->
                                 </LinearLayout>
                                      </LinearLayout>
                             <View

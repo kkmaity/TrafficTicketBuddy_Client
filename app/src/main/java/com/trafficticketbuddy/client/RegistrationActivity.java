@@ -75,6 +75,7 @@ public class RegistrationActivity extends BaseActivity {
 
 
 
+
     }
    private Map<String,String> getParam(){
         Map<String,String> map=new HashMap<>();
