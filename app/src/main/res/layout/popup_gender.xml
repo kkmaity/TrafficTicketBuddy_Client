@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/popup_element"
+    android:background="@color/pattens_blue1"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textViewMale"
+        android:padding="@dimen/_7sdp"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lato_regular"
+        android:layout_weight="1"
+        android:text="Male" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/hint_grey"></View>
+
+    <TextView
+        android:id="@+id/textViewFemale"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:padding="@dimen/_7sdp"
+        android:fontFamily="@font/lato_regular"
+        android:text="Female" />
+</LinearLayout>

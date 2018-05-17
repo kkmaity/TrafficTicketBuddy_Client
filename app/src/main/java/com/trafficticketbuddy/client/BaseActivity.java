@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +14,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -131,8 +134,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-
-
+public void showDialog(String msg){
+    Dialog dialog=new Dialog(BaseActivity.this);
+    dialog.setCancelable(true);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setTitle(msg);
+    dialog.show();
+}
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
 
     public String getAddress(double latitude, double longitude) {
         StringBuilder result = new StringBuilder();
@@ -415,4 +426,5 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         LoginManager.getInstance().logOut();
         fbLoginManager.logInWithReadPermissions(this, Arrays.asList("email", "public_profile", "user_birthday"));
     }
+
 }
