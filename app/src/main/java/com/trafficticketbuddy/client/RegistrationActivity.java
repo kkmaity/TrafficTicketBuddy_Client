@@ -180,7 +180,7 @@ public class RegistrationActivity extends BaseActivity {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwCity = new PopupWindow(layout, 500, 800, true);
+            pwCity = new PopupWindow(layout, 560, 900, true);
             pwCity.showAtLocation(layout, Gravity.CENTER, 0, 0);
             final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);
@@ -207,7 +207,7 @@ public class RegistrationActivity extends BaseActivity {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwState = new PopupWindow(layout, 500, 800, true);
+            pwState = new PopupWindow(layout, 560, 900, true);
             pwState.showAtLocation(layout, Gravity.CENTER, 0, 0);
             final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);

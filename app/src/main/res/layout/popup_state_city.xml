@@ -8,19 +8,19 @@
 
     <TextView
         android:id="@+id/textViewMale"
-        android:padding="@dimen/_7sdp"
+        android:padding="@dimen/_9sdp"
         android:layout_width="match_parent"
         android:layout_gravity="center"
-        android:background="@color/alice_blue"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/white"
         android:fontFamily="@font/lato_regular"
         android:layout_height="wrap_content"
-        android:text="Choose Your Options" />
-    <View
+        android:text="Choose Your Option" />
+    <!--<View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/hint_grey"></View>
+        android:background="@color/hint_grey"></View>-->
 
     <ListView
         android:layout_width="match_parent"
