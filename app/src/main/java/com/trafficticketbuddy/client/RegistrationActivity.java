@@ -319,6 +319,9 @@ public class RegistrationActivity extends BaseActivity {
         }else if (etCity.getText().toString().isEmpty()){
             showDialog("Please select your city.");
             return false;
+        }else if (!chbxAgree.isChecked()){
+            showDialog("Please agree to the terms and condition privacy policy.");
+            return false;
         }
         return true;
     }

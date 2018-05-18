@@ -68,6 +68,10 @@ public class MainActivity extends BaseActivity {
                 case R.id.linMyCase_drawer:
                 startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
                 break;
+                case R.id.linLogout:
+                    preference.clearData();
+                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                break;
         }
     }
 
