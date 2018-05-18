@@ -22,11 +22,11 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-*/
+
         setContentView(R.layout.activity_login);
         cardLogin=(CardView)findViewById(R.id.cardLogin);
+        //setContentView(R.layout.activity_login);
+       // cardLogin=(CardView)findViewById(R.id.cardLogin);
         cvGoogleLogin=(CardView)findViewById(R.id.cvGoogleLogin);
         cvFbLogin=(CardView)findViewById(R.id.cvFbLogin);
         tvForgetPassword=(TextView)findViewById(R.id.tvForgetPassword);

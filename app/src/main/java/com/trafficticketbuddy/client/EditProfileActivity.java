@@ -19,15 +19,37 @@ import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.CursorLoader;
+import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.trafficticketbuddy.client.adapter.CityBaseAdapter;
+import com.trafficticketbuddy.client.adapter.StateBaseAdapter;
+import com.trafficticketbuddy.client.apis.ApiCity;
+import com.trafficticketbuddy.client.apis.ApiState;
+import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.StateNameResult;
+import com.trafficticketbuddy.client.model.city.CityMain;
+import com.trafficticketbuddy.client.model.city.CityResponse;
 import com.trafficticketbuddy.client.permission.Permission;
+import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.utils.Utility;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class EditProfileActivity extends BaseActivity {
@@ -37,17 +59,25 @@ public class EditProfileActivity extends BaseActivity {
     private EditText et_last_name;
     private EditText et_email;
     private EditText et_phone;
-    private Spinner spinner_gender;
-    private Spinner spinner_state;
-    private Spinner spinner_city;
+    private EditText et_gender;
+    private EditText et_state;
+    private EditText et_city;
+    private EditText et_country;
 
     int cameraPhotoRotation = 0;
     private Uri imageFileUri;
     private String takePhotoFile;
+    private PopupWindow pw;
+    private   String gender="";
+    private PopupWindow pwState;
+    private PopupWindow pwCity;
+    private String nameState="";
+    private String nameCity="";
 
     public static final int REQUEST_CODE_GALLERY = 0x1;
     public static final int REQUEST_CODE_TAKE_PICTURE = 0x2;
     public static final int PICK_PDFFILE_RESULT_CODE=0x3;
+    private List<StateNameResult> response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,11 +88,15 @@ public class EditProfileActivity extends BaseActivity {
         et_last_name = (EditText)findViewById(R.id.et_last_name);
         et_email = (EditText)findViewById(R.id.et_email);
         et_phone = (EditText)findViewById(R.id.et_phone);
-        spinner_gender = (Spinner) findViewById(R.id.spinner_gender);
-        spinner_state = (Spinner) findViewById(R.id.spinner_state);
-        spinner_city = (Spinner) findViewById(R.id.spinner_city);
+        et_gender = (EditText) findViewById(R.id.et_gender);
+        et_state = (EditText) findViewById(R.id.et_state);
+        et_city = (EditText) findViewById(R.id.et_city);
+        et_country = (EditText) findViewById(R.id.et_country);
 
         ivProfileImage.setOnClickListener(this);
+        et_state.setOnClickListener(this);
+        et_city.setOnClickListener(this);
+        et_gender.setOnClickListener(this);
     }
 
     @Override
@@ -79,7 +113,200 @@ public class EditProfileActivity extends BaseActivity {
 
                 }
                 break;
+            case R.id.et_state:
+                getAllState();
+                break;
+            case R.id.et_city:
+                if (!nameState.isEmpty())
+                    getCity();
+                else
+                    showDialog("Please select state first");
+
+                break;
+            case R.id.tvGender:
+                initiatePopupWindow();
+
+                break;
         }
+    }
+
+    private Map<String, String> getCityParam() {
+        Map<String,String> map=new HashMap<>();
+        map.put("state",nameState);
+        return map;
+    }
+
+    private void initiateCityPopupWindow(final List<CityResponse> response) {
+        try {
+            LayoutInflater inflater = (LayoutInflater) EditProfileActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_state_city,
+                    (ViewGroup) findViewById(R.id.popup_element));
+            pwCity = new PopupWindow(layout, 560, 900, true);
+            pwCity.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            ListView stateList = (ListView) layout.findViewById(R.id.stateList);
+
+            CityBaseAdapter adapter=new CityBaseAdapter(EditProfileActivity.this,response);
+            stateList.setAdapter(adapter);
+            stateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    nameCity=response.get(i).getCity();
+                    et_city.setText(nameCity);
+                    pwCity.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initiatePopupWindow() {
+        try {
+            //We need to get the instance of the LayoutInflater, use the context of this activity
+            LayoutInflater inflater = (LayoutInflater) EditProfileActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            //Inflate the view from a predefined XML layout
+            View layout = inflater.inflate(R.layout.popup_gender,
+                    (ViewGroup) findViewById(R.id.popup_element));
+            // create a 300px width and 470px height PopupWindow
+            pw = new PopupWindow(layout, 200, 200, true);
+            // display the popup in the center
+            // pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            pw.showAsDropDown(et_gender);
+
+            TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            TextView textViewFemale = (TextView) layout.findViewById(R.id.textViewFemale);
+            textViewMale.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    et_gender.setText("Male");
+                    gender="M";
+                    pw.dismiss();
+                }
+            });
+            textViewFemale.setOnClickListener(new View.OnClickListener() {
+
+
+                @Override
+                public void onClick(View view) {
+                    et_gender.setText("Female");
+                    gender="F";
+                    pw.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getCity() {
+        if (isNetworkConnected()) {
+            showProgressDialog();
+            new ApiCity(getCityParam(),new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    CityMain main=(CityMain) t;
+                    if (main.getStatus()){
+                        initiateCityPopupWindow(main.getResponse());
+                    }
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+    }
+
+    public void getAllState(){
+        if (isNetworkConnected()){
+            showProgressDialog();
+            new ApiState(new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    StateNameMain main=(StateNameMain)t;
+                    if (main.getStatus()){
+                        response = main.getResponse();
+
+                        initiateStatePopupWindow(main.getResponse());
+                        //initiateStatePopupWindow(main.getResponse());
+                    }
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+    }
+    private void initiateStatePopupWindow(final List<StateNameResult> response) {
+        try {
+            LayoutInflater inflater = (LayoutInflater) EditProfileActivity.this
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_state_city,
+                    (ViewGroup) findViewById(R.id.popup_element));
+            pwState = new PopupWindow(layout, 560, 900, true);
+            pwState.showAtLocation(layout, Gravity.CENTER, 0, 0);
+            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            ListView stateList = (ListView) layout.findViewById(R.id.stateList);
+
+            StateBaseAdapter adapter=new StateBaseAdapter(EditProfileActivity.this,response);
+            stateList.setAdapter(adapter);
+            stateList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    nameState=response.get(i).getName();
+                    et_state.setText(nameState);
+                    pwState.dismiss();
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("Select State");
+        for(int i=0; i<response.size(); i++){
+            menu.add(0, v.getId(), 0, response.get(i).getName());
+        }
+
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        if(item.getTitle()=="Call"){
+            Toast.makeText(getApplicationContext(),"calling code",Toast.LENGTH_LONG).show();
+        }
+        else if(item.getTitle()=="SMS"){
+            Toast.makeText(getApplicationContext(),"sending sms code",Toast.LENGTH_LONG).show();
+        }else{
+            return false;
+        }
+        return true;
     }
 
 
