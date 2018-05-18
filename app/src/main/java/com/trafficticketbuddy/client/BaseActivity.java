@@ -23,7 +23,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.trafficticketbuddy.client.preferences.Preference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,6 +49,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -39,6 +58,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
     public ProgressDialog prsDlg;
     public Preference preference=null;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient mGoogleSignInClient;
+    private int RC_SIGN_IN=1001;
+    private LoginManager fbLoginManager;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,8 +70,14 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
       /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
    */     prsDlg = new ProgressDialog(this);
-         preference =new Preference(BaseActivity.this);
+        preference =new Preference(BaseActivity.this);
 
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        facebookRegisterCallBack();
 
     }
     public String getCurrentDate(){
@@ -252,13 +282,13 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         String time = String.format("%2d",hours % 24) + ":" + String.format("%2d",minutes % 60) + ":" + String.format("%2d",seconds % 60);
         return time;
     }
-public String getTodayDate(){
-    Calendar calander = Calendar.getInstance();
-    SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-    String date = simpledateformat.format(calander.getTime());
-    return date;
-}
-public String milisecondToDate(long milliSeconds){
+    public String getTodayDate(){
+        Calendar calander = Calendar.getInstance();
+        SimpleDateFormat simpledateformat = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
+        String date = simpledateformat.format(calander.getTime());
+        return date;
+    }
+    public String milisecondToDate(long milliSeconds){
 
 
         // Create a DateFormatter object for displaying date in specified format.
@@ -269,48 +299,120 @@ public String milisecondToDate(long milliSeconds){
         calendar.setTimeInMillis(milliSeconds);
         return formatter.format(calendar.getTime());
 
-}
+    }
     public File getImageFile(Bitmap bitmap){
-    if (bitmap!=null){
-        File f = new File(BaseActivity.this.getCacheDir(), "profimg");
-        try {
-            f.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if (bitmap!=null){
+            File f = new File(BaseActivity.this.getCacheDir(), "profimg");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 //Convert bitmap to byte array
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
-        byte[] bitmapdata = bos.toByteArray();
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+            byte[] bitmapdata = bos.toByteArray();
 
 //write the bytes in file
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.write(bitmapdata);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            fos.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return f;
-    }else
-        return null;
+            FileOutputStream fos = null;
+            try {
+                fos = new FileOutputStream(f);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.write(bitmapdata);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return f;
+        }else
+            return null;
     }
 
 
+    public void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode==RESULT_OK) {
+            // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+            if (requestCode == RC_SIGN_IN) {
+                // The Task returned from this call is always completed, no need to attach
+                // a listener.
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                handleSignInResult(task);
+            }else{
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+        }
+    }
+
+    private void facebookRegisterCallBack() {
+        fbLoginManager = com.facebook.login.LoginManager.getInstance();
+        callbackManager = CallbackManager.Factory.create();
+        fbLoginManager.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                AccessToken accessToken = loginResult.getAccessToken();
+                Profile profile = Profile.getCurrentProfile();
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                Log.v("LoginActivity", response.toString());
+                                // Application code
+
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday,first_name,last_name");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
+    }
+
+    public void fbSignInClick(){
+        LoginManager.getInstance().logOut();
+        fbLoginManager.logInWithReadPermissions(this, Arrays.asList("email", "public_profile", "user_birthday"));
+    }
 }
