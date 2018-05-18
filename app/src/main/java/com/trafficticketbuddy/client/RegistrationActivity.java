@@ -240,7 +240,8 @@ public class RegistrationActivity extends BaseActivity {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
                             preference.setUserId(""+object.getJSONObject("response").optInt("user_id"));
-                            startActivity(new Intent(RegistrationActivity.this,MainActivity.class));
+                            preference.setPhone(etPhone.getText().toString());
+                            startActivity(new Intent(RegistrationActivity.this,OTPActivity.class));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -300,7 +301,7 @@ public class RegistrationActivity extends BaseActivity {
         }else if (etEmail.getText().toString().isEmpty()){
             showDialog("Please enter email ID.");
             return false;
-        }else if (isValidEmail(etEmail.getText().toString())){
+        }else if (!isValidEmail(etEmail.getText().toString())){
             showDialog("Please enter a valid email ID.");
             return false;
         }else if (etPhone.getText().toString().isEmpty()){
