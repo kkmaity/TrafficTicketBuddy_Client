@@ -20,7 +20,7 @@ import retrofit2.http.Part;
 public interface RestInterface {
 
     String BASE_URL = "http://13.58.150.208/buddy/";
-
+    @FormUrlEncoded
     @POST("api/v1/user/register")
     Call<ResponseBody> registrtion(@FieldMap Map<String,String> params);
 
@@ -29,6 +29,12 @@ public interface RestInterface {
     @FormUrlEncoded
     @POST("api/v1/user/cities")
     Call<CityMain> getCityName(@FieldMap Map<String,String> params);
+    @FormUrlEncoded
+    @POST("api/v1/user/resend_otp")
+    Call<ResponseBody> resend_otp(@FieldMap Map<String,String> params);
+    @FormUrlEncoded
+    @POST("api/v1/user/validate_otp")
+    Call<ResponseBody> validate_otp(@FieldMap Map<String,String> params);
 
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);

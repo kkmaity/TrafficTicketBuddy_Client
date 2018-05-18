@@ -135,11 +135,12 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 public void showDialog(String msg){
-    Dialog dialog=new Dialog(BaseActivity.this);
-    dialog.setCancelable(true);
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+  /*  Dialog dialog=new Dialog(BaseActivity.this);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setCancelable(true);
     dialog.setTitle(msg);
-    dialog.show();
+    dialog.show();*/
 }
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
