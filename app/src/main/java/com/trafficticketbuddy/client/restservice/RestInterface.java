@@ -1,5 +1,7 @@
 package com.trafficticketbuddy.client.restservice;
 
+import com.trafficticketbuddy.client.model.login.LoginMain;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,9 @@ public interface RestInterface {
 
     @POST("/api/v1/user/register")
     Call<ResponseBody> registrtion(@FieldMap Map<String,String> params);
+
+    @POST("/api/v1/user/login")
+    Call<LoginMain> login(@FieldMap Map<String,String> params);
 
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);
