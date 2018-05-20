@@ -1,29 +1,36 @@
+
 package com.trafficticketbuddy.client.model.login;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by kamal on 01/10/2018.
- */
-
 public class LoginMain {
-    @SerializedName("ResponseCode")
+
+    @SerializedName("status")
     @Expose
-    private Integer responseCode;
+    private Boolean status;
+    @SerializedName("response")
+    @Expose
+    private Response response = null;
     @SerializedName("message")
     @Expose
     private String message;
-    @SerializedName("ResponseData")
-    @Expose
-    private ResponseLoginData responseData;
 
-    public Integer getResponseCode() {
-        return responseCode;
+    public Boolean getStatus() {
+        return status;
     }
 
-    public void setResponseCode(Integer responseCode) {
-        this.responseCode = responseCode;
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
     }
 
     public String getMessage() {
@@ -32,14 +39,6 @@ public class LoginMain {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public ResponseLoginData getResponseData() {
-        return responseData;
-    }
-
-    public void setResponseData(ResponseLoginData responseData) {
-        this.responseData = responseData;
     }
 
 }
