@@ -42,27 +42,5 @@ public class ApiLogin {
             }
         });
 
-      /*  getDepartment.enqueue(new Callback<ResponseBody>() {
-
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if(response.code() == 200 && response !=null){
-                    try {
-                        listener.onSuccess( response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }else{
-                    listener.onError();
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    listener.onError();
-
-            }
-        });*/
     }
 }

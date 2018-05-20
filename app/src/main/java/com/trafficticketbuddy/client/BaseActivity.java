@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +14,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -38,6 +41,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.trafficticketbuddy.client.interfaces.FbLoginCompleted;
+import com.trafficticketbuddy.client.interfaces.GoogleLoginCompleted;
 import com.trafficticketbuddy.client.preferences.Preference;
 
 import org.json.JSONException;
@@ -63,6 +68,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private int RC_SIGN_IN=1001;
     private LoginManager fbLoginManager;
     private CallbackManager callbackManager;
+    private FbLoginCompleted mFbLoginCompleted;
+    private GoogleLoginCompleted mGoogleLoginCompleted;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,8 +109,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void showProgressDialog() {
-
+    public void showProgressDialog(){
         prsDlg.setMessage("Please wait...");
         prsDlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         prsDlg.setIndeterminate(true);
@@ -131,8 +137,17 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
-
-
+public void showDialog(String msg){
+        Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+  /*  Dialog dialog=new Dialog(BaseActivity.this);
+    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+    dialog.setCancelable(true);
+    dialog.setTitle(msg);
+    dialog.show();*/
+}
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
 
     public String getAddress(double latitude, double longitude) {
         StringBuilder result = new StringBuilder();
@@ -289,11 +304,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         return date;
     }
     public String milisecondToDate(long milliSeconds){
-
-
         // Create a DateFormatter object for displaying date in specified format.
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.US);
-
         // Create a calendar object that will convert the date and time value in milliseconds to date.
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);
@@ -343,7 +355,8 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void signIn() {
+    public void signIn(GoogleLoginCompleted mGoogleLoginCompleted) {
+        this.mGoogleLoginCompleted=mGoogleLoginCompleted;
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -369,6 +382,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            mGoogleLoginCompleted.onGoogleCompleted(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
@@ -388,14 +402,11 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {
-                                Log.v("LoginActivity", response.toString());
-                                // Application code
-
-
+                                mFbLoginCompleted.onFaceBookCompleted(object,response);
                             }
                         });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday,first_name,last_name");
+                parameters.putString("fields", "id,name,email,gender,birthday,first_name,last_name,location,address");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
@@ -411,8 +422,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    public void fbSignInClick(){
+    public void fbSignInClick(FbLoginCompleted mFbLoginCompleted){
+        this.mFbLoginCompleted=mFbLoginCompleted;
         LoginManager.getInstance().logOut();
         fbLoginManager.logInWithReadPermissions(this, Arrays.asList("email", "public_profile", "user_birthday"));
     }
+
 }

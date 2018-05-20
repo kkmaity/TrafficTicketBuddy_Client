@@ -133,6 +133,7 @@
                         android:textSize="@dimen/_11sdp"/>
                 </LinearLayout>
                 <LinearLayout
+                    android:id="@+id/linLogout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/_7sdp"

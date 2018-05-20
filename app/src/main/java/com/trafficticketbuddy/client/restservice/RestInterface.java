@@ -1,6 +1,12 @@
 package com.trafficticketbuddy.client.restservice;
 
+import java.util.Map;
+
+import retrofit2.http.POST;
 import com.trafficticketbuddy.client.model.login.LoginMain;
+import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.city.CityMain;
+
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +17,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -19,11 +26,38 @@ public interface RestInterface {
 
     String BASE_URL = "http://13.58.150.208/buddy/";
 
-    @POST("/api/v1/user/register")
+    @FormUrlEncoded
+    @POST("api/v1/user/register")
     Call<ResponseBody> registrtion(@FieldMap Map<String,String> params);
 
-    @POST("/api/v1/user/login")
+    @FormUrlEncoded
+    @POST("api/v1/user/login")
     Call<LoginMain> login(@FieldMap Map<String,String> params);
+
+    @POST("api/v1/user/states")
+    Call<StateNameMain> getStateName();
+
+    @FormUrlEncoded
+    @POST("api/v1/user/cities")
+    Call<CityMain> getCityName(@FieldMap Map<String,String> params);
+
+    @FormUrlEncoded
+    @POST("api/v1/user/resend_otp")
+    Call<ResponseBody> resend_otp(@FieldMap Map<String,String> params);
+
+    @FormUrlEncoded
+    @POST("api/v1/user/validate_otp")
+    Call<ResponseBody> validate_otp(@FieldMap Map<String,String> params);
+
+    @FormUrlEncoded
+    @POST("api/v1/user/register_facebook")
+    Call<LoginMain> fblogin(@FieldMap Map<String,String> params);
+
+
+    @FormUrlEncoded
+    @POST("api/v1/user/register_google")
+    Call<LoginMain> Googlelogin(@FieldMap Map<String,String> params);
+
 
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);

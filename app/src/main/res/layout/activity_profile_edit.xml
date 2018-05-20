@@ -32,7 +32,7 @@
                         android:layout_height="@dimen/_65sdp"
                         android:layout_marginBottom="@dimen/_16sdp">
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/ivLogo"
+                            android:id="@+id/ivProfileImage"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -76,7 +76,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Name"
+                                    android:text="First Name"
                                     android:fontFamily="@font/lato_regular"
                                     android:textSize="@dimen/_11sdp"/>
                                 <LinearLayout
@@ -86,6 +86,47 @@
                                     android:layout_gravity="center"
                                     android:gravity="center">
                                     <EditText
+                                        android:id="@+id/et_first_name"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:fontFamily="@font/lato_regular"
+                                        android:background="@null"
+                                        android:inputType="textPersonName"
+                                        android:maxLines="1"
+                                        android:textColor="@color/txt_grey"
+                                        android:textColorHint="@color/hint_grey"
+                                        android:maxLength="150"
+                                        android:paddingRight="@dimen/_5sdp"
+                                        android:paddingBottom="@dimen/_6sdp"
+                                        android:paddingTop="@dimen/_6sdp"
+                                        />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/grey"></View>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Last Name"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textSize="@dimen/_11sdp"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center"
+                                    android:gravity="center">
+                                    <EditText
+                                        android:id="@+id/et_last_name"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -126,6 +167,7 @@
                                     android:gravity="center"
                                     >
                                     <EditText
+                                        android:id="@+id/et_email"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -167,6 +209,7 @@
                                     android:gravity="center"
                                     >
                                     <EditText
+                                        android:id="@+id/et_phone"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -192,8 +235,14 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
-                                android:orientation="vertical">
 
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Gender"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textSize="@dimen/_11sdp"/>
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -202,6 +251,7 @@
                                     android:gravity="center"
                                     >
                                     <EditText
+                                        android:id="@+id/et_gender"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -209,32 +259,17 @@
                                         android:fontFamily="@font/lato_regular"
                                         android:background="@null"
                                         android:textColor="@color/txt_grey"
+                                        android:drawableRight="@drawable/ic_expand_more_black_24dp"
                                         android:textColorHint="@color/hint_grey"
                                         android:inputType="textEmailAddress"
                                         android:maxLines="1"
-                                        android:hint="Gender"
-                                        android:editable="false"
-                                        android:focusable="false"
                                         android:maxLength="150"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
                                         android:paddingRight="@dimen/_5sdp"
                                         android:paddingBottom="@dimen/_6sdp"
                                         android:paddingTop="@dimen/_6sdp"
                                         />
-                                    <LinearLayout
-                                        android:layout_width="0dp"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="1"
-                                        android:orientation="vertical">
-                                    <Spinner
-                                        android:layout_width="match_parent"
-                                        android:layout_height="@dimen/_20sdp"
-                                        android:entries="@array/gender">
-                                    </Spinner>
-                                        <View
-                                            android:layout_width="match_parent"
-                                            android:layout_height="0.5dp"
-                                            android:background="@color/grey"></View>
-                                </LinearLayout>
                                 </LinearLayout>
                             </LinearLayout>
                             <View
@@ -245,6 +280,51 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_10sdp"
+
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="State"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:textSize="@dimen/_11sdp"/>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    >
+                                    <EditText
+                                        android:id="@+id/et_state"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="@dimen/_11sdp"
+                                        android:fontFamily="@font/lato_regular"
+                                        android:background="@null"
+                                        android:textColor="@color/txt_grey"
+                                        android:textColorHint="@color/hint_grey"
+                                        android:inputType="textEmailAddress"
+                                        android:maxLines="1"
+                                        android:maxLength="150"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
+                                        android:paddingRight="@dimen/_5sdp"
+                                        android:paddingBottom="@dimen/_6sdp"
+                                        android:paddingTop="@dimen/_6sdp"
+                                        />
+                                </LinearLayout>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/grey"></View>
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+
                                 android:orientation="vertical">
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -260,6 +340,7 @@
                                     android:gravity="center"
                                     >
                                     <EditText
+                                        android:id="@+id/et_city"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"
@@ -270,46 +351,8 @@
                                         android:textColorHint="@color/hint_grey"
                                         android:inputType="textEmailAddress"
                                         android:maxLines="1"
-                                        android:maxLength="150"
-                                        android:paddingRight="@dimen/_5sdp"
-                                        android:paddingBottom="@dimen/_6sdp"
-                                        android:paddingTop="@dimen/_6sdp"
-                                        />
-                                </LinearLayout>
-                            </LinearLayout>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:background="@color/grey"></View>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Provinces/Teritories"
-                                    android:fontFamily="@font/lato_regular"
-                                    android:textSize="@dimen/_11sdp"/>
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center"
-                                    android:gravity="center"
-                                    >
-                                    <EditText
-                                        android:layout_width="0dp"
-                                        android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:textSize="@dimen/_11sdp"
-                                        android:fontFamily="@font/lato_regular"
-                                        android:background="@null"
-                                        android:textColor="@color/txt_grey"
-                                        android:textColorHint="@color/hint_grey"
-                                        android:inputType="textEmailAddress"
-                                        android:maxLines="1"
+                                        android:focusable="false"
+                                        android:focusableInTouchMode="false"
                                         android:maxLength="150"
                                         android:paddingRight="@dimen/_5sdp"
                                         android:paddingBottom="@dimen/_6sdp"
@@ -340,6 +383,7 @@
                                     android:gravity="center"
                                     >
                                     <EditText
+                                        android:id="@+id/et_country"
                                         android:layout_width="0dp"
                                         android:layout_weight="1"
                                         android:layout_height="wrap_content"

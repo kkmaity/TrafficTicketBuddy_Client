@@ -11,15 +11,10 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -132,7 +127,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:background="@color/grey"></View>
-
                             <android.support.v7.widget.CardView
                                 android:id="@+id/cardSignUp"
                                 android:layout_width="match_parent"
@@ -147,13 +141,10 @@
                                     android:textColor="@color/white"
                                     android:text="Login"
                                     android:gravity="center"
-
                                     android:fontFamily="@font/lato_regular"
                                     android:layout_gravity="center"
                                     android:padding="@dimen/_8sdp"
-                                    android:textSize="@dimen/_13sdp"
-
-                                    />
+                                    android:textSize="@dimen/_13sdp" />
                             </android.support.v7.widget.CardView>
                             <TextView
                                 android:id="@+id/tvForgetPassword"

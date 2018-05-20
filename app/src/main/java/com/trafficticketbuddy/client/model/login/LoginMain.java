@@ -12,7 +12,7 @@ public class LoginMain {
     private Boolean status;
     @SerializedName("response")
     @Expose
-    private List<Response> response = null;
+    private Response response = null;
     @SerializedName("message")
     @Expose
     private String message;
@@ -25,11 +25,11 @@ public class LoginMain {
         this.status = status;
     }
 
-    public List<Response> getResponse() {
+    public Response getResponse() {
         return response;
     }
 
-    public void setResponse(List<Response> response) {
+    public void setResponse(Response response) {
         this.response = response;
     }
 
