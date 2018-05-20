@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity {
                     if(mLoginMain.getStatus()){
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
                             preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }else{
 
                         }
@@ -189,7 +189,7 @@ public class LoginActivity extends BaseActivity {
                     if(mLoginMain.getStatus()){
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
                             preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }else{
 
                         }
