@@ -114,12 +114,13 @@ public class LoginActivity extends BaseActivity {
                     dismissProgressDialog();
                     LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
-
+                        preference.setUserId(preference.getUserId());
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     }else{
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone not verified")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
                         }else{
-
+                            showDialog(mLoginMain.getMessage());
                         }
                     }
 
