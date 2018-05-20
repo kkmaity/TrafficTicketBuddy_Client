@@ -16,9 +16,6 @@ public class SplashActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         callNewScreen();
-
-
-
     }
 
 
@@ -30,7 +27,12 @@ public class SplashActivity extends BaseActivity{
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
                     startActivity(i);
                     finish();
-                }else {
+                }else if(preference.getIsFromSocial()){
+                    Intent i = new Intent(SplashActivity.this, EditProfileActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+                else {
                     Intent i = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(i);
                     finish();

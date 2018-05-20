@@ -162,6 +162,16 @@ public class Preference {
 
 
 
+    public Boolean getIsFromSocial() {
+        return getBoolean("issocial");
+    }
+
+    public void setIsFromSocial(Boolean issocial) {
+        setBoolean("issocial", issocial);
+    }
+
+
+
 
     /*--ProviderState--*//*
     public void setProviderState(String ProviderState) {
