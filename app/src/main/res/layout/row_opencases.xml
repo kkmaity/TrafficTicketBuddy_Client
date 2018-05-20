@@ -26,9 +26,9 @@
                     android:layout_weight="1.8">
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/upload_file"/>
+                        android:layout_height="@dimen/_70sdp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/ticket_sample"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/upload_file"/>
+                        android:background="@drawable/ticket_2"/>
                     <ImageView
                         android:layout_width="0dp"
                         android:layout_height="@dimen/_40sdp"
@@ -52,7 +52,7 @@
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_marginLeft="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/upload_file"/>
+                        android:src="@drawable/ticket_1"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -74,13 +74,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/lato_regular"
                             android:textColor="@color/dodger_blue"
                             android:text="Case no."/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:textColor="@color/colorAccent"
+                            android:fontFamily="@font/helveticaneue_light"
                             android:text="#77375637"/>
 
 
@@ -101,7 +103,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_regular"
+                            android:textColor="@color/txt_grey"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:text="Toronto,Canada"/>
 
@@ -110,7 +113,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:fontFamily="@font/lato_regular"
+                        android:textColor="@color/txt_grey"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
 
@@ -133,7 +137,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/txt_grey"
                                 android:gravity="left"
                                 android:paddingLeft="@dimen/_3sdp"
                                 android:textSize="@dimen/_10sdp"
@@ -158,7 +163,8 @@
                                 android:layout_width="0dp"
                                 android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/black"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/txt_grey"
                                 android:gravity="left"
                                 android:textSize="@dimen/_10sdp"
                                 android:layout_marginLeft="@dimen/_3sdp"

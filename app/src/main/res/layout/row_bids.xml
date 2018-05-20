@@ -22,11 +22,35 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-                    <ImageView
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/upload_file"/>
+                        android:layout_marginRight="@dimen/_2sdp"
+                        app:cardElevation="3dp"
+                        app:cardCornerRadius="2dp"
+                        app:cardBackgroundColor="@color/cardview_light_background"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/ticket_sample"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_10sdp"
+                                android:text="TAKE PICTURE"
+                                android:visibility="gone"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/hint_grey"/>
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -48,7 +72,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_regular"
+                            android:textColor="@color/txt_grey"
                             android:text="Britiny Cary"/>
 
 
@@ -64,7 +89,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_regular"
+                            android:textColor="@color/txt_grey"
                             android:text="$ 120"/>
 
                     </LinearLayout>
@@ -78,7 +104,8 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:fontFamily="@font/lato_regular"
+                            android:textColor="@color/txt_grey"
                             android:text="Toronto,Canada"/>
 
                     </LinearLayout>
@@ -86,7 +113,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/black"
+                        android:fontFamily="@font/lato_regular"
+                        android:textColor="@color/txt_grey"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
 
@@ -104,7 +132,8 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/grey"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/txt_grey"
                                 android:gravity="left"
                                 android:textSize="@dimen/_10sdp"
                                 android:layout_gravity="center_vertical"
@@ -130,7 +159,7 @@
                                     android:layout_height="wrap_content"
                                     android:textColor="@color/white"
                                     android:text="Accept"
-                                    android:drawableLeft="@drawable/tick"
+                                    android:drawableLeft="@drawable/tick_1"
                                     android:gravity="center"
                                     android:fontFamily="@font/lato_regular"
                                     android:layout_gravity="center"
