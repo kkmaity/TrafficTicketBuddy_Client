@@ -59,25 +59,40 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     app:cardBackgroundColor="@color/cardview_light_background"
                     android:layout_height="@dimen/_60sdp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="@dimen/_23sdp"
-                            android:layout_height="@dimen/_23sdp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/camera_logo"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="TAKE PICTURE"
-                            android:fontFamily="@font/lato_regular"
-                            android:textColor="@color/hint_grey"/>
-                    </LinearLayout>
+
+                   <RelativeLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="match_parent">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+                           android:layout_gravity="center"
+                           android:gravity="center"
+                           android:id="@+id/linFontImage"
+                           android:orientation="vertical">
+                           <ImageView
+                               android:layout_width="@dimen/_23sdp"
+                               android:layout_height="@dimen/_23sdp"
+                               android:layout_gravity="center"
+                               android:src="@drawable/camera_logo"/>
+                           <TextView
+                               android:layout_width="wrap_content"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/_10sdp"
+                               android:text="TAKE PICTURE"
+                               android:fontFamily="@font/lato_regular"
+                               android:textColor="@color/hint_grey"/>
+
+                       </LinearLayout>
+                       <ImageView
+                           android:id="@+id/ivFontImage"
+                           android:visibility="gone"
+                           android:layout_width="match_parent"
+                           android:layout_height="match_parent"
+
+                           android:scaleType="centerCrop"/>
+                   </RelativeLayout>
+
                 </android.support.v7.widget.CardView>
 
 
@@ -114,25 +129,38 @@
                     app:cardCornerRadius="2dp"
                     app:cardBackgroundColor="@color/cardview_light_background"
                     android:layout_height="@dimen/_60sdp">
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="@dimen/_23sdp"
-                            android:layout_height="@dimen/_23sdp"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:src="@drawable/camera_logo"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="TAKE PICTURE"
-                            android:fontFamily="@font/lato_regular"
-                            android:textColor="@color/hint_grey"/>
-                    </LinearLayout>
+                            android:gravity="center"
+                            android:id="@+id/linBackImage"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_23sdp"
+                                android:layout_height="@dimen/_23sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/camera_logo"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_10sdp"
+                                android:text="TAKE PICTURE"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/hint_grey"/>
+
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/ivBackImage"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"/>
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
@@ -166,25 +194,37 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     app:cardBackgroundColor="@color/cardview_light_background"
                     android:layout_height="@dimen/_60sdp">
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <ImageView
-                            android:layout_width="@dimen/_23sdp"
-                            android:layout_height="@dimen/_23sdp"
+                        android:layout_height="match_parent">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
-                            android:src="@drawable/camera_logo"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="@dimen/_10sdp"
-                            android:text="TAKE PICTURE"
-                            android:fontFamily="@font/lato_regular"
-                            android:textColor="@color/hint_grey"/>
-                    </LinearLayout>
+                            android:gravity="center"
+                            android:id="@+id/linDrivingLiImage"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:layout_width="@dimen/_23sdp"
+                                android:layout_height="@dimen/_23sdp"
+                                android:layout_gravity="center"
+                                android:src="@drawable/camera_logo"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="@dimen/_10sdp"
+                                android:text="TAKE PICTURE"
+                                android:fontFamily="@font/lato_regular"
+                                android:textColor="@color/hint_grey"/>
+
+                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/ivDrivingLiImage"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"/>
+                    </RelativeLayout>
                 </android.support.v7.widget.CardView>
 
             </LinearLayout>
@@ -195,6 +235,10 @@
                 android:layout_marginLeft="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginRight="@dimen/_12sdp"
+                android:background="@drawable/input_box"
+                android:layout_gravity="center"
+                android:gravity="center"
+
                 android:orientation="horizontal">
 
                 <TextView
@@ -202,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
+                    android:padding="@dimen/_5sdp"
                     android:text="Select State:"
                     android:fontFamily="@font/lato_regular"
                     android:textSize="@dimen/_11sdp"
@@ -211,18 +256,25 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_marginRight="@dimen/_2sdp"
                     android:orientation="vertical">
 
-                    <Spinner
+                    <EditText
+                        android:id="@+id/etState"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_20sdp"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_regular"
+                        android:textColor="@color/txt_grey"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:textSize="@dimen/_11sdp"
+                        android:hint="--State--"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:padding="@dimen/_5sdp"
+                        android:background="@null">
+                    </EditText>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/hint_grey"></View>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -231,12 +283,14 @@
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_12sdp"
+                android:background="@drawable/input_box"
                 android:layout_marginRight="@dimen/_12sdp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_gravity="center"
+                    android:padding="@dimen/_5sdp"
                     android:fontFamily="@font/lato_regular"
                     android:textColor="@color/txt_grey"
                     android:textSize="@dimen/_11sdp"
@@ -244,21 +298,24 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="3"
                     android:layout_marginRight="@dimen/_2sdp"
                     android:orientation="vertical">
                     <EditText
+                        android:id="@+id/etCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/lato_regular"
                         android:textColor="@color/txt_grey"
                         android:textSize="@dimen/_11sdp"
+                        android:hint="--City--"
+                        android:focusableInTouchMode="false"
+                        android:focusable="false"
+                        android:drawableRight="@drawable/ic_keyboard_arrow_down_black_24dp"
+                        android:padding="@dimen/_5sdp"
                         android:background="@null">
                     </EditText>
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:background="@color/hint_grey"></View>
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -266,7 +323,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_12sdp"
                 android:layout_marginRight="@dimen/_12sdp"
                 android:orientation="vertical">
 
@@ -276,9 +332,11 @@
                     android:fontFamily="@font/lato_regular"
                     android:textColor="@color/txt_grey"
                     android:textSize="@dimen/_11sdp"
+                    android:visibility="gone"
 
                     android:text="Description"/>
                 <EditText
+                    android:id="@+id/etDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_11sdp"
