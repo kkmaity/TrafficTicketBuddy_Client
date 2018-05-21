@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 public class MainActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private LinearLayout linMyProfile,linSettings,linFileCase,linMyCase,linMyCase_drawer;
+    private LinearLayout linMyProfile,linSettings,linFileCase,linMyCase,linLogout,linMyCase_drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,13 @@ public class MainActivity extends BaseActivity {
         linSettings=(LinearLayout)findViewById(R.id.linSettings);
         linFileCase=(LinearLayout)findViewById(R.id.linFileCase);
         linMyCase=(LinearLayout)findViewById(R.id.linMyCase);
+        linLogout=(LinearLayout)findViewById(R.id.linLogout);
         linMyCase_drawer=(LinearLayout)findViewById(R.id.linMyCase_drawer);
         linMyProfile.setOnClickListener(this);
         linSettings.setOnClickListener(this);
         linFileCase.setOnClickListener(this);
         linMyCase.setOnClickListener(this);
+        linLogout.setOnClickListener(this);
         linMyCase_drawer.setOnClickListener(this);
 
 
