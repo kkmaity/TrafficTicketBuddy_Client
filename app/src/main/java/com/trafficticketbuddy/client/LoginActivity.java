@@ -69,7 +69,10 @@ public class LoginActivity extends BaseActivity {
                         String first_name = account.getDisplayName();
                         String last_name = "";
                         String id = account.getId();
-                        String pic_url=account.getPhotoUrl().getPath();
+                        String pic_url="";
+                        if(account.getPhotoUrl()!=null) {
+                            pic_url = account.getPhotoUrl().getPath();
+                        }
                         if(!email.isEmpty()) {
                             doGoogleLoginApi(first_name, last_name, email, "", "", pic_url, id, "", "", "");
                         }else{
@@ -114,12 +117,13 @@ public class LoginActivity extends BaseActivity {
                     dismissProgressDialog();
                     LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
-
+                        preference.setUserId(preference.getUserId());
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     }else{
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone not verified")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
                         }else{
-
+                            showDialog(mLoginMain.getMessage());
                         }
                     }
 
@@ -151,7 +155,7 @@ public class LoginActivity extends BaseActivity {
                     if(mLoginMain.getStatus()){
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
                             preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }else{
 
                         }
@@ -188,7 +192,7 @@ public class LoginActivity extends BaseActivity {
                     if(mLoginMain.getStatus()){
                         if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
                             preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }else{
 
                         }

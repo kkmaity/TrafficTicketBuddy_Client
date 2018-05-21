@@ -64,7 +64,7 @@ public void startTimer(){
         super.onClick(view);
         switch (view.getId()){
             case R.id.cardSubmit:
-                if (etOTP.getText().toString().isEmpty())
+                if (!etOTP.getText().toString().isEmpty())
                     validateOTP();
                 else
                     showDialog("Please Enter OTP");
