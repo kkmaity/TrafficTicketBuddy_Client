@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,13 +37,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.trafficticketbuddy.client.adapter.CityBaseAdapter;
+import com.trafficticketbuddy.client.adapter.CountryBaseAdapter;
 import com.trafficticketbuddy.client.adapter.StateBaseAdapter;
 import com.trafficticketbuddy.client.apis.ApiCity;
+import com.trafficticketbuddy.client.apis.ApiCountry;
 import com.trafficticketbuddy.client.apis.ApiState;
 import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.StateNameResult;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.city.CityResponse;
+import com.trafficticketbuddy.client.model.country.CountryMain;
+import com.trafficticketbuddy.client.model.country.Response;
 import com.trafficticketbuddy.client.permission.Permission;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.utils.Utility;
@@ -59,7 +65,6 @@ public class EditProfileActivity extends BaseActivity {
     private EditText et_last_name;
     private EditText et_email;
     private EditText et_phone;
-    private EditText et_gender;
     private EditText et_state;
     private EditText et_city;
     private EditText et_country;
@@ -78,6 +83,7 @@ public class EditProfileActivity extends BaseActivity {
     public static final int REQUEST_CODE_TAKE_PICTURE = 0x2;
     public static final int PICK_PDFFILE_RESULT_CODE=0x3;
     private List<StateNameResult> response;
+    private String countryID="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +94,6 @@ public class EditProfileActivity extends BaseActivity {
         et_last_name = (EditText)findViewById(R.id.et_last_name);
         et_email = (EditText)findViewById(R.id.et_email);
         et_phone = (EditText)findViewById(R.id.et_phone);
-        et_gender = (EditText) findViewById(R.id.et_gender);
         et_state = (EditText) findViewById(R.id.et_state);
         et_city = (EditText) findViewById(R.id.et_city);
         et_country = (EditText) findViewById(R.id.et_country);
@@ -96,7 +101,7 @@ public class EditProfileActivity extends BaseActivity {
         ivProfileImage.setOnClickListener(this);
         et_state.setOnClickListener(this);
         et_city.setOnClickListener(this);
-        et_gender.setOnClickListener(this);
+        et_country.setOnClickListener(this);
     }
 
     @Override
@@ -113,7 +118,13 @@ public class EditProfileActivity extends BaseActivity {
 
                 }
                 break;
-            case R.id.et_state:
+            case R.id.et_country:
+                callCountryAPI();
+                break;
+                case R.id.et_state:
+                    if (countryID.length()==0)
+                        showDialog("Please select country first");
+                    else
                 getAllState();
                 break;
             case R.id.et_city:
@@ -123,10 +134,7 @@ public class EditProfileActivity extends BaseActivity {
                     showDialog("Please select state first");
 
                 break;
-            case R.id.tvGender:
-                initiatePopupWindow();
 
-                break;
         }
     }
 
@@ -142,9 +150,11 @@ public class EditProfileActivity extends BaseActivity {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwCity = new PopupWindow(layout, 560, 900, true);
+            pwCity = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pwCity.setBackgroundDrawable(new BitmapDrawable());
             pwCity.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            final TextView textViewMale = (TextView) layout.findViewById(R.id.textView);
+            textViewMale.setText("Select Your City");
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);
 
             CityBaseAdapter adapter=new CityBaseAdapter(EditProfileActivity.this,response);
@@ -163,37 +173,62 @@ public class EditProfileActivity extends BaseActivity {
         }
     }
 
-    private void initiatePopupWindow() {
+    private void callCountryAPI(){
+        if (isNetworkConnected()) {
+            showProgressDialog();
+            new ApiCountry(new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    CountryMain main= (CountryMain)t;
+                    if (main.getStatus()){
+                        countryPopup(main.getResponse());
+                    }
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+
+    }
+
+
+    private void countryPopup(final List<Response> response) {
         try {
             //We need to get the instance of the LayoutInflater, use the context of this activity
             LayoutInflater inflater = (LayoutInflater) EditProfileActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.popup_gender,
+            View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
             // create a 300px width and 470px height PopupWindow
-            pw = new PopupWindow(layout, 200, 200, true);
-            // display the popup in the center
-            // pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            pw.showAsDropDown(et_gender);
+            pw = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pw.setBackgroundDrawable(new BitmapDrawable());
+            pw.setOutsideTouchable(true);
 
-            TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
-            TextView textViewFemale = (TextView) layout.findViewById(R.id.textViewFemale);
-            textViewMale.setOnClickListener(new View.OnClickListener() {
+
+            pw.showAsDropDown(et_country);
+            final TextView textView = (TextView) layout.findViewById(R.id.textView);
+            textView.setText("Select Your Country");
+            ListView listCountry = (ListView) layout.findViewById(R.id.stateList);
+
+            CountryBaseAdapter adapter=new CountryBaseAdapter(EditProfileActivity.this,response);
+            listCountry.setAdapter(adapter);
+            listCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View view) {
-                    et_gender.setText("Male");
-                    gender="M";
-                    pw.dismiss();
-                }
-            });
-            textViewFemale.setOnClickListener(new View.OnClickListener() {
-
-
-                @Override
-                public void onClick(View view) {
-                    et_gender.setText("Female");
-                    gender="F";
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    nameState=response.get(i).getCountryName();
+                    et_country.setText(nameState);
+                    countryID=response.get(i).getId();
                     pw.dismiss();
                 }
             });
@@ -202,7 +237,6 @@ public class EditProfileActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
-
     private void getCity() {
         if (isNetworkConnected()) {
             showProgressDialog();
@@ -233,7 +267,7 @@ public class EditProfileActivity extends BaseActivity {
     public void getAllState(){
         if (isNetworkConnected()){
             showProgressDialog();
-            new ApiState(new OnApiResponseListener() {
+            new ApiState(getStatePAram(),new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
                     dismissProgressDialog();
@@ -259,15 +293,24 @@ public class EditProfileActivity extends BaseActivity {
             });
         }
     }
+
+    private Map<String, String> getStatePAram() {
+        Map<String,String> map=new HashMap<>();
+        map.put("country_id",countryID);
+        return map;
+    }
+
     private void initiateStatePopupWindow(final List<StateNameResult> response) {
         try {
             LayoutInflater inflater = (LayoutInflater) EditProfileActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwState = new PopupWindow(layout, 560, 900, true);
+            pwState = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pwState.setBackgroundDrawable(new BitmapDrawable());
             pwState.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            final TextView textViewMale = (TextView) layout.findViewById(R.id.textView);
+            textViewMale.setText("Select Your State");
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);
 
             StateBaseAdapter adapter=new StateBaseAdapter(EditProfileActivity.this,response);

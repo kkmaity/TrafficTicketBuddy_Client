@@ -2,6 +2,8 @@ package com.trafficticketbuddy.client;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -17,14 +19,18 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.trafficticketbuddy.client.adapter.CityBaseAdapter;
+import com.trafficticketbuddy.client.adapter.CountryBaseAdapter;
 import com.trafficticketbuddy.client.adapter.StateBaseAdapter;
 import com.trafficticketbuddy.client.apis.ApiCity;
+import com.trafficticketbuddy.client.apis.ApiCountry;
 import com.trafficticketbuddy.client.apis.ApiRegistration;
 import com.trafficticketbuddy.client.apis.ApiState;
 import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.StateNameResult;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.city.CityResponse;
+import com.trafficticketbuddy.client.model.country.CountryMain;
+import com.trafficticketbuddy.client.model.country.Response;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.utils.Constant;
 
@@ -45,13 +51,14 @@ public class RegistrationActivity extends BaseActivity {
     private EditText etPassword;
     private CheckBox chbxAgree;
     private TextView tvTramsCondition;
-    private TextView tvLogin,tvGender;
+    private TextView tvLogin,tvCountry;
     private PopupWindow pw;
     private   String gender="";
     private PopupWindow pwState;
     private PopupWindow pwCity;
     private String nameState="";
     private String nameCity="";
+    private String countryID="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,12 +85,12 @@ public class RegistrationActivity extends BaseActivity {
         chbxAgree=(CheckBox)findViewById(R.id.chbxAgree);
         tvTramsCondition=(TextView)findViewById(R.id.tvTramsCondition);
         tvLogin=(TextView)findViewById(R.id.tvLogin);
-        tvGender=(TextView)findViewById(R.id.tvGender);
+        tvCountry=(TextView)findViewById(R.id.tvCountry);
 
         etCity.setOnClickListener(this);
         etState.setOnClickListener(this);
         carSignUp.setOnClickListener(this);
-        tvGender.setOnClickListener(this);
+        tvCountry.setOnClickListener(this);
     }
 
     @Override
@@ -95,19 +102,19 @@ public class RegistrationActivity extends BaseActivity {
                     callApi();
                 }
                 break;
-                case R.id.tvGender:
-                    initiatePopupWindow();
+            case R.id.tvCountry:
+               callCountryAPI();
 
                 break;
-                case R.id.etState:
-                    getAllState();
+            case R.id.etState:
+                getAllState();
 
                 break;
-                case R.id.etCity:
-                    if (!nameState.isEmpty())
+            case R.id.etCity:
+                if (!nameState.isEmpty())
                     getCity();
-                    else
-                        showDialog("Please select state first");
+                else
+                    showDialog("Please select state first");
 
                 break;
 
@@ -150,7 +157,7 @@ public class RegistrationActivity extends BaseActivity {
     public void getAllState(){
         if (isNetworkConnected()){
             showProgressDialog();
-            new ApiState(new OnApiResponseListener() {
+            new ApiState(getStateParam(),new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
                     dismissProgressDialog();
@@ -174,15 +181,25 @@ public class RegistrationActivity extends BaseActivity {
         }
     }
 
+    private Map<String, String> getStateParam() {
+
+        Map<String,String>map=new HashMap<>();
+        map.put("country_id",countryID);
+        return map;
+    }
+
     private void initiateCityPopupWindow(final List<CityResponse> response) {
         try {
             LayoutInflater inflater = (LayoutInflater) RegistrationActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwCity = new PopupWindow(layout, 560, 900, true);
+            pwCity = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pwCity.setBackgroundDrawable(new BitmapDrawable());
+            pwCity.setOutsideTouchable(true);
             pwCity.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            final TextView textView = (TextView) layout.findViewById(R.id.textView);
+            textView.setText("Select Your City");
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);
 
             CityBaseAdapter adapter=new CityBaseAdapter(RegistrationActivity.this,response);
@@ -207,9 +224,15 @@ public class RegistrationActivity extends BaseActivity {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
-            pwState = new PopupWindow(layout, 560, 900, true);
+           /* pwState = new PopupWindow(layout, 560, 900, true);
+            pwState.setBackgroundDrawable(new ColorDrawable());*/
+
+            pwState = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pwState.setBackgroundDrawable(new BitmapDrawable());
+            pwState.setOutsideTouchable(true);
             pwState.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            final TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
+            final TextView textView = (TextView) layout.findViewById(R.id.textView);
+            textView.setText("Select Your State");
             ListView stateList = (ListView) layout.findViewById(R.id.stateList);
 
             StateBaseAdapter adapter=new StateBaseAdapter(RegistrationActivity.this,response);
@@ -243,6 +266,8 @@ public class RegistrationActivity extends BaseActivity {
                             preference.setPhone(etPhone.getText().toString());
                             startActivity(new Intent(RegistrationActivity.this,OTPActivity.class));
                         }
+                        else
+                            showDialog(object.getString("message"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -273,18 +298,18 @@ public class RegistrationActivity extends BaseActivity {
 
 
     }
-   private Map<String,String> getParam(){
+    private Map<String,String> getParam(){
         Map<String,String> map=new HashMap<>();
         map.put("first_name",etFirstName.getText().toString());
         map.put("last_name",etLastName.getText().toString());
         map.put("email",etEmail.getText().toString());
         map.put("phone",etPhone.getText().toString());
-        map.put("gender",gender);
         map.put("password",etPassword.getText().toString());
         map.put("user_type", Constant.USER_TYPE);
-        map.put("country", Constant.USER_COUNTRY);
+        map.put("country", tvCountry.getText().toString());
         map.put("state", etState.getText().toString());
         map.put("city", etCity.getText().toString());
+        map.put("degree ", "NA");
         return map;
     }
 
@@ -294,9 +319,6 @@ public class RegistrationActivity extends BaseActivity {
             return false;
         }else if (etLastName.getText().toString().isEmpty()){
             showDialog("Please enter first name.");
-            return false;
-        }else if (gender.toString().isEmpty()){
-            showDialog("Please select gender.");
             return false;
         }else if (etEmail.getText().toString().isEmpty()){
             showDialog("Please enter email ID.");
@@ -313,10 +335,13 @@ public class RegistrationActivity extends BaseActivity {
         }else if (etPassword.getText().toString().isEmpty()){
             showDialog("Please enter password.");
             return false;
-        }else if (etState.getText().toString().isEmpty()){
-            showDialog("Please select state name.");
+        }else if (countryID.length()==0){
+            showDialog("Please select Country.");
             return false;
-        }else if (etCity.getText().toString().isEmpty()){
+        }else if (etState.getText().toString().equalsIgnoreCase("state")){
+            showDialog("Please select state");
+            return false;
+        }else if (etCity.getText().toString().equalsIgnoreCase("city")){
             showDialog("Please select your city.");
             return false;
         }else if (!chbxAgree.isChecked()){
@@ -325,37 +350,61 @@ public class RegistrationActivity extends BaseActivity {
         }
         return true;
     }
-    private void initiatePopupWindow() {
+
+    private void callCountryAPI(){
+        if (isNetworkConnected()) {
+            showProgressDialog();
+            new ApiCountry(new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    CountryMain main= (CountryMain)t;
+                    if (main.getStatus()){
+                        countryPopup(main.getResponse());
+                    }
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+
+    }
+
+
+    private void countryPopup(final List<Response> response) {
         try {
             //We need to get the instance of the LayoutInflater, use the context of this activity
             LayoutInflater inflater = (LayoutInflater) RegistrationActivity.this
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             //Inflate the view from a predefined XML layout
-            View layout = inflater.inflate(R.layout.popup_gender,
+            View layout = inflater.inflate(R.layout.popup_state_city,
                     (ViewGroup) findViewById(R.id.popup_element));
             // create a 300px width and 470px height PopupWindow
-            pw = new PopupWindow(layout, 200, 200, true);
-            // display the popup in the center
-           // pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-            pw.showAsDropDown(tvGender);
+            pw = new PopupWindow(layout, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            pw.setBackgroundDrawable(new BitmapDrawable());
+            pw.setOutsideTouchable(true);
+            pw.showAsDropDown(tvCountry);
+            final TextView textView = (TextView) layout.findViewById(R.id.textView);
+            textView.setText("Select Your Country");
+            ListView listCountry = (ListView) layout.findViewById(R.id.stateList);
 
-            TextView textViewMale = (TextView) layout.findViewById(R.id.textViewMale);
-            TextView textViewFemale = (TextView) layout.findViewById(R.id.textViewFemale);
-            textViewMale.setOnClickListener(new View.OnClickListener() {
+            CountryBaseAdapter adapter=new CountryBaseAdapter(RegistrationActivity.this,response);
+            listCountry.setAdapter(adapter);
+            listCountry.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
-                public void onClick(View view) {
-                    tvGender.setText("Male");
-                    gender="M";
-                    pw.dismiss();
-                }
-            });
-            textViewFemale.setOnClickListener(new View.OnClickListener() {
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-
-                @Override
-                public void onClick(View view) {
-                    tvGender.setText("Female");
-                    gender="F";
+                    tvCountry.setText(response.get(i).getCountryName());
+                    countryID=response.get(i).getId();
                     pw.dismiss();
                 }
             });

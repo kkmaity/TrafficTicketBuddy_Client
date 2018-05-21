@@ -133,68 +133,7 @@
 
 
 
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="@dimen/_10sdp"
-                                android:gravity="center"
-                                >
-                                <TextView
-                                    android:id="@+id/tvGender"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textSize="@dimen/_11sdp"
-                                    android:fontFamily="@font/lato_regular"
-                                    android:background="@null"
-                                    android:hint="Gender"
-                                    android:drawableRight="@drawable/ic_expand_more_black_24dp"
-                                    android:textColor="@color/txt_grey"
-                                    android:textColorHint="@color/hint_grey"
-                                    android:inputType="textEmailAddress"
-                                    android:maxLines="1"
-                                    android:maxLength="150"
-                                    android:paddingBottom="@dimen/_6sdp"
-                                    android:paddingTop="@dimen/_6sdp"
-                                    />
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_gravity="center|end"
-                                    android:gravity="center|end"
-                                    android:layout_weight="1"
-                                    >
-<!--
-                                    <RadioGroup
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:orientation="horizontal"
-                                        >
-                                        <RadioButton
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:textSize="@dimen/_11sdp"
-                                            android:textColor="@color/hint_grey"
-                                            android:fontFamily="@font/lato_regular"
-                                            android:text="Male"/>
-                                        <RadioButton
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Female"
-                                            android:textColor="@color/hint_grey"
-                                            android:textSize="@dimen/_11sdp"
-                                            android:fontFamily="@font/lato_regular"
-                                            android:layout_marginLeft="@dimen/_10sdp"/>
-                                    </RadioGroup>
--->
-                                </LinearLayout>
-                                     </LinearLayout>
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:background="@color/grey"></View>
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -301,7 +240,68 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="0.5dp"
                                 android:background="@color/grey"></View>
-
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:gravity="center"
+                                >
+                                <TextView
+                                    android:id="@+id/tvCountry"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="@dimen/_11sdp"
+                                    android:fontFamily="@font/lato_regular"
+                                    android:background="@null"
+                                    android:hint="Country"
+                                    android:drawableRight="@drawable/ic_expand_more_black_24dp"
+                                    android:textColor="@color/txt_grey"
+                                    android:textColorHint="@color/hint_grey"
+                                    android:inputType="textEmailAddress"
+                                    android:maxLines="1"
+                                    android:maxLength="150"
+                                    android:paddingBottom="@dimen/_6sdp"
+                                    android:paddingTop="@dimen/_6sdp"
+                                    />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_gravity="center|end"
+                                    android:gravity="center|end"
+                                    android:layout_weight="1"
+                                    >
+                                    <!--
+                                                                        <RadioGroup
+                                                                            android:layout_width="wrap_content"
+                                                                            android:layout_height="wrap_content"
+                                                                            android:orientation="horizontal"
+                                                                            >
+                                                                            <RadioButton
+                                                                                android:layout_width="wrap_content"
+                                                                                android:layout_height="wrap_content"
+                                                                                android:textSize="@dimen/_11sdp"
+                                                                                android:textColor="@color/hint_grey"
+                                                                                android:fontFamily="@font/lato_regular"
+                                                                                android:text="Male"/>
+                                                                            <RadioButton
+                                                                                android:layout_width="wrap_content"
+                                                                                android:layout_height="wrap_content"
+                                                                                android:text="Female"
+                                                                                android:textColor="@color/hint_grey"
+                                                                                android:textSize="@dimen/_11sdp"
+                                                                                android:fontFamily="@font/lato_regular"
+                                                                                android:layout_marginLeft="@dimen/_10sdp"/>
+                                                                        </RadioGroup>
+                                    -->
+                                </LinearLayout>
+                            </LinearLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/grey"></View>
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"

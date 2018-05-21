@@ -1,11 +1,11 @@
 package com.trafficticketbuddy.client.apis;
 
 import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.country.CountryMain;
 import com.trafficticketbuddy.client.restservice.APIHelper;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.restservice.RestService;
 
-import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -13,23 +13,22 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ApiState {
+public class ApiCountry {
     private OnApiResponseListener listener;
     private Map<String, String> param;
 
-    public ApiState(Map<String, String> param,OnApiResponseListener listener) {
+    public ApiCountry(OnApiResponseListener listener) {
         this.listener = listener;
-        this.param=param;
         doWebServiceCall();
 
     }
 
     public void doWebServiceCall() {
 
-        Call<StateNameMain> getDepartment = RestService.getInstance().restInterface.getStateName(param);
-        APIHelper.enqueueWithRetry(getDepartment, new Callback<StateNameMain>() {
+        Call<CountryMain> getDepartment = RestService.getInstance().restInterface.getCountry();
+        APIHelper.enqueueWithRetry(getDepartment, new Callback<CountryMain>() {
             @Override
-            public void onResponse(Call<StateNameMain> call, Response<StateNameMain> response) {
+            public void onResponse(Call<CountryMain> call, Response<CountryMain> response) {
                 if(response.code() == 200 && response !=null){
 
                         listener.onSuccess( response.body());
@@ -40,7 +39,7 @@ public class ApiState {
             }
 
             @Override
-            public void onFailure(Call<StateNameMain> call, Throwable t) {
+            public void onFailure(Call<CountryMain> call, Throwable t) {
                 listener.onError();
             }
         });

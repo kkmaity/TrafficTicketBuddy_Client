@@ -3,6 +3,8 @@ package com.trafficticketbuddy.client.restservice;
 import java.util.Map;
 
 import retrofit2.http.POST;
+
+import com.trafficticketbuddy.client.model.country.CountryMain;
 import com.trafficticketbuddy.client.model.login.LoginMain;
 import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
@@ -34,8 +36,12 @@ public interface RestInterface {
     @POST("api/v1/user/login")
     Call<LoginMain> login(@FieldMap Map<String,String> params);
 
+    @POST("api/v1/user/country")
+    Call<CountryMain> getCountry();
+
+    @FormUrlEncoded
     @POST("api/v1/user/states")
-    Call<StateNameMain> getStateName();
+    Call<StateNameMain> getStateName(@FieldMap Map<String,String> params);
 
     @FormUrlEncoded
     @POST("api/v1/user/cities")
