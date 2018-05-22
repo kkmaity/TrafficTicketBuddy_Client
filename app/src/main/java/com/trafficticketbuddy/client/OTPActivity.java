@@ -39,16 +39,16 @@ public class OTPActivity extends BaseActivity {
         cardSubmit.setOnClickListener(this);
         ivReSend.setOnClickListener(this);
 
-        recendOTP();
+       // recendOTP();
         startTimer();
     }
 public void startTimer(){
     ivReSend.setVisibility(View.GONE);
     tvTimer.setVisibility(View.VISIBLE);
-    new CountDownTimer(50000, 1000) {
+    new CountDownTimer(90000, 1000) {
 
         public void onTick(long millisUntilFinished) {
-            tvTimer.setText("" + millisUntilFinished / 1000);
+            tvTimer.setText("Timer "+String.format("%02d", millisUntilFinished / 1000)+" s");
         }
 
         public void onFinish() {
