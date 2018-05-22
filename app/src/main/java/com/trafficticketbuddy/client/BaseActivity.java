@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -426,6 +427,12 @@ public void showDialog(String msg){
         this.mFbLoginCompleted=mFbLoginCompleted;
         LoginManager.getInstance().logOut();
         fbLoginManager.logInWithReadPermissions(this, Arrays.asList("email", "public_profile", "user_birthday"));
+    }
+
+    public  void hideSoftKeyboard() {
+
+        InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
     }
 
 }

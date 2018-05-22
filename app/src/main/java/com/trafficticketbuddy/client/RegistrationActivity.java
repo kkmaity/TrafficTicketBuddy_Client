@@ -103,14 +103,20 @@ public class RegistrationActivity extends BaseActivity {
                 }
                 break;
             case R.id.tvCountry:
+                hideSoftKeyboard();
                callCountryAPI();
 
                 break;
             case R.id.etState:
+                hideSoftKeyboard();
+                if (!countryID.isEmpty())
                 getAllState();
+                else
+                    showDialog("Please select country first");
 
                 break;
             case R.id.etCity:
+                hideSoftKeyboard();
                 if (!nameState.isEmpty())
                     getCity();
                 else

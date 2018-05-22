@@ -27,6 +27,7 @@ public class OTPActivity extends BaseActivity {
     private TextView tvTimer;
     private ImageView ivReSend;
     private CardView cardSubmit;
+    private TextView tv_otp_txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +35,13 @@ public class OTPActivity extends BaseActivity {
         setContentView(R.layout.activity_otp_validation);
         etOTP=(EditText)findViewById(R.id.etOTP);
         tvTimer=(TextView)findViewById(R.id.tvTimer);
+        tv_otp_txt=(TextView)findViewById(R.id.tv_otp_txt);
         ivReSend=(ImageView)findViewById(R.id.ivReSend);
         cardSubmit=(CardView)findViewById(R.id.cardSubmit);
         cardSubmit.setOnClickListener(this);
         ivReSend.setOnClickListener(this);
+       // tv_otp_txt.setOnClickListener(this);
+        tv_otp_txt.setText("A 4-digit OTP has been sent to "+preference.getPhone()+". Plesae enter the OTP below to verify your phone mumber.");
 
        // recendOTP();
         startTimer();
@@ -74,6 +78,7 @@ public void startTimer(){
                 recendOTP();
                 startTimer();
                 break;
+
         }
     }
 
