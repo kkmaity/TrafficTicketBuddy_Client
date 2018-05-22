@@ -10,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.trafficticketbuddy.client.apis.ApiResendOTP;
-import com.trafficticketbuddy.client.apis.ApiValidateOTP;
+import com.trafficticketbuddy.client.apis.ApiEmailValidateOTP;
+import com.trafficticketbuddy.client.apis.ApiEmailsendOTP;
 import com.trafficticketbuddy.client.model.login.Response;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 
@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class OTPActivity extends BaseActivity {
+public class EmailOTPActivity extends BaseActivity {
 
     private EditText etOTP;
     private TextView tvTimer;
@@ -41,17 +41,14 @@ public class OTPActivity extends BaseActivity {
         cardSubmit=(CardView)findViewById(R.id.cardSubmit);
         cardSubmit.setOnClickListener(this);
         ivReSend.setOnClickListener(this);
-
+       // tv_otp_txt.setOnClickListener(this);
         Gson gson = new Gson();
         String json = preference.getString("login_user", "");
         mLogin = gson.fromJson(json, Response.class);
 
+        tv_otp_txt.setText("A 4-digit OTP has been sent to "+mLogin.getEmail()+". Plesae enter the OTP below to verify your email id.");
 
-       // tv_otp_txt.setOnClickListener(this);
-        tv_otp_txt.setText("A 4-digit OTP has been sent to "+mLogin.getPhone()+". Plesae enter the OTP below to verify your phone mumber.");
-
-
-       // recendOTP();
+        recendOTP();
         startTimer();
     }
 public void startTimer(){
@@ -93,7 +90,7 @@ public void startTimer(){
     private void validateOTP() {
         if (isNetworkConnected()){
             showProgressDialog();
-            new ApiValidateOTP(getParamValidate(), new OnApiResponseListener() {
+            new ApiEmailValidateOTP(getParamValidate(), new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
                     dismissProgressDialog();
@@ -101,13 +98,15 @@ public void startTimer(){
                     try {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
-                            mLogin.setIsPhoneVerified("1");
+                            mLogin.setIsEmailVerified("1");
                             preference.setLoggedInUser(new Gson().toJson(mLogin));
-                            if(mLogin.getIsEmailVerified().equalsIgnoreCase("0")) {
-                                startActivity(new Intent(OTPActivity.this, EmailOTPActivity.class));
+                            if(mLogin.getIsPhoneVerified().equalsIgnoreCase("0")) {
+                                startActivity(new Intent(EmailOTPActivity.this, OTPActivity.class));
                             }else{
-                                startActivity(new Intent(OTPActivity.this, MainActivity.class));
+                                startActivity(new Intent(EmailOTPActivity.this, MainActivity.class));
                             }
+                        }else{
+                            showDialog(object.getString("message"));
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -144,22 +143,19 @@ public void startTimer(){
     private void recendOTP() {
         if (isNetworkConnected()){
             showProgressDialog();
-            new ApiResendOTP(getParamResendOTP(), new OnApiResponseListener() {
+            new ApiEmailsendOTP(getParamResendOTP(), new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
                     dismissProgressDialog();
                     String res=(String)t;
                     try {
                         JSONObject object=new JSONObject(res);
-                        if (object.getBoolean("status")){ }
+                        if (object.getBoolean("status")){}
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     System.out.print(res);
-
-
                 }
-
                 @Override
                 public <E> void onError(E t) {
                     dismissProgressDialog();
@@ -171,14 +167,11 @@ public void startTimer(){
                 }
             });
         }
-
-
     }
     private Map<String, String> getParamResendOTP() {
         Map<String,String> map=new HashMap<>();
         map.put("user_id",mLogin.getId());
-        map.put("phone",mLogin.getPhone());
-
+        map.put("email",mLogin.getEmail());
         return map;
     }
 }

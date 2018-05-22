@@ -27,6 +27,9 @@ public class Response {
     @SerializedName("is_phone_verified")
     @Expose
     private String isPhoneVerified;
+    @SerializedName("is_email_verified")
+    @Expose
+    private String isEmailVerified;
     @SerializedName("is_active")
     @Expose
     private String isActive;
@@ -100,6 +103,14 @@ public class Response {
 
     public void setIsPhoneVerified(String isPhoneVerified) {
         this.isPhoneVerified = isPhoneVerified;
+    }
+
+    public String getIsEmailVerified() {
+        return isEmailVerified;
+    }
+
+    public void setIsEmailVerified(String isEmailVerified) {
+        this.isEmailVerified = isEmailVerified;
     }
 
     public String getIsActive() {

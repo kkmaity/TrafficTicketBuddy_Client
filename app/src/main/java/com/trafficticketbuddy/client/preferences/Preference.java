@@ -171,6 +171,15 @@ public class Preference {
     }
 
 
+    public String getLoggedInUser() {
+        return getString("login_user", "");
+    }
+
+    public void setLoggedInUser(String login_user) {
+        setString("login_user", login_user);
+    }
+
+
 
 
     /*--ProviderState--*//*

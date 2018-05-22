@@ -3,7 +3,6 @@ package com.trafficticketbuddy.client;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
@@ -18,6 +17,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.trafficticketbuddy.client.adapter.CityBaseAdapter;
 import com.trafficticketbuddy.client.adapter.CountryBaseAdapter;
 import com.trafficticketbuddy.client.adapter.StateBaseAdapter;
@@ -58,7 +58,7 @@ public class RegistrationActivity extends BaseActivity {
     private PopupWindow pwCity;
     private String nameState="";
     private String nameCity="";
-    private String countryID="";
+    private String countryID="1";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +86,8 @@ public class RegistrationActivity extends BaseActivity {
         tvTramsCondition=(TextView)findViewById(R.id.tvTramsCondition);
         tvLogin=(TextView)findViewById(R.id.tvLogin);
         tvCountry=(TextView)findViewById(R.id.tvCountry);
+
+        tvCountry.setText("Canada");
 
         etCity.setOnClickListener(this);
         etState.setOnClickListener(this);
@@ -270,6 +272,9 @@ public class RegistrationActivity extends BaseActivity {
                         if (object.getBoolean("status")){
                             preference.setUserId(""+object.getJSONObject("response").optInt("user_id"));
                             preference.setPhone(etPhone.getText().toString());
+                            Gson gson = new Gson();
+                            com.trafficticketbuddy.client.model.login.Response mResponse = gson.fromJson(object.getJSONObject("response").toString(), com.trafficticketbuddy.client.model.login.Response.class);
+                            preference.setLoggedInUser(new Gson().toJson(mResponse));
                             startActivity(new Intent(RegistrationActivity.this,OTPActivity.class));
                         }
                         else

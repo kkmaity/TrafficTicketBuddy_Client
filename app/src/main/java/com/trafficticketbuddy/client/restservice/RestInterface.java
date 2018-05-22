@@ -1,28 +1,17 @@
 package com.trafficticketbuddy.client.restservice;
 
-import java.util.Map;
-
-import retrofit2.http.POST;
-
-import com.trafficticketbuddy.client.model.country.CountryMain;
-import com.trafficticketbuddy.client.model.login.LoginMain;
 import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
+import com.trafficticketbuddy.client.model.country.CountryMain;
+import com.trafficticketbuddy.client.model.login.LoginMain;
 
-
-import java.util.List;
 import java.util.Map;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 
 public interface RestInterface {
 
@@ -52,13 +41,20 @@ public interface RestInterface {
     Call<ResponseBody> resend_otp(@FieldMap Map<String,String> params);
 
     @FormUrlEncoded
+    @POST("api/v1/user/send_mail_otp")
+    Call<ResponseBody> send_mail_otp(@FieldMap Map<String,String> params);
+
+    @FormUrlEncoded
     @POST("api/v1/user/validate_otp")
     Call<ResponseBody> validate_otp(@FieldMap Map<String,String> params);
 
     @FormUrlEncoded
+    @POST("api/v1/user/validate_email_otp")
+    Call<ResponseBody> validate_email_otp(@FieldMap Map<String,String> params);
+
+    @FormUrlEncoded
     @POST("api/v1/user/register_facebook")
     Call<LoginMain> fblogin(@FieldMap Map<String,String> params);
-
 
     @FormUrlEncoded
     @POST("api/v1/user/register_google")

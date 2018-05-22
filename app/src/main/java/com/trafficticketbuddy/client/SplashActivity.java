@@ -1,20 +1,14 @@
 package com.trafficticketbuddy.client;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Base64;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.google.gson.Gson;
+import com.trafficticketbuddy.client.model.login.Response;
 
 public class SplashActivity extends BaseActivity{
     private String deviceToken;
@@ -55,19 +49,22 @@ public class SplashActivity extends BaseActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (preference.getUserId()!=null&&preference.getUserId().length()>0){
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(i);
-                    finish();
-                }else if(preference.getIsFromSocial()){
-                    Intent i = new Intent(SplashActivity.this, EditProfileActivity.class);
-                    startActivity(i);
-                    finish();
-                }
-                else {
-                    Intent i = new Intent(SplashActivity.this, LoginActivity.class);
-                    startActivity(i);
-                    finish();
+                Gson gson = new Gson();
+                String json = preference.getString("login_user", "");
+                Response mLoginMain = gson.fromJson(json, Response.class);
+                if(mLoginMain!=null) {
+                    if (mLoginMain.getPhone().isEmpty() || mLoginMain.getCountry().isEmpty()
+                            || mLoginMain.getState().isEmpty() || mLoginMain.getCity().isEmpty()) {
+                        startActivity(new Intent(SplashActivity.this, EditProfileActivity.class));
+                    } else if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")) {
+                        startActivity(new Intent(SplashActivity.this, OTPActivity.class));
+                    } else if (mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")) {
+                        startActivity(new Intent(SplashActivity.this, EmailOTPActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    }
+                }else{
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 }
 
             }

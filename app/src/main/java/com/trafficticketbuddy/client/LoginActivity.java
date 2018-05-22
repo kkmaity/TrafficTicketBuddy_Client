@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.GraphResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.gson.Gson;
 import com.trafficticketbuddy.client.apis.ApiFaceBookLogin;
 import com.trafficticketbuddy.client.apis.ApiGoogleLogin;
 import com.trafficticketbuddy.client.apis.ApiLogin;
@@ -115,16 +116,22 @@ public class LoginActivity extends BaseActivity {
             public <E> void onSuccess(E t) {
                 {
                     dismissProgressDialog();
-                    LoginMain mLoginMain = (LoginMain)t;
+                    LoginMain mLoginMain = (LoginMain) t;
                     if(mLoginMain.getStatus()){
-                        preference.setUserId(preference.getUserId());
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-                    }else{
-                        if(mLoginMain.getMessage().equalsIgnoreCase("phone not verified")){
-                            startActivity(new Intent(LoginActivity.this,OTPActivity.class));
-                        }else{
-                            showDialog(mLoginMain.getMessage());
+                        preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
+                        if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
+                                || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
+                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
                         }
+                        else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
+                        }else{
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        }
+                    }else{
+                        showDialog(mLoginMain.getMessage());
                     }
 
                 }
@@ -153,14 +160,20 @@ public class LoginActivity extends BaseActivity {
                 dismissProgressDialog();
                 {LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
-                        if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
-                            preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
+                        if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
+                                || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
+                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                        }
+                        else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }else{
-
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }
                     }else{
-
+                        showDialog(mLoginMain.getMessage());
                     }
                 }
             }
@@ -190,14 +203,20 @@ public class LoginActivity extends BaseActivity {
                     dismissProgressDialog();
                     LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
-                        if(mLoginMain.getMessage().equalsIgnoreCase("phone number not verified")){
-                            preference.setIsFromSocial(true);
-                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
+                        if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
+                                || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
+                            startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                        }
+                        else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+                            startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }else{
-
+                            startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }
                     }else{
-
+                        showDialog(mLoginMain.getMessage());
                     }
                 }
             }
