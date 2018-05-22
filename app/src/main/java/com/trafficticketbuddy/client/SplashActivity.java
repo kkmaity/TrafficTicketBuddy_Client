@@ -57,9 +57,9 @@ public class SplashActivity extends BaseActivity{
                             || mLoginMain.getState().isEmpty() || mLoginMain.getCity().isEmpty()) {
                         startActivity(new Intent(SplashActivity.this, EditProfileActivity.class));
                     } else if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")) {
-                        startActivity(new Intent(SplashActivity.this, OTPActivity.class));
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     } else if (mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")) {
-                        startActivity(new Intent(SplashActivity.this, EmailOTPActivity.class));
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     } else {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     }
