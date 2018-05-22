@@ -23,7 +23,7 @@ public class Response {
     private String phone;
     @SerializedName("image")
     @Expose
-    private Object image;
+    private String image;
     @SerializedName("is_phone_verified")
     @Expose
     private String isPhoneVerified;
@@ -89,11 +89,11 @@ public class Response {
         this.phone = phone;
     }
 
-    public Object getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(Object image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

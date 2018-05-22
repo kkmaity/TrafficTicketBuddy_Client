@@ -25,6 +25,10 @@ public interface RestInterface {
     @POST("api/v1/user/login")
     Call<LoginMain> login(@FieldMap Map<String,String> params);
 
+    @FormUrlEncoded
+    @POST("api/v1/user/updateClientProfile")
+    Call<LoginMain> editprofile(@FieldMap Map<String,String> params);
+
     @POST("api/v1/user/country")
     Call<CountryMain> getCountry();
 
