@@ -5,7 +5,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Response {
-
     @SerializedName("id")
     @Expose
     private String id;
@@ -21,9 +20,12 @@ public class Response {
     @SerializedName("phone")
     @Expose
     private String phone;
-    @SerializedName("image")
+    @SerializedName("profile_image")
     @Expose
-    private String image;
+    private String profileImage;
+    @SerializedName("license_image")
+    @Expose
+    private String licenseImage;
     @SerializedName("is_phone_verified")
     @Expose
     private String isPhoneVerified;
@@ -89,12 +91,20 @@ public class Response {
         this.phone = phone;
     }
 
-    public String getImage() {
-        return image;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public String getLicenseImage() {
+        return licenseImage;
+    }
+
+    public void setLicenseImage(String licenseImage) {
+        this.licenseImage = licenseImage;
     }
 
     public String getIsPhoneVerified() {
@@ -162,3 +172,5 @@ public class Response {
     }
 
 }
+
+

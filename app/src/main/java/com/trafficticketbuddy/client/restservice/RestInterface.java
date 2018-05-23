@@ -4,6 +4,7 @@ import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.country.CountryMain;
 import com.trafficticketbuddy.client.model.login.LoginMain;
+import com.trafficticketbuddy.client.utils.Constant;
 
 import java.util.Map;
 
@@ -15,7 +16,8 @@ import retrofit2.http.POST;
 
 public interface RestInterface {
 
-    String BASE_URL = "http://13.58.150.208/buddy/";
+   // String BASE_URL = "http://13.58.150.208/buddy/";
+   String BASE_URL = Constant.BASE_URL;
 
     @FormUrlEncoded
     @POST("api/v1/user/register")

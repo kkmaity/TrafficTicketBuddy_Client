@@ -20,6 +20,7 @@
             android:layout_height="@dimen/_15sdp"
             android:src="@drawable/icon_email_blue"/>
         <EditText
+            android:id="@+id/tv_email"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
             android:layout_height="@dimen/_15sdp"
             android:src="@drawable/icon_phone"/>
         <EditText
+            android:id="@+id/tv_phone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -61,12 +63,16 @@
             android:background="@android:color/transparent"
             />
     </LinearLayout>
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:gravity="center"
 
         android:layout_gravity="center"
@@ -74,8 +80,9 @@
         <ImageView
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/icon_gender"/>
+            android:src="@drawable/icon_country"/>
         <EditText
+            android:id="@+id/tv_country"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -85,7 +92,7 @@
             android:layout_marginLeft="@dimen/_12sdp"
             android:textColor="@color/txt_grey"
             android:enabled="false"
-            android:text="Male"
+            android:text="Canada"
             android:background="@android:color/transparent"
             />
     </LinearLayout>
@@ -94,35 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:gravity="center"
-
-        android:layout_gravity="center"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/icon_city"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12sdp"
-            android:padding="@dimen/_5sdp"
-            android:fontFamily="@font/lato_regular"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:textColor="@color/txt_grey"
-            android:enabled="false"
-            android:text="Toronto"
-            android:background="@android:color/transparent"
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_16sdp"
-        android:layout_marginRight="@dimen/_16sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:gravity="center"
 
         android:layout_gravity="center"
@@ -132,6 +110,7 @@
             android:layout_height="@dimen/_15sdp"
             android:src="@drawable/icon_state"/>
         <EditText
+            android:id="@+id/tv_state"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -151,7 +130,6 @@
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
         android:gravity="center"
 
         android:layout_gravity="center"
@@ -159,8 +137,9 @@
         <ImageView
             android:layout_width="@dimen/_15sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/icon_country"/>
+            android:src="@drawable/icon_city"/>
         <EditText
+            android:id="@+id/tv_city"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
@@ -170,9 +149,48 @@
             android:layout_marginLeft="@dimen/_12sdp"
             android:textColor="@color/txt_grey"
             android:enabled="false"
-            android:text="Canada"
+            android:text="Toronto"
             android:background="@android:color/transparent"
             />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+         android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_15sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/icon_city"/>
+        <EditText
+
+            android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+            android:textSize="@dimen/_12sdp"
+            android:padding="@dimen/_5sdp"
+            android:fontFamily="@font/lato_regular"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:textColor="@color/txt_grey"
+            android:enabled="false"
+            android:text="Driving License"
+            android:background="@android:color/transparent"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:gravity="right"
+            android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/ivLicense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/upload_file"/>
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

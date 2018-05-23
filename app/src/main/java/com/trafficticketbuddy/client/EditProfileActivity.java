@@ -140,8 +140,18 @@ public class EditProfileActivity extends BaseActivity {
             et_state.setText(mLogin.getState());
         }if(mLogin.getCity()!=null){
             et_city.setText(mLogin.getCity());
-        }if(mLogin.getImage()!=null){
-            Glide.with(this).load(mLogin.getImage()).into(ivProfileImage);
+        }if(mLogin.getProfileImage()!=null){
+            if(mLogin.getProfileImage().startsWith("http")){
+                Glide.with(this).load(mLogin.getProfileImage()).into(ivProfileImage);
+            }else{
+                String path = Constant.BASE_URL+"uploadImage/client_profile_image/"+mLogin.getProfileImage();
+                Glide.with(this).load(path).into(ivProfileImage);
+            }
+
+        }if(mLogin.getLicenseImage()!=null){
+            String path = Constant.BASE_URL+"uploadImage/client_license_image/"+mLogin.getLicenseImage();
+            Glide.with(this).load(path).into(ivLicense);
+
         }
     }
 
@@ -263,7 +273,7 @@ public class EditProfileActivity extends BaseActivity {
             et_state.setError("Please select state");
         }else if(et_city.getText().toString().isEmpty()){
             et_city.setError("Please select city");
-        }else if(encodedImage_profile.toString().isEmpty() && mLogin.getImage().toString().isEmpty()){
+        }else if(encodedImage_profile.toString().isEmpty() && mLogin.getProfileImage().isEmpty()){
             showDialog("Please select profile image");
         }else if(encodedImage_license.toString().isEmpty()){
             showDialog("Please select licence image");
