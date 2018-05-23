@@ -7,15 +7,16 @@ import com.trafficticketbuddy.client.restservice.RestService;
 
 import java.util.Map;
 
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ApiEditProfile {
     private OnApiResponseListener listener;
-    private Map<String, String> param;
+    private Map<String, RequestBody> param;
 
-    public ApiEditProfile(Map<String, String> param, OnApiResponseListener listener) {
+    public ApiEditProfile(Map<String, RequestBody> param, OnApiResponseListener listener) {
         this.param = param;
         this.listener = listener;
         doWebServiceCall();
