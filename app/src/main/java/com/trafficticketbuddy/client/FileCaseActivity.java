@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
@@ -64,7 +65,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAttachmentListener{
+public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAttachmentListener {
     private TextView tvHeading;
     private Imageutils imageutils;
     private Bitmap bitmap;
@@ -78,12 +79,12 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     private EditText etState;
     private EditText etCity;
     private EditText etDescription;
-    private int imgPosition=0;
+    private int imgPosition = 0;
     private PopupWindow pwState;
     private PopupWindow pwCity;
-    private String nameState="";
-    private String nameCity="";
-    private String countryID="1";
+    private String nameState = "";
+    private String nameCity = "";
+    private String countryID = "1";
     private Bitmap bitmapFontImage;
     private Uri uriFontImage;
     private Bitmap bitmapBackImage;
@@ -98,10 +99,11 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         super.onCreate(savedInstanceState);
        /* requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-     */   setContentView(R.layout.activity_filecase);
-        tvHeading = (TextView)findViewById(R.id.tvHeading);
+     */
+        setContentView(R.layout.activity_filecase);
+        tvHeading = (TextView) findViewById(R.id.tvHeading);
         tvHeading.setText("FILE A CASE");
-        imageutils =new Imageutils(this);
+        imageutils = new Imageutils(this);
 
         initView();
     }
@@ -110,16 +112,16 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         Gson gson = new Gson();
         String json = preference.getString("login_user", "");
         mLogin = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
-        linFontImage=(LinearLayout)findViewById(R.id.linFontImage);
-        ivFontImage=(ImageView)findViewById(R.id.ivFontImage);
-        linBackImage=(LinearLayout)findViewById(R.id.linBackImage);
-        ivBackImage=(ImageView)findViewById(R.id.ivBackImage);
-        linDrivingLiImage=(LinearLayout)findViewById(R.id.linDrivingLiImage);
-        ivDrivingLiImage=(ImageView)findViewById(R.id.ivDrivingLiImage);
-        etState=(EditText)findViewById(R.id.etState);
-        etCity=(EditText)findViewById(R.id.etCity);
-        cardSubmit=(CardView)findViewById(R.id.cardSubmit);
-        etDescription=(EditText)findViewById(R.id.etDescription);
+        linFontImage = (LinearLayout) findViewById(R.id.linFontImage);
+        ivFontImage = (ImageView) findViewById(R.id.ivFontImage);
+        linBackImage = (LinearLayout) findViewById(R.id.linBackImage);
+        ivBackImage = (ImageView) findViewById(R.id.ivBackImage);
+        linDrivingLiImage = (LinearLayout) findViewById(R.id.linDrivingLiImage);
+        ivDrivingLiImage = (ImageView) findViewById(R.id.ivDrivingLiImage);
+        etState = (EditText) findViewById(R.id.etState);
+        etCity = (EditText) findViewById(R.id.etCity);
+        cardSubmit = (CardView) findViewById(R.id.cardSubmit);
+        etDescription = (EditText) findViewById(R.id.etDescription);
         linFontImage.setOnClickListener(this);
         linBackImage.setOnClickListener(this);
         linDrivingLiImage.setOnClickListener(this);
@@ -131,20 +133,20 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     @Override
     public void onClick(View view) {
         super.onClick(view);
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.linFontImage:
                 ivFontImage.setVisibility(View.VISIBLE);
-                imgPosition=1;
+                imgPosition = 1;
                 imageutils.imagepicker(1);
                 break;
             case R.id.linBackImage:
                 ivBackImage.setVisibility(View.VISIBLE);
-                imgPosition=2;
+                imgPosition = 2;
                 imageutils.imagepicker(1);
                 break;
             case R.id.linDrivingLiImage:
                 ivDrivingLiImage.setVisibility(View.VISIBLE);
-                imgPosition=3;
+                imgPosition = 3;
                 imageutils.imagepicker(1);
                 break;
             case R.id.etState:
@@ -154,7 +156,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                 getCity();
                 break;
             case R.id.cardSubmit:
-                if (isValidate()){
+                if (isValidate()) {
                     fileACase();
                 }
                 break;
@@ -162,24 +164,22 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     }
 
     private boolean isValidate() {
-        if (bitmapFontImage==null){
+        if (bitmapFontImage == null) {
             showDialog("Please take a font picture of the ticket");
             return false;
-        }else if (bitmapBackImage==null){
+        } else if (bitmapBackImage == null) {
             showDialog("Please take a back picture of the ticket");
             return false;
-        }
-        else if (bitmapDrivingLicence==null){
+        } else if (bitmapDrivingLicence == null) {
             showDialog("Please take a driving licence picture");
             return false;
-        }
-        else  if (etState.getText().toString().isEmpty()){
+        } else if (etState.getText().toString().isEmpty()) {
             showDialog("Please select a state");
             return false;
-        }else if (etCity.getText().toString().isEmpty()){
+        } else if (etCity.getText().toString().isEmpty()) {
             showDialog("Please select a city");
             return false;
-        }else if (etDescription.getText().toString().isEmpty()){
+        } else if (etDescription.getText().toString().isEmpty()) {
             showDialog("Please enter description about the ticket");
             return false;
         }
@@ -188,8 +188,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
 
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         imageutils.onActivityResult(requestCode, resultCode, data);
 
@@ -202,32 +201,34 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        this.bitmap=file;
-        this.file_name=filename;
+        this.bitmap = file;
+        this.file_name = filename;
 
 
-
-        String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imageutils.createImage(file,filename,path,false);
-        switch (imgPosition){
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file, filename, path, false);
+        switch (imgPosition) {
             case 1:
-                bitmapFontImage=file;
-                uriFontImage=uri;
+                bitmapFontImage = file;
+                uriFontImage = uri;
                 ivFontImage.setImageBitmap(file);
                 break;
             case 2:
-                bitmapBackImage=file;
-                uriBackImage=uri;
+                bitmapBackImage = file;
+                uriBackImage = uri;
                 ivBackImage.setImageBitmap(file);
                 break;
             case 3:
-                bitmapDrivingLicence=file;
-                uriDrivingLicence=uri;
+                bitmapDrivingLicence = file;
+                uriDrivingLicence = uri;
                 ivDrivingLiImage.setImageBitmap(file);
                 break;
         }
 
     }
+
+
+
 
     private void fileACase() {
         if(isNetworkConnected()){
@@ -359,7 +360,6 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                     if (main.getStatus()){
                         initiateStatePopupWindow(main.getResponse());
                     }
-
                 }
 
                 @Override
