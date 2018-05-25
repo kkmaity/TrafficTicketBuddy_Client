@@ -38,8 +38,6 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
     protected ImageView fab;
 
     private ImageView image,ivLicense;
-
-    private TextView tv_first_name,tv_last_name;
     private EditText tv_email, tv_phone, tv_country, tv_state, tv_city;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
 
@@ -57,25 +55,21 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
         tv_country = (EditText) findViewById(R.id.tv_country);
         tv_state = (EditText) findViewById(R.id.tv_state);
         tv_city = (EditText) findViewById(R.id.tv_city);
-        tv_first_name = (TextView) findViewById(R.id.tv_first_name);
-        tv_last_name = (TextView) findViewById(R.id.tv_last_name);
 
         Gson gson = new Gson();
         String json = preference.getString("login_user", "");
         mLogin = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
-        ButterKnife.bind(this);
+         ButterKnife.bind(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
         initUi();
 
-        if(mLogin.getFirstName()!=null){
-            tv_first_name.setText(mLogin.getFirstName());
-        }if(mLogin.getLastName()!=null){
-            tv_last_name.setText(mLogin.getLastName());
-        }if(mLogin.getPhone()!=null){
+       if(mLogin.getPhone()!=null){
             tv_phone.setText(mLogin.getPhone());
+        }if(mLogin.getEmail()!=null){
+            tv_email.setText(mLogin.getEmail());
         }if(mLogin.getCountry()!=null){
             tv_country.setText(mLogin.getCountry());
         }if(mLogin.getState()!=null){
@@ -86,12 +80,12 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
             if(mLogin.getProfileImage().startsWith("http")){
                 Glide.with(this).load(mLogin.getProfileImage()).into(image);
             }else{
-                String path = Constant.BASE_URL+"uploadImage/client_profile_image/"+mLogin.getProfileImage();
+                String path = Constant.BASE_URL+mLogin.getProfileImage();
                 Glide.with(this).load(path).into(image);
             }
 
         }if(mLogin.getLicenseImage()!=null){
-            String path = Constant.BASE_URL+"uploadImage/client_license_image/"+mLogin.getLicenseImage();
+            String path = Constant.BASE_URL+mLogin.getLicenseImage();
             Glide.with(this).load(path).into(ivLicense);
 
         }

@@ -35,7 +35,7 @@ public interface RestInterface {
 
     @Multipart
     @POST("api/v1/user/updateClientProfile")
-    Call<LoginMain> editprofile(@PartMap Map<String, RequestBody> map);
+    Call<LoginMain> editprofile(@PartMap Map<String, RequestBody> map, @Part MultipartBody.Part profile_image, @Part MultipartBody.Part license_image);
 
     @POST("api/v1/user/country")
     Call<CountryMain> getCountry();

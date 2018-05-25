@@ -72,6 +72,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class EditProfileActivity extends BaseActivity {
@@ -147,12 +148,12 @@ public class EditProfileActivity extends BaseActivity {
             if(mLogin.getProfileImage().startsWith("http")){
                 Glide.with(this).load(mLogin.getProfileImage()).into(ivProfileImage);
             }else{
-                String path = Constant.BASE_URL+"uploadImage/client_profile_image/"+mLogin.getProfileImage();
+                String path = Constant.BASE_URL+mLogin.getProfileImage();
                 Glide.with(this).load(path).into(ivProfileImage);
             }
 
         }if(mLogin.getLicenseImage()!=null){
-            String path = Constant.BASE_URL+"uploadImage/client_license_image/"+mLogin.getLicenseImage();
+            String path = Constant.BASE_URL+mLogin.getLicenseImage();
             Glide.with(this).load(path).into(ivLicense);
 
         }
@@ -287,7 +288,7 @@ public class EditProfileActivity extends BaseActivity {
 
     private void doEditProfileApi() {
         showProgressDialog();
-        new ApiEditProfile(getParamEditProfile(), new OnApiResponseListener() {
+        new ApiEditProfile(getParamEditProfile(),getImageParamEditProfile(), new OnApiResponseListener() {
             @Override
             public <E> void onSuccess(E t) {
                 {
@@ -338,11 +339,20 @@ public class EditProfileActivity extends BaseActivity {
         map.put("country",RequestBody.create(MediaType.parse("text/plain"), et_country.getText().toString()));
         map.put("state",RequestBody.create(MediaType.parse("text/plain"), et_state.getText().toString()));
         map.put("city",RequestBody.create(MediaType.parse("text/plain"), et_city.getText().toString()));
+        return map;
+    }
+
+    private Map<String, MultipartBody.Part> getImageParamEditProfile(){
+        Map<String,MultipartBody.Part> map=new HashMap<>();
         if(Image_profile!=null) {
-            map.put("profile_image", RequestBody.create(MediaType.parse("image/*"), Image_profile));
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), Image_profile);
+            MultipartBody.Part profile_image = MultipartBody.Part.createFormData("image", Image_profile.getName(), requestFile);
+            map.put("profile_image",profile_image);
         }
         if(Image_license!=null) {
-            map.put("license_image", RequestBody.create(MediaType.parse("image/*"), Image_license));
+            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), Image_license);
+            MultipartBody.Part license_image = MultipartBody.Part.createFormData("image", Image_license.getName(), requestFile);
+            map.put("license_image",license_image);
         }
         return map;
     }
@@ -592,11 +602,11 @@ public class EditProfileActivity extends BaseActivity {
                         if(image_type==1) {
                             image_profile=BitmapFactory.decodeFile(compressedImageFile.getAbsolutePath());
                             ivProfileImage.setImageBitmap(image_profile);
-                            Image_profile = new File(compressedImageFile.getAbsolutePath());
+                            Image_profile = compressedImageFile;
                         }else{
                             image_license=BitmapFactory.decodeFile(compressedImageFile.getAbsolutePath());
                             ivLicense.setImageBitmap(image_license);
-                            Image_license = new File(compressedImageFile.getAbsolutePath());
+                            Image_license = compressedImageFile;
                         }
                         /*EventBus.getDefault().post(new EventProfilePicSelectedForUpload(compressedImageFile.getAbsolutePath()));
                         EventBus.getDefault().post(new EventProfilePicSelectedForUpload4(compressedImageFile.getAbsolutePath()));*/
@@ -636,11 +646,11 @@ public class EditProfileActivity extends BaseActivity {
                         if(image_type==1) {
                             image_profile=BitmapFactory.decodeFile(compressedImageFile.getAbsolutePath());
                             ivProfileImage.setImageBitmap(image_profile);
-                            Image_profile = new File(compressedImageFile.getAbsolutePath());
+                            Image_profile = compressedImageFile;
                         }else{
                             image_license=BitmapFactory.decodeFile(compressedImageFile.getAbsolutePath());
                             ivLicense.setImageBitmap(image_license);
-                            Image_license = new File(compressedImageFile.getAbsolutePath());
+                            Image_license = compressedImageFile;
                         }
                        /* EventBus.getDefault().post(new EventProfilePicSelectedForUpload(compressedImageFile.getAbsolutePath()));
                         EventBus.getDefault().post(new EventProfilePicSelectedForUpload4(compressedImageFile.getAbsolutePath()));*/
