@@ -44,6 +44,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.trafficticketbuddy.client.interfaces.FbLoginCompleted;
 import com.trafficticketbuddy.client.interfaces.GoogleLoginCompleted;
+import com.trafficticketbuddy.client.model.cases.Response;
 import com.trafficticketbuddy.client.preferences.Preference;
 
 import org.json.JSONException;
@@ -55,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -71,6 +73,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private CallbackManager callbackManager;
     private FbLoginCompleted mFbLoginCompleted;
     private GoogleLoginCompleted mGoogleLoginCompleted;
+    public  static final List<Response> caseListData=new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

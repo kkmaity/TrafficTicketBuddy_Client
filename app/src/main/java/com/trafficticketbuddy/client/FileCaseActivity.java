@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -39,6 +41,7 @@ import com.trafficticketbuddy.client.restservice.APIHelper;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.restservice.RestService;
 import com.trafficticketbuddy.client.utils.Constant;
+import com.trafficticketbuddy.client.utils.FileUtils;
 import com.trafficticketbuddy.client.utils.Imageutils;
 
 import org.json.JSONException;
@@ -82,8 +85,11 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     private String nameCity="";
     private String countryID="1";
     private Bitmap bitmapFontImage;
+    private Uri uriFontImage;
     private Bitmap bitmapBackImage;
+    private Uri uriBackImage;
     private Bitmap bitmapDrivingLicence;
+    private Uri uriDrivingLicence;
     private CardView cardSubmit;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
 
@@ -200,19 +206,23 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         this.file_name=filename;
 
 
+
         String path =  Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
         imageutils.createImage(file,filename,path,false);
         switch (imgPosition){
             case 1:
                 bitmapFontImage=file;
+                uriFontImage=uri;
                 ivFontImage.setImageBitmap(file);
                 break;
             case 2:
                 bitmapBackImage=file;
+                uriBackImage=uri;
                 ivBackImage.setImageBitmap(file);
                 break;
             case 3:
                 bitmapDrivingLicence=file;
+                uriDrivingLicence=uri;
                 ivDrivingLiImage.setImageBitmap(file);
                 break;
         }
@@ -222,12 +232,12 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     private void fileACase() {
         if(isNetworkConnected()){
             showProgressDialog();
-            RequestBody requestFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapFontImage));
-            MultipartBody.Part body_case_front_img = MultipartBody.Part.createFormData("case_front_img", getImageFile(bitmapFontImage).getName(), requestFile1);
-            RequestBody requestFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapBackImage));
-            MultipartBody.Part body_case_back_img = MultipartBody.Part.createFormData("case_rear_img", getImageFile(bitmapBackImage).getName(), requestFile2);
-            RequestBody requestFile3 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapDrivingLicence));
-            MultipartBody.Part body_driving_lic = MultipartBody.Part.createFormData("driving_license", getImageFile(bitmapDrivingLicence).getName(), requestFile3);
+           // RequestBody requestFile1 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapFontImage));
+            MultipartBody.Part body_case_front_img = prepareFilePart("case_front_img",uriFontImage);
+          //  RequestBody requestFile2 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapBackImage));
+            MultipartBody.Part body_case_back_img = prepareFilePart("case_rear_img", uriBackImage);
+           // RequestBody requestFile3 = RequestBody.create(MediaType.parse("multipart/form-data"), getImageFile(bitmapDrivingLicence));
+            MultipartBody.Part body_driving_lic = prepareFilePart("driving_license", uriDrivingLicence);
             RequestBody use_id_body = RequestBody.create(MediaType.parse("multipart/form-data"),mLogin.getId());
             RequestBody state_body = RequestBody.create(MediaType.parse("multipart/form-data"), etState.getText().toString());
             RequestBody city_body = RequestBody.create(MediaType.parse("multipart/form-data"), etCity.getText().toString());
@@ -270,6 +280,37 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         }
 
 
+    }
+    @NonNull
+    private RequestBody createPartFromString(String descriptionString) {
+        return RequestBody.create(
+                okhttp3.MultipartBody.FORM, descriptionString);
+    }
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        File file = FileUtils.getFile(this, fileUri);
+        MediaType type = MediaType.parse(getMimeType(fileUri));
+        RequestBody requestFile = RequestBody.create(type, file);
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
+
+
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getApplicationContext().getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
     }
 
 

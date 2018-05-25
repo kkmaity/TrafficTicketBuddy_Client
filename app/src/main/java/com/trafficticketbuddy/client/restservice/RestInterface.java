@@ -1,6 +1,7 @@
 package com.trafficticketbuddy.client.restservice;
 
 import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.country.CountryMain;
 import com.trafficticketbuddy.client.model.login.LoginMain;
@@ -74,11 +75,17 @@ public interface RestInterface {
 
 
 
+   @FormUrlEncoded
+    @POST("api/v1/user/getAllCases")
+    Call<GetAllCasesMain> getAllCases(@FieldMap Map<String,String> params);
+
+
+
 
  /*params=> user_id, case_details, city, state, case_front_img, case_rear_img, driving_license*/
 
  @Multipart
- @POST("api/v1/user/getAllCases")
+ @POST("api/v1/user/caseFile")
  Call<ResponseBody> fileACase(
          @Part("user_id") RequestBody user_id,
          @Part("case_details") RequestBody case_details,
