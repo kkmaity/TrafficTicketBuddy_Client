@@ -1,35 +1,22 @@
 package com.trafficticketbuddy.client;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.TextView;
 
 
 import com.google.gson.Gson;
-import com.trafficticketbuddy.client.BaseActivity;
-import com.trafficticketbuddy.client.R;
 import com.trafficticketbuddy.client.adapter.MyCaseAdapter;
 import com.trafficticketbuddy.client.apis.ApiGetAllCases;
 import com.trafficticketbuddy.client.fragement.AllCasesFragment;
 import com.trafficticketbuddy.client.fragement.OpenCaseFragment;
+import com.trafficticketbuddy.client.interfaces.MyCaseAllCaseDataLoaded;
+import com.trafficticketbuddy.client.interfaces.MyCaseOpenCaseDataLoaded;
 import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
-import com.trafficticketbuddy.client.model.cases.Response;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
@@ -47,6 +34,8 @@ public class MyCaseActivity extends BaseActivity {
     private final int NOTIFICATION_ACCESS = 102;
     private TextView tvHeading;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
+    private MyCaseAllCaseDataLoaded allcaselistener;
+    private MyCaseOpenCaseDataLoaded opencaselistener;
 
 
     @Override
@@ -72,6 +61,22 @@ public class MyCaseActivity extends BaseActivity {
 
         tvHeading = (TextView)findViewById(R.id.tvHeading);
         tvHeading.setText("MY CASES");
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         getAllCase();
     }
 
@@ -86,17 +91,15 @@ public class MyCaseActivity extends BaseActivity {
                     GetAllCasesMain main=(GetAllCasesMain)t;
                     if (main.getStatus()){
                         caseListData.addAll(main.getResponse());
-
+                        allcaselistener.allCaseDataLoaded(caseListData);
+                        opencaselistener.openCaseDataLoaded(caseListData);
                     }
-
                 }
-
                 @Override
                 public <E> void onError(E t) {
                     dismissProgressDialog();
 
                 }
-
                 @Override
                 public void onError() {
                     dismissProgressDialog();
@@ -113,4 +116,11 @@ public class MyCaseActivity extends BaseActivity {
     }
 
 
+    public void setMyCaseAllCaseListener(MyCaseAllCaseDataLoaded listener) {
+        this.allcaselistener = listener;
+    }
+
+    public void setMyCaseOpenCaseListener(MyCaseOpenCaseDataLoaded listener) {
+        this.opencaselistener = listener;
+    }
 }

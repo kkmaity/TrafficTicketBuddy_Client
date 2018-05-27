@@ -38,6 +38,7 @@ import com.trafficticketbuddy.client.model.StateNameResult;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.city.CityResponse;
 import com.trafficticketbuddy.client.model.registration.RegistrationMain;
+import com.trafficticketbuddy.client.permission.Permission;
 import com.trafficticketbuddy.client.restservice.APIHelper;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.restservice.RestService;
@@ -135,14 +136,22 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         super.onClick(view);
         switch (view.getId()) {
             case R.id.linFontImage:
-                ivFontImage.setVisibility(View.VISIBLE);
-                imgPosition = 1;
-                imageutils.imagepicker(1);
+                if (new Permission().check_WRITE_FolderPermission2(this)) {
+                    if (new Permission().checkCameraPermission(this)) {
+                        ivFontImage.setVisibility(View.VISIBLE);
+                        imgPosition = 1;
+                        imageutils.imagepicker(1);
+                    }
+                }
                 break;
             case R.id.linBackImage:
-                ivBackImage.setVisibility(View.VISIBLE);
-                imgPosition = 2;
-                imageutils.imagepicker(1);
+                if (new Permission().check_WRITE_FolderPermission2(this)) {
+                    if (new Permission().checkCameraPermission(this)) {
+                        ivBackImage.setVisibility(View.VISIBLE);
+                        imgPosition = 2;
+                        imageutils.imagepicker(1);
+                    }
+                }
                 break;
             case R.id.linDrivingLiImage:
                 ivDrivingLiImage.setVisibility(View.VISIBLE);

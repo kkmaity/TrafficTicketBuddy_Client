@@ -194,11 +194,11 @@ public class LoginActivity extends BaseActivity {
 
 
     private void doGoogleLoginApi(String first_name,String last_name,String email,String phone,
-                                  String gender,String image,String facebook_id,String state,
+                                  String gender,String image,String google_id,String state,
                                   String country,String city) {
         showProgressDialog();
-        new ApiGoogleLogin(getFBParam(first_name,last_name,email,phone,
-                gender,image,facebook_id,state,country,city), new OnApiResponseListener() {
+        new ApiGoogleLogin(getGoogleParam(first_name,last_name,email,phone,
+                gender,image,google_id,state,country,city), new OnApiResponseListener() {
             @Override
             public <E> void onSuccess(E t) {
                 {
@@ -266,6 +266,25 @@ public class LoginActivity extends BaseActivity {
         map.put("gender",gender);
         map.put("image",image);
         map.put("facebook_id",facebook_id);
+        map.put("state",state);
+        map.put("country",country);
+        map.put("city",city);
+        map.put("user_type",Constant.USER_TYPE);
+        return map;
+    }
+
+
+    private Map<String,String> getGoogleParam(String first_name,String last_name,String email,String phone,
+                                          String gender,String image,String google_id,String state,
+                                          String country,String city){
+        Map<String,String> map=new HashMap<>();
+        map.put("first_name",first_name);
+        map.put("last_name",last_name);
+        map.put("email",email);
+        map.put("phone",phone);
+        map.put("gender",gender);
+        map.put("image",image);
+        map.put("google_id",google_id);
         map.put("state",state);
         map.put("country",country);
         map.put("city",city);

@@ -95,8 +95,8 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
     private void initUi() {
         appBarLayout.addOnOffsetChangedListener(this);
         fab.setOnClickListener(this);
-        toolbarHeaderView.bindTo("John Doe", "Profile created 12-04-18");
-        floatHeaderView.bindTo("John Doe", "Profile created 12-04-18");
+        toolbarHeaderView.bindTo(mLogin.getFirstName()+" "+mLogin.getLastName(), mLogin.getCountry());
+        floatHeaderView.bindTo(mLogin.getFirstName()+" "+mLogin.getLastName(), mLogin.getCountry());
     }
 
     @Override

@@ -24,9 +24,11 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -46,6 +48,7 @@ import com.trafficticketbuddy.client.interfaces.FbLoginCompleted;
 import com.trafficticketbuddy.client.interfaces.GoogleLoginCompleted;
 import com.trafficticketbuddy.client.model.cases.Response;
 import com.trafficticketbuddy.client.preferences.Preference;
+import com.trafficticketbuddy.client.utils.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -436,6 +439,13 @@ public void showDialog(String msg){
 
         InputMethodManager inputMethodManager = (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+    }
+
+
+    public void loadImage(Context mContext,String url, ImageView mImageView){
+        Glide.with(mContext).load(Constant.BASE_URL+url)
+                .thumbnail(0.5f)
+                .into(mImageView);
     }
 
 }
