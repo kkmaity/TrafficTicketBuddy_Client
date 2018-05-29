@@ -118,6 +118,7 @@ public class LoginActivity extends BaseActivity {
                     dismissProgressDialog();
                     LoginMain mLoginMain = (LoginMain) t;
                     if(mLoginMain.getStatus()){
+                        preference.setUserId(mLoginMain.getResponse().getId());
                         preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
@@ -160,6 +161,7 @@ public class LoginActivity extends BaseActivity {
                 dismissProgressDialog();
                 {LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
+                        preference.setUserId(mLoginMain.getResponse().getId());
                         preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
@@ -203,6 +205,7 @@ public class LoginActivity extends BaseActivity {
                     dismissProgressDialog();
                     LoginMain mLoginMain = (LoginMain)t;
                     if(mLoginMain.getStatus()){
+                        preference.setUserId(mLoginMain.getResponse().getId());
                         preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){

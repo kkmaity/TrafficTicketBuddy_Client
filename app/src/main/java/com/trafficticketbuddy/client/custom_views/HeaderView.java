@@ -15,10 +15,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class HeaderView extends LinearLayout {
-    @Bind(R.id.name)
+    @Bind(R.id.tv_first_name)
     TextView name;
 
-    @Bind(R.id.last_seen)
+    @Bind(R.id.tv_last_name)
     TextView lastSeen;
 
     public HeaderView(Context context) {

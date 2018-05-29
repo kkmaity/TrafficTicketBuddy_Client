@@ -38,6 +38,7 @@ public class AllCasesFragment extends BaseFragment{
         mLayoutManager= new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
         setAdapterRecyclerView();
+
     }
     private void setAdapterRecyclerView() {
         ArrayList<String>mList = new ArrayList();

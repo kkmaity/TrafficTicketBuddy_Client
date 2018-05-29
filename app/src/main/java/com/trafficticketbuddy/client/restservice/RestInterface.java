@@ -1,18 +1,25 @@
 package com.trafficticketbuddy.client.restservice;
 
 import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.country.CountryMain;
 import com.trafficticketbuddy.client.model.login.LoginMain;
+import com.trafficticketbuddy.client.model.registration.RegistrationMain;
 import com.trafficticketbuddy.client.utils.Constant;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 public interface RestInterface {
 
@@ -27,9 +34,9 @@ public interface RestInterface {
     @POST("api/v1/user/login")
     Call<LoginMain> login(@FieldMap Map<String,String> params);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("api/v1/user/updateClientProfile")
-    Call<LoginMain> editprofile(@FieldMap Map<String,String> params);
+    Call<LoginMain> editprofile(@PartMap Map<String, RequestBody> map, @Part MultipartBody.Part profile_image, @Part MultipartBody.Part license_image);
 
     @POST("api/v1/user/country")
     Call<CountryMain> getCountry();
@@ -66,6 +73,27 @@ public interface RestInterface {
     @POST("api/v1/user/register_google")
     Call<LoginMain> Googlelogin(@FieldMap Map<String,String> params);
 
+
+
+   @FormUrlEncoded
+    @POST("api/v1/user/getAllCases")
+    Call<GetAllCasesMain> getAllCases(@FieldMap Map<String,String> params);
+
+
+
+
+ /*params=> user_id, case_details, city, state, case_front_img, case_rear_img, driving_license*/
+
+ @Multipart
+ @POST("api/v1/user/caseFile")
+ Call<ResponseBody> fileACase(
+         @Part("user_id") RequestBody user_id,
+         @Part("case_details") RequestBody case_details,
+         @Part("city") RequestBody city,
+         @Part("state") RequestBody state,
+         @Part MultipartBody.Part files1,
+         @Part MultipartBody.Part files2,
+         @Part MultipartBody.Part files3);
 
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);
