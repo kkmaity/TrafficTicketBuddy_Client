@@ -252,6 +252,8 @@ public class LoginActivity extends BaseActivity {
         map.put("email",etEmail.getText().toString());
         map.put("password",etPassword.getText().toString());
         map.put("user_type",Constant.USER_TYPE);
+        map.put("device_type ", "ANDROID");
+        map.put("token ", preference.getDeviceToken());
         return map;
     }
 
@@ -270,6 +272,8 @@ public class LoginActivity extends BaseActivity {
         map.put("country",country);
         map.put("city",city);
         map.put("user_type",Constant.USER_TYPE);
+        map.put("device_type ", "ANDROID");
+        map.put("token ", preference.getDeviceToken());
         return map;
     }
 
@@ -289,6 +293,8 @@ public class LoginActivity extends BaseActivity {
         map.put("country",country);
         map.put("city",city);
         map.put("user_type",Constant.USER_TYPE);
+        map.put("device_type ", "ANDROID");
+        map.put("token ", preference.getDeviceToken());
         return map;
     }
 }
