@@ -2,8 +2,10 @@ package com.trafficticketbuddy.client;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +24,14 @@ import com.google.gson.Gson;
 import com.trafficticketbuddy.client.model.login.Response;
 import com.trafficticketbuddy.client.utils.Constant;
 
+import com.trafficticketbuddy.client.adapter.MyAdapter;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import me.relex.circleindicator.CircleIndicator;
+
 public class MainActivity extends BaseActivity {
 
     private Toolbar toolbar;
@@ -29,6 +39,10 @@ public class MainActivity extends BaseActivity {
     private TextView tvName,tvEmail;
     private ImageView profile_image;
     private Response mLogin;
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static final Integer[] XMEN= {R.drawable.home_banner_1,R.drawable.home_banner_1,R.drawable.home_banner_1,R.drawable.home_banner_1,R.drawable.home_banner_1};
+    private ArrayList<Integer> XMENArray = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +73,37 @@ public class MainActivity extends BaseActivity {
         linLogout.setOnClickListener(this);
         linMyCase_drawer.setOnClickListener(this);
         linLogout.setOnClickListener(this);
+        init();
 
 
+    }
+
+    private void init() {
+        for(int i=0;i<XMEN.length;i++)
+            XMENArray.add(XMEN[i]);
+
+        mPager = (ViewPager) findViewById(R.id.pager);
+        mPager.setAdapter(new MyAdapter(MainActivity.this,XMENArray));
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(mPager);
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == XMEN.length) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 2500, 2500);
     }
 
     @Override
