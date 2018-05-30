@@ -360,6 +360,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                     if (main.getStatus()){
                         initiateStatePopupWindow(main.getResponse());
                     }
+
                 }
 
                 @Override
