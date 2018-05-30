@@ -21,9 +21,9 @@ public class SplashActivity extends BaseActivity{
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(preference.getDeviceToken().isEmpty()){
+
             preference.setDeviceToken(refreshedToken);
-        }
+
 
 
       /*  PackageInfo info;
@@ -53,15 +53,19 @@ public class SplashActivity extends BaseActivity{
     protected void onStart() {
         super.onStart();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(preference.getDeviceToken().isEmpty()){
+
             preference.setDeviceToken(refreshedToken);
-        }
+
     }
 
     private void callNewScreen() {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+                if(preference.getDeviceToken().isEmpty()){
+                    preference.setDeviceToken(refreshedToken);
+                }
                 Gson gson = new Gson();
                 String json = preference.getString("login_user", "");
                 Response mLoginMain = gson.fromJson(json, Response.class);
@@ -88,8 +92,8 @@ public class SplashActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        if(preference.getDeviceToken().isEmpty()){
+
             preference.setDeviceToken(refreshedToken);
-        }
+
     }
 }

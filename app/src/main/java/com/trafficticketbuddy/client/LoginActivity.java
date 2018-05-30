@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.GraphResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.trafficticketbuddy.client.apis.ApiFaceBookLogin;
 import com.trafficticketbuddy.client.apis.ApiGoogleLogin;
@@ -35,6 +36,15 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+
+            preference.setDeviceToken(refreshedToken);
+
+        String refreshedToken1 = FirebaseInstanceId.getInstance().getToken();
+
+            preference.setDeviceToken(refreshedToken1);
+
+
         cardLogin=(CardView)findViewById(R.id.cardSignUp);
         cvGoogleLogin=(CardView)findViewById(R.id.cvGoogleLogin);
         cvFbLogin=(CardView)findViewById(R.id.cvFbLogin);
@@ -45,6 +55,8 @@ public class LoginActivity extends BaseActivity {
         cvGoogleLogin.setOnClickListener(this);
         cvFbLogin.setOnClickListener(this);
         cardLogin.setOnClickListener(this);
+    String deviceToken=    preference.getDeviceToken();
+    System.out.println("!!!!!!!!!!!"+deviceToken);
 
         findViewById(R.id.txtRegister).setOnClickListener(new View.OnClickListener() {
             @Override

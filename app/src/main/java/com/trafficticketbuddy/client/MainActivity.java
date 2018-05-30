@@ -73,6 +73,8 @@ public class MainActivity extends BaseActivity {
         linLogout.setOnClickListener(this);
         linMyCase_drawer.setOnClickListener(this);
         linLogout.setOnClickListener(this);
+        String deviceToken=    preference.getDeviceToken();
+        System.out.println("!!!!!!!!!!!"+deviceToken);
         init();
 
 
