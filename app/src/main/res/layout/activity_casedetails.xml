@@ -20,18 +20,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tvCaseno"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/dodger_blue"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="fill the following form below to launch a new case "/>
+                android:fontFamily="@font/lato_regular"
+                android:text=""/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -40,9 +43,11 @@
                     android:layout_weight="3"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:text="Upload front image of ticket:"/>
+                    android:fontFamily="@font/lato_regular"
+                    android:text="License image attached with the case:"/>
 
                 <ImageView
+                    android:id="@+id/ivLicense"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -56,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -63,10 +69,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:text="Upload back image of ticket:"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Front side image of ticket attached with the case:"
                     android:textColor="@color/black" />
 
                 <ImageView
+                    android:id="@+id/ivFontImage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
@@ -80,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -88,9 +97,11 @@
                     android:layout_weight="3"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:text="Upload driving lisence:"/>
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Rear side image of ticket attached with the case:"/>
 
                 <ImageView
+                    android:id="@+id/ivBackImage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -104,6 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -111,21 +123,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="3"
-                    android:text="Select State:"
+                    android:text="Province in which ticket was generated:"
+                    android:fontFamily="@font/lato_regular"
                     android:textColor="@color/black" />
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
                     android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tvState"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="state"
-                        android:gravity="center_vertical">
+                        android:text=""
+                        android:fontFamily="@font/lato_regular"
+                        android:gravity="center">
 
                     </TextView>
                 </LinearLayout>
@@ -135,24 +149,27 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp">
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_20sdp">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:layout_gravity="center"
                     android:textColor="@color/black"
-                    android:text="Select City:" />
+                    android:fontFamily="@font/lato_regular"
+                    android:text="City in which ticket was generated:" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:layout_marginRight="@dimen/_20sdp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tvCity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null">
+                        android:gravity="center"
+                        android:fontFamily="@font/lato_regular">
                     </TextView>
                 </LinearLayout>
             </LinearLayout>
@@ -170,11 +187,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="Description"/>
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Case description"/>
                 <TextView
+                    android:id="@+id/tvDesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_11sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
                     android:fontFamily="@font/lato_regular"
                    />
             </LinearLayout>

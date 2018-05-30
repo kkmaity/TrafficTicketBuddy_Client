@@ -12,18 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trafficticketbuddy.client.CaseDetailsActivity;
-import com.trafficticketbuddy.client.MyBidActivity;
+import com.trafficticketbuddy.client.MyCaseActivity;
 import com.trafficticketbuddy.client.R;
-import com.trafficticketbuddy.client.adapter.AllCasesRecyclerAdapter;
 import com.trafficticketbuddy.client.adapter.OpenCasesRecyclerAdapter;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
+import com.trafficticketbuddy.client.interfaces.MyCaseAllCaseDataLoaded;
+import com.trafficticketbuddy.client.interfaces.MyCaseOpenCaseDataLoaded;
+import com.trafficticketbuddy.client.model.cases.Response;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class OpenCaseFragment extends BaseFragment{
+public class OpenCaseFragment extends BaseFragment implements MyCaseOpenCaseDataLoaded {
     private RecyclerView rvRecycler;
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
+    private List<Response> caseListData = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,25 +40,37 @@ public class OpenCaseFragment extends BaseFragment{
         rvRecycler = (RecyclerView)view.findViewById(R.id.rvRecycler);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setRefreshing(false);
+        swipeRefreshLayout.setEnabled(false);
         mLayoutManager= new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
+        MyCaseActivity mActivity = (MyCaseActivity) getActivity();
+        mActivity.setMyCaseOpenCaseListener(this);
         setAdapterRecyclerView();
     }
     private void setAdapterRecyclerView() {
-        ArrayList<String> mList = new ArrayList();
-        mList.add("");
-        mList.add("");
-        mList.add("");
-        OpenCasesRecyclerAdapter mOpenCasesRecyclerAdapter=new OpenCasesRecyclerAdapter(baseActivity, mList, new ItemClickListner() {
+        OpenCasesRecyclerAdapter mOpenCasesRecyclerAdapter=new OpenCasesRecyclerAdapter(baseActivity, caseListData, new ItemClickListner() {
             @Override
             public void onItemClick(Object viewID, int position) {
                 switch (position){
                     case R.id.linOpenCase:
-                        startActivity(new Intent(getActivity(),CaseDetailsActivity.class));
+                        Intent mIntent = new Intent(getActivity(),CaseDetailsActivity.class);
+                        mIntent.putExtra("data",caseListData.get(Integer.parseInt(String.valueOf(viewID))));
+                        startActivity(mIntent);
                         break;
                 }
             }
         });
         rvRecycler.setAdapter(mOpenCasesRecyclerAdapter);
+    }
+
+    @Override
+    public void openCaseDataLoaded(List<Response> caseListData) {
+        this.caseListData.clear();
+        for (Response mResponse:caseListData) {
+            if(!mResponse.getStatus().equalsIgnoreCase("COMPLETED")){
+                this.caseListData.add(mResponse);
+            }
+        }
+        setAdapterRecyclerView();
     }
 }

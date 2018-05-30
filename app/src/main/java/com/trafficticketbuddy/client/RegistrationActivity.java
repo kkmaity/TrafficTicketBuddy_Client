@@ -320,7 +320,9 @@ public class RegistrationActivity extends BaseActivity {
         map.put("country", tvCountry.getText().toString());
         map.put("state", etState.getText().toString());
         map.put("city", etCity.getText().toString());
-        map.put("degree ", "NA");
+        map.put("degree", "NA");
+        map.put("device_type", "ANDROID");
+        map.put("token", preference.getDeviceToken());
         return map;
     }
 

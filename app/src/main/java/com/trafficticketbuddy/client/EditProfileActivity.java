@@ -2,6 +2,7 @@ package com.trafficticketbuddy.client;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.CursorLoader;
 import android.support.v7.widget.CardView;
 import android.util.Base64;
@@ -29,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -59,6 +62,7 @@ import com.trafficticketbuddy.client.model.login.LoginMain;
 import com.trafficticketbuddy.client.permission.Permission;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.utils.Constant;
+import com.trafficticketbuddy.client.utils.FileUtils;
 import com.trafficticketbuddy.client.utils.Utility;
 
 import org.json.JSONException;
@@ -144,7 +148,7 @@ public class EditProfileActivity extends BaseActivity {
             et_state.setText(mLogin.getState());
         }if(mLogin.getCity()!=null){
             et_city.setText(mLogin.getCity());
-        }if(mLogin.getProfileImage()!=null){
+        }if(mLogin.getProfileImage()!=null && !mLogin.getProfileImage().isEmpty()){
             if(mLogin.getProfileImage().startsWith("http")){
                 Glide.with(this).load(mLogin.getProfileImage()).into(ivProfileImage);
             }else{
@@ -152,7 +156,7 @@ public class EditProfileActivity extends BaseActivity {
                 Glide.with(this).load(path).into(ivProfileImage);
             }
 
-        }if(mLogin.getLicenseImage()!=null){
+        }if(mLogin.getLicenseImage()!=null && !mLogin.getLicenseImage().isEmpty()){
             String path = Constant.BASE_URL+mLogin.getLicenseImage();
             Glide.with(this).load(path).into(ivLicense);
 
@@ -279,7 +283,7 @@ public class EditProfileActivity extends BaseActivity {
             et_city.setError("Please select city");
         }else if(Image_profile==null && mLogin.getProfileImage().isEmpty()){
             showDialog("Please select profile image");
-        }else if(Image_license==null){
+        }else if(Image_license==null && mLogin.getLicenseImage().isEmpty()){
             showDialog("Please select licence image");
         }else {
             doEditProfileApi();
@@ -296,6 +300,7 @@ public class EditProfileActivity extends BaseActivity {
                     LoginMain mLoginMain = (LoginMain) t;
                     if(mLoginMain.getStatus()){
                         preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
+                        mLogin=mLoginMain.getResponse();
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
 
@@ -345,16 +350,42 @@ public class EditProfileActivity extends BaseActivity {
     private Map<String, MultipartBody.Part> getImageParamEditProfile(){
         Map<String,MultipartBody.Part> map=new HashMap<>();
         if(Image_profile!=null) {
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), Image_profile);
-            MultipartBody.Part profile_image = MultipartBody.Part.createFormData("image", Image_profile.getName(), requestFile);
+            MultipartBody.Part profile_image = prepareFilePart("profile_image", Uri.fromFile(Image_profile));
             map.put("profile_image",profile_image);
         }
         if(Image_license!=null) {
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), Image_license);
-            MultipartBody.Part license_image = MultipartBody.Part.createFormData("image", Image_license.getName(), requestFile);
+            MultipartBody.Part license_image = prepareFilePart("license_image", Uri.fromFile(Image_license));
             map.put("license_image",license_image);
         }
         return map;
+    }
+
+
+
+
+    @NonNull
+    private MultipartBody.Part prepareFilePart(String partName, Uri fileUri) {
+        File file = FileUtils.getFile(this, fileUri);
+        MediaType type = MediaType.parse(getMimeType(fileUri));
+        RequestBody requestFile = RequestBody.create(type, file);
+        return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+
+
+
+    public String getMimeType(Uri uri) {
+        String mimeType = null;
+        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getApplicationContext().getContentResolver();
+            mimeType = cr.getType(uri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(uri
+                    .toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        return mimeType;
     }
 
 
@@ -822,7 +853,6 @@ public class EditProfileActivity extends BaseActivity {
         Map<String,String> map=new HashMap<>();
         map.put("user_id",mLogin.getId());
         map.put("phone",mLogin.getPhone());
-
         return map;
     }
 }

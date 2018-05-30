@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.trafficticketbuddy.client.model.login.Response;
 
@@ -19,6 +20,10 @@ public class SplashActivity extends BaseActivity{
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(preference.getDeviceToken().isEmpty()){
+            preference.setDeviceToken(refreshedToken);
+        }
 
 
       /*  PackageInfo info;
@@ -44,6 +49,14 @@ public class SplashActivity extends BaseActivity{
         callNewScreen();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(preference.getDeviceToken().isEmpty()){
+            preference.setDeviceToken(refreshedToken);
+        }
+    }
 
     private void callNewScreen() {
         new Handler().postDelayed(new Runnable() {
@@ -71,5 +84,12 @@ public class SplashActivity extends BaseActivity{
         }, 5000);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        if(preference.getDeviceToken().isEmpty()){
+            preference.setDeviceToken(refreshedToken);
+        }
+    }
 }
