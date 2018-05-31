@@ -3,6 +3,8 @@ package com.trafficticketbuddy.client;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -36,6 +38,7 @@ public class MyCaseActivity extends BaseActivity {
     private com.trafficticketbuddy.client.model.login.Response mLogin;
     private MyCaseAllCaseDataLoaded allcaselistener;
     private MyCaseOpenCaseDataLoaded opencaselistener;
+    private ImageView back;
 
 
     @Override
@@ -46,6 +49,8 @@ public class MyCaseActivity extends BaseActivity {
         String json = preference.getString("login_user", "");
         mLogin = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
         viewPager = (ViewPager) findViewById(R.id.id_viewpager);
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(this);
         mMyCaseAdapter = new MyCaseAdapter(getSupportFragmentManager());
 
         OpenCaseFragment mOpenCaseFragment= new OpenCaseFragment();
@@ -122,5 +127,15 @@ public class MyCaseActivity extends BaseActivity {
 
     public void setMyCaseOpenCaseListener(MyCaseOpenCaseDataLoaded listener) {
         this.opencaselistener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.back:
+                finish();
+                break;
+        }
     }
 }

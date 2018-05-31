@@ -94,6 +94,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     private Uri uriDrivingLicence;
     private CardView cardSubmit;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +106,8 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         tvHeading = (TextView) findViewById(R.id.tvHeading);
         tvHeading.setText("FILE A CASE");
         imageutils = new Imageutils(this);
-
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(this);
         initView();
     }
 
@@ -168,6 +170,9 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                 if (isValidate()) {
                     fileACase();
                 }
+                break;
+            case R.id.back:
+                finish();
                 break;
         }
     }

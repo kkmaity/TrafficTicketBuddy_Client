@@ -7,19 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.trafficticketbuddy.client.R;
+import com.trafficticketbuddy.client.model.homeBanner.Response;
+import com.trafficticketbuddy.client.utils.Constant;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends PagerAdapter {
 
-    private ArrayList<Integer> images;
+    private List<Response> images;
     private LayoutInflater inflater;
     private Context context;
 
-    public MyAdapter(Context context, ArrayList<Integer> images) {
+    public MyAdapter(Context context, List<Response> images1) {
         this.context = context;
-        this.images=images;
+        this.images=images1;
         inflater = LayoutInflater.from(context);
     }
 
@@ -38,7 +42,8 @@ public class MyAdapter extends PagerAdapter {
         View myImageLayout = inflater.inflate(R.layout.slide, view, false);
         ImageView myImage = (ImageView) myImageLayout
                 .findViewById(R.id.image);
-        myImage.setImageResource(images.get(position));
+        Glide.with(context).load(Constant.BASE_URL+images.get(position).getBannerImage()).into(myImage);
+       // myImage.setImageResource(images.get(position).getBannerImage());
         view.addView(myImageLayout, 0);
         return myImageLayout;
     }

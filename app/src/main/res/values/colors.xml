@@ -21,7 +21,7 @@
     <color name="hint_grey">#636363</color>
     <color name="grey">#d8d8d8</color>
     <color name="facebook">#3B5998</color>
-
+    <color name="bg_title">#66999999</color>
 
 
 </resources>

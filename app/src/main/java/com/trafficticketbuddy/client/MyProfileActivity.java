@@ -64,6 +64,13 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         initUi();
 
        if(mLogin.getPhone()!=null){

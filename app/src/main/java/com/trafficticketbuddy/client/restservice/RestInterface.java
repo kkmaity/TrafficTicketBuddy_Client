@@ -4,6 +4,7 @@ import com.trafficticketbuddy.client.model.StateNameMain;
 import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.country.CountryMain;
+import com.trafficticketbuddy.client.model.homeBanner.HomeBannerMain;
 import com.trafficticketbuddy.client.model.login.LoginMain;
 import com.trafficticketbuddy.client.model.registration.RegistrationMain;
 import com.trafficticketbuddy.client.utils.Constant;
@@ -80,8 +81,8 @@ public interface RestInterface {
     Call<GetAllCasesMain> getAllCases(@FieldMap Map<String,String> params);
 
 
-
-
+ @POST("api/v1/user/banners")
+ Call<HomeBannerMain> banners();
  /*params=> user_id, case_details, city, state, case_front_img, case_rear_img, driving_license*/
 
  @Multipart

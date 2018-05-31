@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.trafficticketbuddy.client.adapter.AllCasesRecyclerAdapter;
@@ -19,6 +20,7 @@ public class MyBidActivity extends BaseActivity {
     private SwipeRefreshLayout swipeRefreshLayout;
     private LinearLayoutManager mLayoutManager;
     private TextView tvHeading;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class MyBidActivity extends BaseActivity {
     private void initialize() {
         rvRecycler = (RecyclerView)findViewById(R.id.rvRecycler);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        back = (ImageView) findViewById(R.id.back);
+        back.setOnClickListener(this);
         swipeRefreshLayout.setRefreshing(false);
         mLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
@@ -46,5 +50,14 @@ public class MyBidActivity extends BaseActivity {
             public void onItemClick(Object viewID, int position) {}
         });
         rvRecycler.setAdapter(myBidRecyclerAdapter);
+    }
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        switch (view.getId()){
+            case R.id.back:
+                finish();
+                break;
+        }
     }
 }

@@ -92,8 +92,6 @@ public class SplashActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-
             preference.setDeviceToken(refreshedToken);
-
     }
 }
