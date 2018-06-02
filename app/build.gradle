@@ -54,6 +54,7 @@ dependencies {
 
     implementation 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
     implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    implementation 'com.uncopt:android.justified:1.0'
 
 }
 

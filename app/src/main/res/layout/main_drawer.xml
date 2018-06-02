@@ -172,6 +172,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:visibility="gone"
+
         android:background="@color/colorPrimaryDark"
         android:orientation="vertical">
         <View

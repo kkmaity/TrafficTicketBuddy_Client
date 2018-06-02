@@ -19,6 +19,7 @@
         android:orientation="vertical"
         android:background="@color/white">
         <LinearLayout
+            android:id="@+id/linAboutUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -53,6 +54,7 @@
             android:layout_marginRight="@dimen/_16sdp"
             android:background="@color/grey"></View>
         <LinearLayout
+            android:id="@+id/linChangePAss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_16sdp"
@@ -86,6 +88,7 @@
             android:layout_marginRight="@dimen/_16sdp"
             android:background="@color/grey"></View>
         <LinearLayout
+            android:id="@+id/linTramsCondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_16sdp"
@@ -120,6 +123,7 @@
             android:layout_marginRight="@dimen/_16sdp"
             android:background="@color/grey"></View>
         <LinearLayout
+            android:id="@+id/linPrivacyPolicy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_16sdp"
@@ -153,6 +157,7 @@
             android:layout_marginRight="@dimen/_16sdp"
             android:background="@color/grey"></View>
         <LinearLayout
+            android:id="@+id/linCntactUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_16sdp"

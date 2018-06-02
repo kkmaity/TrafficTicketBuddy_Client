@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -146,8 +148,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
                 break;
                 case R.id.linLogout:
-                    preference.clearData();
-                startActivity(new Intent(MainActivity.this,LoginActivity.class));
+                    confirmLogoutDialog();
+
                 break;
 
         }
@@ -193,6 +195,35 @@ public class MainActivity extends BaseActivity {
                 Glide.with(this).load(path).into(profile_image);
             }
         }
+
+    }
+
+    void confirmLogoutDialog(){
+       final Dialog dialog=new Dialog(MainActivity.this);
+       dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+       dialog.setContentView(R.layout.dialog_logout);
+       dialog.setCancelable(false);
+       dialog.findViewById(R.id.tvCancel).setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               dialog.dismiss();
+
+           }
+       });
+        dialog.findViewById(R.id.tvConfirm).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                preference.clearData();
+                dialog.dismiss();
+                Intent in=new Intent(MainActivity.this,LoginActivity.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(in);
+            }
+        });
+        dialog.show();
 
     }
 
