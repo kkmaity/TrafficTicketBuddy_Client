@@ -65,7 +65,7 @@ public class MyCaseActivity extends BaseActivity {
         viewPager.setCurrentItem(0);
 
         tvHeading = (TextView)findViewById(R.id.tvHeading);
-        tvHeading.setText("MY CASES");
+        tvHeading.setText("My Case");
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

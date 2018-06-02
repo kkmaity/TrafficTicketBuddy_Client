@@ -104,7 +104,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
      */
         setContentView(R.layout.activity_filecase);
         tvHeading = (TextView) findViewById(R.id.tvHeading);
-        tvHeading.setText("FILE A CASE");
+        tvHeading.setText("File Case");
         imageutils = new Imageutils(this);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);

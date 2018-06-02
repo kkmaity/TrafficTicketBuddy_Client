@@ -391,6 +391,7 @@ public void showDialog(String msg){
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             mGoogleLoginCompleted.onGoogleCompleted(account);
         } catch (ApiException e) {
+            e.printStackTrace();
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
         }

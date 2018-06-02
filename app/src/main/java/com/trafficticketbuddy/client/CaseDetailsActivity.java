@@ -31,7 +31,7 @@ public class CaseDetailsActivity extends BaseActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
   */      setContentView(R.layout.activity_casedetails);
         tvHeading = (TextView)findViewById(R.id.tvHeading);
-        tvHeading.setText("CASE DETAILS");
+        tvHeading.setText("Case Details");
         ivLicense = (ImageView)findViewById(R.id.ivLicense);
         ivBackImage = (ImageView)findViewById(R.id.ivBackImage);
         ivFontImage = (ImageView)findViewById(R.id.ivFontImage);

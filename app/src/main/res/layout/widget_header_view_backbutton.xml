@@ -23,7 +23,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/_10sdp"
         android:text=""
-        android:fontFamily="@font/lato_regular"
+        android:fontFamily="@font/lato_bold"
         android:textSize="@dimen/_16sdp"
         android:textColor="@android:color/white" />
 

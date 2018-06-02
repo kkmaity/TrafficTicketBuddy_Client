@@ -5,6 +5,22 @@
     android:orientation="vertical"
     android:background="@color/alice_blue"
     android:layout_height="match_parent">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:background="@drawable/gradient_primary"
+        android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:layout_width="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:text="Edit Profile"
+            android:fontFamily="@font/lato_bold"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@color/white"
+            android:gravity="center|start"
+            android:layout_height="match_parent" />
+
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
