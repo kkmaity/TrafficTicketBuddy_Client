@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.trafficticketbuddy.client.BaseActivity;
 import com.trafficticketbuddy.client.R;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
 import com.trafficticketbuddy.client.model.cases.Response;
@@ -64,7 +66,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getDrivingLicense())
+        /*Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getDrivingLicense())
                 .thumbnail(0.5f)
                 .into(holder.ivLicense);
         Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getCaseFrontImg())
@@ -72,8 +74,15 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
                 .into(holder.ivFontImage);
         Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getCaseRearImg())
                 .thumbnail(0.5f)
-                .into(holder.ivBackImage);
-        holder.tvCaseno.setText(dataList.get(position).getCaseNumber());
+                .into(holder.ivBackImage);*/
+
+        ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getDrivingLicense(), holder.ivLicense, BaseActivity.cacheOptions);
+        ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getCaseFrontImg(), holder.ivFontImage, BaseActivity.cacheOptions);
+        ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getCaseRearImg(), holder.ivBackImage, BaseActivity.cacheOptions);
+
+
+
+        holder.tvCaseno.setText("#"+dataList.get(position).getCaseNumber());
         holder.tvStateCity.setText(dataList.get(position).getState()+" "+dataList.get(position).getCity());
         holder.tvDesc.setText(dataList.get(position).getCaseDetails());
         // holder.tvDate.setText("");
@@ -88,6 +97,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
                 _interface.onItemClick(objects,v.getId());
             }
         });
+
 
     }
     @Override

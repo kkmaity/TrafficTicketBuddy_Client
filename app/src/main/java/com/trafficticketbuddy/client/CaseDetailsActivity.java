@@ -23,13 +23,13 @@ public class CaseDetailsActivity extends BaseActivity {
     private Response mCaseResponse;
     private ImageView ivLicense,ivBackImage,ivFontImage;
     private TextView tvDesc,tvState,tvCity,tvCaseno;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      /*  requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-  */      setContentView(R.layout.activity_casedetails);
+        setContentView(R.layout.activity_casedetails);
+        back = (ImageView)findViewById(R.id.back);
         tvHeading = (TextView)findViewById(R.id.tvHeading);
         tvHeading.setText("Case Details");
         ivLicense = (ImageView)findViewById(R.id.ivLicense);
@@ -39,6 +39,10 @@ public class CaseDetailsActivity extends BaseActivity {
         tvState = (TextView)findViewById(R.id.tvState);
         tvCity = (TextView)findViewById(R.id.tvCity);
         tvCaseno = (TextView)findViewById(R.id.tvCaseno);
+        ivLicense.setOnClickListener(this);
+        ivBackImage.setOnClickListener(this);
+        ivFontImage.setOnClickListener(this);
+        back.setOnClickListener(this);
 
         Intent mIntent = getIntent();
         if(mIntent!=null){
@@ -50,6 +54,30 @@ public class CaseDetailsActivity extends BaseActivity {
             tvCity.setText(mCaseResponse.getCity());
             tvDesc.setText(mCaseResponse.getCaseDetails());
             tvCaseno.setText("Case details for case no. "+mCaseResponse.getCaseNumber());
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        super.onClick(view);
+        Intent intent=new Intent(CaseDetailsActivity.this,FullScreenImageActivity.class);
+
+        switch (view.getId()){
+            case R.id.ivFontImage:
+                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getCaseFrontImg());
+                startActivity(intent);
+                break;
+            case R.id.ivLicense:
+                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getDrivingLicense());
+                startActivity(intent);
+                break;
+            case R.id.ivBackImage:
+                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getCaseRearImg());
+                startActivity(intent);
+                break;
+                case R.id.back:
+               finish();
+                break;
         }
     }
 }

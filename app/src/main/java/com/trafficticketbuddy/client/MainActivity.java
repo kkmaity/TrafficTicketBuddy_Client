@@ -224,7 +224,6 @@ public class MainActivity extends BaseActivity {
             }
         });
         dialog.show();
-
     }
 
     void getallBanner(){
@@ -247,7 +246,6 @@ public class MainActivity extends BaseActivity {
                                 }
                                 return TextFragment.newInstance("Fragment " + i);
                             }
-
                             @Override
                             public int getCount() {
                                 return bannerList.size();

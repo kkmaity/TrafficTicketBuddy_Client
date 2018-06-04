@@ -3,8 +3,11 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/_10sdp"
-    android:elevation="@dimen/_5sdp">
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginBottom="@dimen/_5sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:elevation="@dimen/_3sdp">
     <LinearLayout
         android:id="@+id/linOpenCase"
         android:layout_width="match_parent"
@@ -29,7 +32,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_70sdp"
                         android:scaleType="centerCrop"
-                        android:background="@drawable/ticket_sample"/>
+                        />
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,7 +48,7 @@
                         android:layout_marginLeft="@dimen/_5sdp"
                         android:layout_marginRight="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/ticket_2"/>
+                        />
                     <ImageView
                         android:id="@+id/ivBackImage"
                         android:layout_width="0dp"
@@ -55,7 +58,7 @@
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_marginLeft="@dimen/_2sdp"
                         android:layout_marginBottom="@dimen/_5sdp"
-                        android:src="@drawable/ticket_1"/>
+                       />
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -79,14 +82,14 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
                             android:textColor="@color/dodger_blue"
-                            android:text="Case no."/>
+                            android:text="Case no. "/>
 
                         <TextView
                             android:id="@+id/tvCaseno"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/colorAccent"
-                            android:fontFamily="@font/helveticaneue_light"
+                            android:fontFamily="@font/lato_bold"
                             android:text="#77375637"/>
 
 
@@ -111,7 +114,7 @@
                             android:fontFamily="@font/lato_regular"
                             android:textColor="@color/txt_grey"
                             android:layout_marginLeft="@dimen/_5sdp"
-                            android:text="Toronto,Canada"/>
+                            android:text="Toronto, Canada"/>
 
                     </LinearLayout>
 

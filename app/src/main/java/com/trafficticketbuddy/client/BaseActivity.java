@@ -44,6 +44,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.trafficticketbuddy.client.interfaces.FbLoginCompleted;
 import com.trafficticketbuddy.client.interfaces.GoogleLoginCompleted;
 import com.trafficticketbuddy.client.model.cases.Response;
@@ -77,6 +79,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private FbLoginCompleted mFbLoginCompleted;
     private GoogleLoginCompleted mGoogleLoginCompleted;
     public  static final List<Response> caseListData=new ArrayList<>();
+    public static DisplayImageOptions cacheOptions;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,7 +93,16 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
+        cacheOptions= new DisplayImageOptions.Builder()
+                .showImageOnLoading(R.drawable.placeholder)
+                .showImageForEmptyUri(R.drawable.upload_file)
+                .showImageOnFail(R.drawable.failed)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .displayer(new RoundedBitmapDisplayer(0))
+                .build();
         facebookRegisterCallBack();
 
     }
