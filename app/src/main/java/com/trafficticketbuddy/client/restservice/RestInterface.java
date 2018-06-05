@@ -1,6 +1,7 @@
 package com.trafficticketbuddy.client.restservice;
 
 import com.trafficticketbuddy.client.model.StateNameMain;
+import com.trafficticketbuddy.client.model.bids.GetBidListMain;
 import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.model.city.CityMain;
 import com.trafficticketbuddy.client.model.country.CountryMain;
@@ -95,6 +96,17 @@ public interface RestInterface {
          @Part MultipartBody.Part files1,
          @Part MultipartBody.Part files2,
          @Part MultipartBody.Part files3);
+
+
+
+
+
+ @FormUrlEncoded
+ @POST("api/v1/user/getBids")
+ Call<GetBidListMain> getBids(@FieldMap Map<String,String> params);
+ @FormUrlEncoded
+ @POST("api/v1/user/acceptBid")
+ Call<ResponseBody> acceptBid(@FieldMap Map<String,String> params);
 
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);

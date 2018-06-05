@@ -47,7 +47,7 @@ import me.relex.circleindicator.CircleIndicator;
 public class MainActivity extends BaseActivity {
 
     private Toolbar toolbar;
-    private LinearLayout linHome,linMyProfile,linSettings,linFileCase,linMyCase,linMyCase_drawer,linLogout;
+    private LinearLayout linHome,linMyProfile,linSettings,linFileCase,linMyCase,linMyCase_drawer,linLogout,linShare;
     private TextView tvName,tvEmail;
     private ImageView profile_image;
     private Response mLogin;
@@ -58,6 +58,7 @@ public class MainActivity extends BaseActivity {
     public static List<com.trafficticketbuddy.client.model.homeBanner.Response> bannerList=new ArrayList<>();
     private MyAdapter bannerAdapter;
     private CircleIndicator indicator;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class MainActivity extends BaseActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Home");
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -74,6 +75,7 @@ public class MainActivity extends BaseActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
          indicator = (CircleIndicator) findViewById(R.id.indicator);
         linHome=(LinearLayout)findViewById(R.id.linHome);
+        linShare=(LinearLayout)findViewById(R.id.linShare);
         linMyProfile=(LinearLayout)findViewById(R.id.linMyProfile);
         linSettings=(LinearLayout)findViewById(R.id.linSettings);
         linFileCase=(LinearLayout)findViewById(R.id.linFileCase);
@@ -90,6 +92,7 @@ public class MainActivity extends BaseActivity {
         linFileCase.setOnClickListener(this);
         linMyCase.setOnClickListener(this);
         linLogout.setOnClickListener(this);
+        linShare.setOnClickListener(this);
         linMyCase_drawer.setOnClickListener(this);
         linLogout.setOnClickListener(this);
         String deviceToken=    preference.getDeviceToken();
@@ -98,23 +101,6 @@ public class MainActivity extends BaseActivity {
 
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -130,24 +116,50 @@ public class MainActivity extends BaseActivity {
         closeDrawer();
         switch (view.getId()){
             case R.id.linHome:
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
                // startActivity(new Intent(MainActivity.this,MyProfileActivity.class));
                 break;
+            case R.id.linShare:
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+                break;
             case R.id.linMyProfile:
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
                 startActivity(new Intent(MainActivity.this,MyProfileActivity.class));
                 break;
                 case R.id.linSettings:
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
                 startActivity(new Intent(MainActivity.this,SettingsActivity.class));
                 break;
                 case R.id.linFileCase:
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
                 startActivity(new Intent(MainActivity.this,FileCaseActivity.class));
                 break;
                 case R.id.linMyCase:
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
                 startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
                 break;
                 case R.id.linMyCase_drawer:
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
                 startActivity(new Intent(MainActivity.this,MyCaseActivity.class));
                 break;
                 case R.id.linLogout:
+                    if (drawer.isDrawerOpen(GravityCompat.START)) {
+                        drawer.closeDrawer(GravityCompat.START);
+                    }
                     confirmLogoutDialog();
 
                 break;

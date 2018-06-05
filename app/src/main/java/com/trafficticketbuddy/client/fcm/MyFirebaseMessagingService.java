@@ -45,7 +45,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 		Map<String, String> msgData = remoteMessage.getData();
 		msgData.get("subtitle");
 		String msg = msgData.toString();
-		sendNotification(msgData.get("subtitle"),msgData.get("title"));
+		String title=remoteMessage.getNotification().getTitle();
+		String body=remoteMessage.getNotification().getBody();
+		String icon = remoteMessage.getNotification().getIcon();
+		sendNotification(title,body);
 		// Check if message contains a data payload.
 		if (remoteMessage.getData().size() > 0) {
 			Log.d(TAG, "Message data payload: " + remoteMessage.getData());

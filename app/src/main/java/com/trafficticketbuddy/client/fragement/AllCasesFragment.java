@@ -51,9 +51,14 @@ public class AllCasesFragment extends BaseFragment implements MyCaseAllCaseDataL
          mAllCasesRecyclerAdapter=new AllCasesRecyclerAdapter(baseActivity, caseListData, new ItemClickListner() {
             @Override
             public void onItemClick(Object viewID, int position) {
-                switch (position){
+                int vID= (int) viewID;
+                switch (vID){
                     case R.id.linAllCase:
-                        startActivity(new Intent(getActivity(),MyBidActivity.class));
+                        Intent case_id=new Intent(baseActivity,MyBidActivity.class);
+                        case_id.putExtra("case_id",caseListData.get(position).getId());
+                        case_id.putExtra("state",caseListData.get(position).getState());
+                        case_id.putExtra("city",caseListData.get(position).getCity());
+                        startActivity(case_id);
                         break;
                 }
             }

@@ -65,7 +65,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
         /*Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getDrivingLicense())
                 .thumbnail(0.5f)
                 .into(holder.ivLicense);
@@ -93,8 +93,8 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         holder.linAllCase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Object objects = v.getTag();
-                _interface.onItemClick(objects,v.getId());
+                int Pos  = (int) v.getTag();
+                _interface.onItemClick(v.getId(),Pos);
             }
         });
 

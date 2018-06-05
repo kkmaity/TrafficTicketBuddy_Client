@@ -12,7 +12,7 @@ public class AboutUsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test);
+        setContentView(R.layout.activity_about_us);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         txtTitle=toolbar.findViewById(R.id.txtTitle);
         if (getIntent().getStringExtra("key")!=null){
