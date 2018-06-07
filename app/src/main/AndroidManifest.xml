@@ -81,7 +81,13 @@
             android:name=".MyCaseActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name=".MyBidActivity" />
+        <activity android:name=".MyBidActivity"
+            android:screenOrientation="portrait"  >
+            <intent-filter>
+                <action android:name="ACTIVITY_PLACEBID"></action>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AboutUsActivity"
             android:screenOrientation="portrait"

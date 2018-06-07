@@ -108,6 +108,17 @@ public interface RestInterface {
  @POST("api/v1/user/acceptBid")
  Call<ResponseBody> acceptBid(@FieldMap Map<String,String> params);
 
+ @FormUrlEncoded
+ @POST("api/v1/user/resetpassword")
+ Call<ResponseBody> resetpassword(@FieldMap Map<String,String> params);
+
+ @FormUrlEncoded
+ @POST("api/v1/user/forgotPassword")
+ Call<ResponseBody> forgotPassword(@FieldMap Map<String,String> params);
+/* user_id
+         old_password
+ new_password  */
+
    /* @POST("emp_track/api/userRegister.php")
     Call<RegistrationMain> userRegister(@Body ApiRegistrationParam params);
 

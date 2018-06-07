@@ -57,7 +57,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 				// For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
 				//scheduleJob();
 			} else {
-				// Handle message within 10 seconds
+				// Handle messaage within 10 seconds
 				handleNow();
 			}
 
