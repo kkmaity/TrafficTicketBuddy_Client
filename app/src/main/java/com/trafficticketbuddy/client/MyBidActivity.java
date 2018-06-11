@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.trafficticketbuddy.client.adapter.AllCasesRecyclerAdapter;
 import com.trafficticketbuddy.client.adapter.MyBidRecyclerAdapter;
 import com.trafficticketbuddy.client.apis.ApiAcceptBids;
@@ -43,6 +45,8 @@ public class MyBidActivity extends BaseActivity {
         setContentView(R.layout.activity_mybid);
         tvHeading = (TextView)findViewById(R.id.tvHeading);
         tvHeading.setText("BIDS");
+        ImageLoaderConfiguration configuration = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(configuration);
         initialize();
     }
     private void initialize() {

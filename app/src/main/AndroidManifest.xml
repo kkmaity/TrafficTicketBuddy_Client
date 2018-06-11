@@ -84,8 +84,8 @@
         <activity android:name=".MyBidActivity"
             android:screenOrientation="portrait"  >
             <intent-filter>
-                <action android:name="ACTIVITY_PLACEBID"></action>
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="ACTIVITY_PLACEBID"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
