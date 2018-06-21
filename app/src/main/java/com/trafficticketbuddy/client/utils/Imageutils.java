@@ -634,7 +634,7 @@ public class Imageutils
                         // Log.i("selected","path"+selected_path);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
                         // Log.i("file","name"+file_name);
-                        bitmap =compressImage(imageUri.toString(),816,612);
+                        bitmap =compressImage(imageUri.toString(),616,512);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,imageUri);
                     }
                     catch(Exception e)
@@ -657,7 +657,7 @@ public class Imageutils
                         selected_path=null;
                         selected_path=getPath(selectedImage);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
-                        bitmap =compressImage(selectedImage.toString(),300,300);
+                        bitmap =compressImage(selectedImage.toString(),250,250);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,selectedImage);
                     }
                     catch(Exception e)
