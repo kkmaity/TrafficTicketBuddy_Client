@@ -276,6 +276,7 @@ public class RegistrationActivity extends BaseActivity {
                             com.trafficticketbuddy.client.model.login.Response mResponse = gson.fromJson(object.getJSONObject("response").toString(), com.trafficticketbuddy.client.model.login.Response.class);
                             preference.setLoggedInUser(new Gson().toJson(mResponse));
                             startActivity(new Intent(RegistrationActivity.this,OTPActivity.class));
+                            finish();
                         }
                         else
                             showDialog(object.getString("message"));

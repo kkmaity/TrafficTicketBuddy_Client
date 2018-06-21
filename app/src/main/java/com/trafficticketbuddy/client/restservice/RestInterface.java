@@ -32,6 +32,10 @@ public interface RestInterface {
     @POST("api/v1/user/register")
     Call<ResponseBody> registrtion(@FieldMap Map<String,String> params);
 
+   @FormUrlEncoded
+   @POST("api/v1/user/send_mail_otp")
+   Call<ResponseBody> emailverify(@FieldMap Map<String,String> params);
+
     @FormUrlEncoded
     @POST("api/v1/user/login")
     Call<LoginMain> login(@FieldMap Map<String,String> params);

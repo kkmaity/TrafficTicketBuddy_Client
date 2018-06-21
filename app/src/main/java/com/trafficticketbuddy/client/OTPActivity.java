@@ -101,13 +101,15 @@ public void startTimer(){
                     try {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
-                            mLogin.setIsPhoneVerified("1");
+                            startActivity(new Intent(OTPActivity.this, LoginActivity.class));
+                            finish();
+                           /* mLogin.setIsPhoneVerified("1");
                             preference.setLoggedInUser(new Gson().toJson(mLogin));
                             if(mLogin.getIsEmailVerified().equalsIgnoreCase("0")) {
                                 startActivity(new Intent(OTPActivity.this, EmailOTPActivity.class));
                             }else{
-                                startActivity(new Intent(OTPActivity.this, MainActivity.class));
-                            }
+
+                            }*/
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -273,9 +273,12 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                             JSONObject object=new JSONObject(main);
                             if (object.getBoolean("status")){
                                 showDialog(object.getString("message"));
+                                finish();
                             }
-                            else
+                            else {
                                 showDialog(object.getString("message"));
+                                finish();
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

@@ -1,5 +1,7 @@
 package com.trafficticketbuddy.client;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,20 +9,24 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.GraphResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
+import com.trafficticketbuddy.client.apis.ApiEmailVerification;
 import com.trafficticketbuddy.client.apis.ApiFaceBookLogin;
 import com.trafficticketbuddy.client.apis.ApiGoogleLogin;
 import com.trafficticketbuddy.client.apis.ApiLogin;
+import com.trafficticketbuddy.client.apis.ApiRegistration;
 import com.trafficticketbuddy.client.interfaces.FbLoginCompleted;
 import com.trafficticketbuddy.client.interfaces.GoogleLoginCompleted;
 import com.trafficticketbuddy.client.model.login.LoginMain;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 import com.trafficticketbuddy.client.utils.Constant;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -128,7 +134,7 @@ public class LoginActivity extends BaseActivity {
             public <E> void onSuccess(E t) {
                 {
                     dismissProgressDialog();
-                    LoginMain mLoginMain = (LoginMain) t;
+                    final LoginMain mLoginMain = (LoginMain) t;
                     if(mLoginMain.getStatus()){
                         preference.setUserId(mLoginMain.getResponse().getId());
                         preference.setLoggedInUser(new Gson().toJson(mLoginMain.getResponse()));
@@ -139,7 +145,19 @@ public class LoginActivity extends BaseActivity {
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
                         }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
-                            startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
+                            new AlertDialog.Builder(LoginActivity.this)
+                                    .setCancelable(false)
+                                    .setTitle("Verify Email")
+                                    .setMessage("An email verification linbk send to your register email id. Please click on that link and verify your email id.")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                            callEmailVeriyApi(mLoginMain.getResponse().getEmail(),mLoginMain.getResponse().getId());
+                                        }
+                                    })
+                                    .show();
+                           // startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }
@@ -181,9 +199,9 @@ public class LoginActivity extends BaseActivity {
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
-                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+                        }/*else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
-                        }else{
+                        }*/else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }
                     }else{
@@ -225,9 +243,9 @@ public class LoginActivity extends BaseActivity {
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
-                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+                        }/*else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
-                        }else{
+                        }*/else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         }
                     }else{
@@ -246,6 +264,44 @@ public class LoginActivity extends BaseActivity {
                 dismissProgressDialog();
             }
         });
+    }
+
+
+    private void callEmailVeriyApi(String email, String user_id) {
+        if (isNetworkConnected()){
+            showProgressDialog();
+            new ApiEmailVerification(getEmailVerificationParam(email,user_id), new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    //String res=(String)t;
+                    Toast.makeText(getApplicationContext(), "Email sent successfully", Toast.LENGTH_LONG).show();
+                   // System.out.print(res);
+
+
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+
+
+
+
+
+
+
+
+
     }
 
     private void isValidate(){
@@ -307,6 +363,13 @@ public class LoginActivity extends BaseActivity {
         map.put("user_type",Constant.USER_TYPE);
         map.put("device_type", "ANDROID");
         map.put("token", preference.getDeviceToken());
+        return map;
+    }
+
+    private Map<String,String> getEmailVerificationParam(String email,String user_id){
+        Map<String,String> map=new HashMap<>();
+        map.put("email",email);
+        map.put("user_id",user_id);
         return map;
     }
 }

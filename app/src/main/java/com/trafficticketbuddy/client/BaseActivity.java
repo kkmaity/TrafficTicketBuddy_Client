@@ -158,6 +158,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
 
 public void showDialog(String msg){
         Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_LONG).show();
+       // finish();
   /*  Dialog dialog=new Dialog(BaseActivity.this);
     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
     dialog.setCancelable(true);

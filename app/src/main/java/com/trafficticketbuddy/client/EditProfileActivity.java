@@ -291,11 +291,13 @@ public class EditProfileActivity extends BaseActivity {
             et_state.setError("Please select state");
         }else if(et_city.getText().toString().isEmpty()){
             et_city.setError("Please select city");
+        }else if(Image_profile==null && mLogin.getProfileImage() ==null){
+            showDialog("Please select profile image");
         }else if(Image_profile==null && mLogin.getProfileImage().isEmpty()){
             showDialog("Please select profile image");
-        }else if(Image_license==null && mLogin.getLicenseImage().isEmpty()){
+        }/*else if(Image_license==null && mLogin.getLicenseImage().isEmpty()){
             showDialog("Please select licence image");
-        }else {
+        }*/else {
             doEditProfileApi();
         }
     }
