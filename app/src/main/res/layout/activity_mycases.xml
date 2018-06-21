@@ -12,6 +12,7 @@
         android:visibility="visible" />
     <android.support.design.widget.TabLayout
         android:id="@+id/id_tabs"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabSelectedTextColor="@color/white"
