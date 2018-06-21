@@ -36,7 +36,7 @@ public class MyCaseActivity extends BaseActivity {
     private final int NOTIFICATION_ACCESS = 102;
     private TextView tvHeading;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
-    //private MyCaseAllCaseDataLoaded allcaselistener;
+    private MyCaseAllCaseDataLoaded allcaselistener;
     private MyCaseOpenCaseDataLoaded opencaselistener;
     private ImageView back;
 
@@ -53,11 +53,11 @@ public class MyCaseActivity extends BaseActivity {
         back.setOnClickListener(this);
         mMyCaseAdapter = new MyCaseAdapter(getSupportFragmentManager());
 
-        OpenCaseFragment mOpenCaseFragment= new OpenCaseFragment();
-        mMyCaseAdapter.addFragment(mOpenCaseFragment, "Open Cases");
+       /* OpenCaseFragment mOpenCaseFragment= new OpenCaseFragment();
+        mMyCaseAdapter.addFragment(mOpenCaseFragment, "Open Cases");*/
 
         AllCasesFragment mAllCaseFragment = new AllCasesFragment();
-        //mMyCaseAdapter.addFragment(mAllCaseFragment, "All Cases");
+        mMyCaseAdapter.addFragment(mAllCaseFragment, "All Cases");
 
         viewPager.setAdapter(mMyCaseAdapter);
         tabLayout = (TabLayout) findViewById(R.id.id_tabs);
@@ -96,8 +96,8 @@ public class MyCaseActivity extends BaseActivity {
                     GetAllCasesMain main=(GetAllCasesMain)t;
                     if (main.getStatus()){
                         caseListData.addAll(main.getResponse());
-                      //  allcaselistener.allCaseDataLoaded(caseListData);
-                        opencaselistener.openCaseDataLoaded(caseListData);
+                        allcaselistener.allCaseDataLoaded(caseListData);
+                      //  opencaselistener.openCaseDataLoaded(caseListData);
                     }
                 }
                 @Override
@@ -122,7 +122,7 @@ public class MyCaseActivity extends BaseActivity {
 
 
     public void setMyCaseAllCaseListener(MyCaseAllCaseDataLoaded listener) {
-       // this.allcaselistener = listener;
+        this.allcaselistener = listener;
     }
 
     public void setMyCaseOpenCaseListener(MyCaseOpenCaseDataLoaded listener) {
