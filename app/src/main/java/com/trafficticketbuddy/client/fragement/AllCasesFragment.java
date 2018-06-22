@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.trafficticketbuddy.client.MyBidActivity;
 import com.trafficticketbuddy.client.MyCaseActivity;
@@ -27,6 +28,8 @@ public class AllCasesFragment extends BaseFragment implements MyCaseAllCaseDataL
     private LinearLayoutManager mLayoutManager;
     private List<Response> caseListData = new ArrayList<>();
     private AllCasesRecyclerAdapter mAllCasesRecyclerAdapter;
+    private TextView txtNoItem;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class AllCasesFragment extends BaseFragment implements MyCaseAllCaseDataL
     }
     private void initialize(View view) {
         rvRecycler = (RecyclerView)view.findViewById(R.id.rvRecycler);
+        txtNoItem = (TextView) view.findViewById(R.id.txtNoItem);
         swipeRefreshLayout = (SwipeRefreshLayout)view.findViewById(R.id.swipeRefreshLayout);
         swipeRefreshLayout.setRefreshing(false);
         swipeRefreshLayout.setEnabled(false);
@@ -70,6 +74,11 @@ public class AllCasesFragment extends BaseFragment implements MyCaseAllCaseDataL
     public void allCaseDataLoaded(List<Response> caseListData) {
         this.caseListData.clear();
         this.caseListData=caseListData;
+        if(this.caseListData.size()==0){
+            txtNoItem.setVisibility(View.VISIBLE);
+        }else{
+            txtNoItem.setVisibility(View.GONE);
+        }
         setAdapterRecyclerView();
     }
 }

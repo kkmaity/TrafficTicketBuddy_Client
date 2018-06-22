@@ -59,6 +59,7 @@ public class MainActivity extends BaseActivity {
     private MyAdapter bannerAdapter;
     private CircleIndicator indicator;
     private DrawerLayout drawer;
+    private LinearLayout ll_side_panel_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class MainActivity extends BaseActivity {
         linFileCase=(LinearLayout)findViewById(R.id.linFileCase);
         linMyCase=(LinearLayout)findViewById(R.id.linMyCase);
         linLogout=(LinearLayout)findViewById(R.id.linLogout);
+        ll_side_panel_profile=(LinearLayout)findViewById(R.id.ll_side_panel_profile);
         linMyCase_drawer=(LinearLayout)findViewById(R.id.linMyCase_drawer);
         linLogout=(LinearLayout)findViewById(R.id.linLogout);
         tvName=(TextView)findViewById(R.id.tvName);
@@ -95,6 +97,7 @@ public class MainActivity extends BaseActivity {
         linShare.setOnClickListener(this);
         linMyCase_drawer.setOnClickListener(this);
         linLogout.setOnClickListener(this);
+        ll_side_panel_profile.setOnClickListener(this);
         String deviceToken=    preference.getDeviceToken();
         System.out.println("!!!!!!!!!!!"+deviceToken);
         init();
@@ -126,6 +129,7 @@ public class MainActivity extends BaseActivity {
                     drawer.closeDrawer(GravityCompat.START);
                 }
                 break;
+            case R.id.ll_side_panel_profile:
             case R.id.linMyProfile:
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);

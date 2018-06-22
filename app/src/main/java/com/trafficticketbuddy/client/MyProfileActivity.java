@@ -92,8 +92,11 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
             }
 
         }if(mLogin.getLicenseImage()!=null){
-            String path = Constant.BASE_URL+mLogin.getLicenseImage();
-            Glide.with(this).load(path).into(ivLicense);
+           if(mLogin.getLicenseImage().length()>0){
+               String path = Constant.BASE_URL+mLogin.getLicenseImage();
+               Glide.with(this).load(path).into(ivLicense);
+           }
+
 
         }
 

@@ -38,6 +38,7 @@ public class MyBidActivity extends BaseActivity {
     private MyBidRecyclerAdapter myBidRecyclerAdapter;
     public static  String state;
     public static String city;
+    private TextView txtNoItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class MyBidActivity extends BaseActivity {
     }
     private void initialize() {
         rvRecycler = (RecyclerView)findViewById(R.id.rvRecycler);
+        txtNoItem = (TextView) findViewById(R.id.txtNoItem);
         swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
@@ -74,8 +76,19 @@ public class MyBidActivity extends BaseActivity {
                     GetBidListMain res=(GetBidListMain)t;
                     if (res.getStatus()){
                         dataList.addAll(res.getResponse());
+                        if(dataList.size()==0){
+                            txtNoItem.setVisibility(View.VISIBLE);
+                        }else{
+                            txtNoItem.setVisibility(View.GONE);
+                        }
                         myBidRecyclerAdapter.notifyDataSetChanged();
 
+                    }else{
+                        if(dataList.size()==0){
+                            txtNoItem.setVisibility(View.VISIBLE);
+                        }else{
+                            txtNoItem.setVisibility(View.GONE);
+                        }
                     }
 
 
@@ -84,11 +97,21 @@ public class MyBidActivity extends BaseActivity {
                 @Override
                 public <E> void onError(E t) {
                     dismissProgressDialog();
+                    if(dataList.size()==0){
+                        txtNoItem.setVisibility(View.VISIBLE);
+                    }else{
+                        txtNoItem.setVisibility(View.GONE);
+                    }
                 }
 
                 @Override
                 public void onError() {
                     dismissProgressDialog();
+                    if(dataList.size()==0){
+                        txtNoItem.setVisibility(View.VISIBLE);
+                    }else{
+                        txtNoItem.setVisibility(View.GONE);
+                    }
                 }
             });
         }

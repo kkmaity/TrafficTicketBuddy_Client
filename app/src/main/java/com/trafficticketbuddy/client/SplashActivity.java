@@ -11,7 +11,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.trafficticketbuddy.client.model.login.Response;
 
-public class SplashActivity extends BaseActivity{
+public class SplashActivity extends BaseActivity {
     private String deviceToken;
 
     @Override
@@ -22,7 +22,7 @@ public class SplashActivity extends BaseActivity{
         setContentView(R.layout.activity_splash);
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-            preference.setDeviceToken(refreshedToken);
+        preference.setDeviceToken(refreshedToken);
 
 
 
@@ -54,7 +54,7 @@ public class SplashActivity extends BaseActivity{
         super.onStart();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
 
-            preference.setDeviceToken(refreshedToken);
+        preference.setDeviceToken(refreshedToken);
 
     }
 
@@ -63,28 +63,29 @@ public class SplashActivity extends BaseActivity{
             @Override
             public void run() {
                 String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-                if(preference.getDeviceToken().isEmpty()){
+                if (preference.getDeviceToken().isEmpty()) {
                     preference.setDeviceToken(refreshedToken);
                 }
                 Gson gson = new Gson();
                 String json = preference.getString("login_user", "");
                 Response mLoginMain = gson.fromJson(json, Response.class);
-                if(mLoginMain!=null) {
-                    if (mLoginMain.getPhone().isEmpty() || mLoginMain.getCountry().isEmpty()
-                            || mLoginMain.getState().isEmpty() || mLoginMain.getCity().isEmpty()) {
-                        startActivity(new Intent(SplashActivity.this, EditProfileActivity.class));
-                        finish();
-                    } else if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")) {
+                if (mLoginMain != null) {
+                    if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")) {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         finish();
                     } else if (mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")) {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         finish();
+                    } else if (mLoginMain.getPhone().isEmpty() || mLoginMain.getCountry().isEmpty()
+                            || mLoginMain.getState().isEmpty() || mLoginMain.getCity().isEmpty()) {
+                        startActivity(new Intent(SplashActivity.this, EditProfileActivity.class));
+                        finish();
+
                     } else {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         finish();
                     }
-                }else{
+                } else {
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                     finish();
                 }
@@ -97,6 +98,6 @@ public class SplashActivity extends BaseActivity{
     protected void onResume() {
         super.onResume();
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-            preference.setDeviceToken(refreshedToken);
+        preference.setDeviceToken(refreshedToken);
     }
 }
