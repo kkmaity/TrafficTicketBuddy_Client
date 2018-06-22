@@ -63,6 +63,7 @@ public class AllCasesFragment extends BaseFragment implements MyCaseAllCaseDataL
                         case_id.putExtra("state",caseListData.get(position).getState());
                         case_id.putExtra("city",caseListData.get(position).getCity());
                         startActivity(case_id);
+
                         break;
                 }
             }

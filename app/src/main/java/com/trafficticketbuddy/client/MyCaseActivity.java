@@ -11,12 +11,16 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.trafficticketbuddy.client.adapter.MyCaseAdapter;
 import com.trafficticketbuddy.client.apis.ApiGetAllCases;
+import com.trafficticketbuddy.client.evt.BackEvent;
 import com.trafficticketbuddy.client.fragement.AllCasesFragment;
 import com.trafficticketbuddy.client.fragement.OpenCaseFragment;
 import com.trafficticketbuddy.client.interfaces.MyCaseAllCaseDataLoaded;
 import com.trafficticketbuddy.client.interfaces.MyCaseOpenCaseDataLoaded;
 import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -84,7 +88,26 @@ public class MyCaseActivity extends BaseActivity {
         });
         getAllCase();
     }
+    @Subscribe()
+    public void onEvent(BackEvent event) {
+        /* Do something */
+       // getAllCase();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+       // getAllCase();
+        if (!EventBus.getDefault().isRegistered(this))
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (EventBus.getDefault().isRegistered(this))
+        EventBus.getDefault().unregister(this);
+    }
     private void getAllCase() {
         if (isNetworkConnected()){
             showProgressDialog();
@@ -119,6 +142,7 @@ public class MyCaseActivity extends BaseActivity {
         map.put("user_id",mLogin.getId());
         return map;
     }
+
 
 
     public void setMyCaseAllCaseListener(MyCaseAllCaseDataLoaded listener) {

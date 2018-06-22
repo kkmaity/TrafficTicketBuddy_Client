@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.trafficticketbuddy.client.BaseActivity;
 import com.trafficticketbuddy.client.MyBidActivity;
@@ -61,15 +62,23 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
         holder.tvStateCity.setText(MyBidActivity.city+", "+MyBidActivity.state);
         holder.tvPrice.setText(dataList.get(position).getBidAmount());
         holder.tvDateTime.setText(dataList.get(position).getCreated_at());
-        ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
-        holder.cardAccept.setTag(position);
-        holder.cardAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               int posi = (int) view.getTag();
-                _interface.onItemClick(view.getTag(),posi);
-            }
-        });
+        Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
+       // ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
+        if (dataList.get(position).getIsAccepted().equalsIgnoreCase("0")){
+            holder.cardAccept.setTag(position);
+            holder.cardAccept.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int posi = (int) view.getTag();
+
+                    _interface.onItemClick(view.getTag(),posi);
+
+                }
+            });
+        }else {
+            holder.cardAccept.setVisibility(View.INVISIBLE);
+        }
+
 
 //        holder.linAddToMylist.setTag(position);
 //        holder.linAddToMylist.setOnClickListener(new View.OnClickListener() {

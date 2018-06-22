@@ -15,11 +15,13 @@ import com.trafficticketbuddy.client.adapter.AllCasesRecyclerAdapter;
 import com.trafficticketbuddy.client.adapter.MyBidRecyclerAdapter;
 import com.trafficticketbuddy.client.apis.ApiAcceptBids;
 import com.trafficticketbuddy.client.apis.ApiGetBids;
+import com.trafficticketbuddy.client.evt.BackEvent;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
 import com.trafficticketbuddy.client.model.bids.GetBidListMain;
 import com.trafficticketbuddy.client.model.bids.Response;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -35,6 +37,7 @@ public class MyBidActivity extends BaseActivity {
     private TextView tvHeading;
     private ImageView back;
     private List<Response> dataList=new ArrayList<>();
+    private List<Response> tempList=new ArrayList<>();
     private MyBidRecyclerAdapter myBidRecyclerAdapter;
     public static  String state;
     public static String city;
@@ -53,10 +56,10 @@ public class MyBidActivity extends BaseActivity {
     private void initialize() {
         rvRecycler = (RecyclerView)findViewById(R.id.rvRecycler);
         txtNoItem = (TextView) findViewById(R.id.txtNoItem);
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+       // swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
-        swipeRefreshLayout.setRefreshing(false);
+       // swipeRefreshLayout.setRefreshing(false);
         mLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
         setAdapterRecyclerView();
@@ -72,10 +75,21 @@ public class MyBidActivity extends BaseActivity {
             new ApiGetBids(getParam(id), new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
+                    dataList.clear();
+                    tempList.clear();
                     dismissProgressDialog();
                     GetBidListMain res=(GetBidListMain)t;
                     if (res.getStatus()){
+
                         dataList.addAll(res.getResponse());
+                        for (int i=0;i<dataList.size();i++){
+                            if (dataList.get(i).getIsAccepted().equalsIgnoreCase("1")){
+                                tempList.addAll(res.getResponse());
+
+                            }else
+                                tempList.addAll(res.getResponse());
+                        }
+
                         if(dataList.size()==0){
                             txtNoItem.setVisibility(View.VISIBLE);
                         }else{
@@ -126,9 +140,11 @@ public class MyBidActivity extends BaseActivity {
 
     private void setAdapterRecyclerView() {
 
-        myBidRecyclerAdapter=new MyBidRecyclerAdapter(this, dataList, new ItemClickListner() {
+        myBidRecyclerAdapter=new MyBidRecyclerAdapter(this, tempList, new ItemClickListner() {
             @Override
             public void onItemClick(Object viewID, int position) {
+
+
                 callAcceptBid(dataList.get(position).getId(),dataList.get(position).getCaseId());
             }
         });
@@ -147,6 +163,7 @@ public class MyBidActivity extends BaseActivity {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
                             showDialog(object.getString("message"));
+                            getBids(getIntent().getStringExtra("case_id"));
                         }
                         else
                             showDialog(object.getString("message"));
@@ -182,8 +199,17 @@ public class MyBidActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()){
             case R.id.back:
+                EventBus.getDefault().post(new BackEvent());
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        EventBus.getDefault().post(new BackEvent());
+        super.onBackPressed();
+
+        finish();
     }
 }

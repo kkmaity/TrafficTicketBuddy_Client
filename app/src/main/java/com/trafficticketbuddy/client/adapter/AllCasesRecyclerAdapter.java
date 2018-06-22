@@ -1,6 +1,7 @@
 package com.trafficticketbuddy.client.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -89,6 +90,9 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         //holder.tvTime.setText("");
         //holder.tvBidCount.setText("");
         holder.tvStatus.setText(dataList.get(position).getStatus());
+        if (dataList.get(position).getStatus().equalsIgnoreCase("Accepted"))
+        holder.tvStatus.setTextColor(Color.parseColor("#FF349344"));
+
         holder.linAllCase.setTag(position);
         holder.linAllCase.setOnClickListener(new View.OnClickListener() {
             @Override
