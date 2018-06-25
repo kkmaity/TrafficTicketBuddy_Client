@@ -199,8 +199,9 @@ public class MyBidActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()){
             case R.id.back:
-                EventBus.getDefault().post(new BackEvent());
-                finish();
+                onBackPressed();
+               /* EventBus.getDefault().post(new BackEvent());
+                finish();*/
                 break;
         }
     }

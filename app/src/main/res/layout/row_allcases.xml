@@ -6,6 +6,7 @@
     android:layout_marginRight="@dimen/_10sdp"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginBottom="@dimen/_5sdp"
+    android:background="#e1e1e1"
     android:layout_marginLeft="@dimen/_10sdp"
     android:elevation="@dimen/_3sdp">
     <LinearLayout
@@ -114,7 +115,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/txt_grey"
-                            android:textSize="@dimen/_11sdp"
+                            android:textSize="@dimen/_10sdp"
                             android:layout_marginLeft="@dimen/_5sdp"
                             android:fontFamily="@font/lato_regular"
                             android:text="Toronto,Canada"/>
@@ -126,9 +127,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/txt_grey"
-                        android:textSize="@dimen/_11sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:textSize="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
                         android:fontFamily="@font/lato_regular"
+                        android:lines="2"
                         android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry"/>
 
                     <LinearLayout
@@ -187,6 +189,20 @@
                                 android:text="03:30 PM"/>
                         </LinearLayout>
                     </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvBidCount"
+                        android:layout_width="wrap_content"
+                        android:text="Total Bids : 20"
+                        android:layout_marginTop="3dp"
+                        android:textSize="@dimen/_10sdp"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:text="Status : PENDING"
+                        android:layout_marginTop="3dp"
+                        android:textSize="@dimen/_10sdp"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
 
@@ -195,6 +211,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#c7c7c7"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -205,64 +222,45 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:orientation="horizontal"
-                android:background="@color/colorPrimaryDark">
+               >
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="left"
+                        android:id="@+id/tvViewBids"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
                         android:textColor="@color/dodger_blue"
-                        android:layout_gravity="center_vertical"
                         android:fontFamily="@font/bold"
-                        android:text="Bid: "/>
+                        android:text="VIEW BIDS"/>
 
-                    <TextView
-                        android:id="@+id/tvBidCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:gravity="left"
-                        android:textSize="@dimen/_10sdp"
-                        android:fontFamily="@font/lato_bold"
-                        android:layout_gravity="center_vertical"
-                        android:text="21"/>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_weight="1"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:orientation="horizontal">
+                   android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:id="@+id/tvViewDetails"
+                        android:layout_width="match_parent"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColor="@color/dodger_blue"
-                        android:layout_gravity="center_vertical"
-                        android:gravity="right"
+                        android:gravity="center_vertical|right"
                         android:fontFamily="@font/lato_bold"
-                        android:text="Status: "/>
+                        android:text="VIEW DETAILS"/>
 
-                    <TextView
-                        android:id="@+id/tvStatus"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:gravity="left"
-                        android:textSize="@dimen/_10sdp"
-                        android:fontFamily="@font/lato_bold"
-                        android:layout_gravity="center_vertical"
-                        android:text="Completed"/>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

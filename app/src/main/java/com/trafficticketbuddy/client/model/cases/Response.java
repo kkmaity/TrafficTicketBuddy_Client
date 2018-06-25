@@ -37,6 +37,10 @@ public class Response implements Serializable {
     @Expose
     private String city;
 
+    @SerializedName("bid_count")
+    @Expose
+    private int bid_count;
+
     public String getId() {
         return id;
     }
@@ -115,5 +119,13 @@ public class Response implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getBid_count() {
+        return bid_count;
+    }
+
+    public void setBid_count(int bid_count) {
+        this.bid_count = bid_count;
     }
 }

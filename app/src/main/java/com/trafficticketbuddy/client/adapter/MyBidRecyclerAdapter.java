@@ -62,7 +62,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
         holder.tvStateCity.setText(MyBidActivity.city+", "+MyBidActivity.state);
         holder.tvPrice.setText(dataList.get(position).getBidAmount());
         holder.tvDateTime.setText(dataList.get(position).getCreated_at());
-        Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
+       // Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
        // ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
         if (dataList.get(position).getIsAccepted().equalsIgnoreCase("0")){
             holder.cardAccept.setTag(position);

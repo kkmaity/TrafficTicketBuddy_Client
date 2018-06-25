@@ -1,6 +1,7 @@
 package com.trafficticketbuddy.client.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.trafficticketbuddy.client.BaseActivity;
+import com.trafficticketbuddy.client.CaseDetailsActivity;
+import com.trafficticketbuddy.client.MyBidActivity;
 import com.trafficticketbuddy.client.R;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
 import com.trafficticketbuddy.client.model.cases.Response;
@@ -30,7 +33,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout linAllCase;
         ImageView ivLicense,ivBackImage,ivFontImage;
-        TextView tvCaseno,tvDesc,tvStateCity,tvDate,tvTime,tvBidCount,tvStatus;
+        TextView tvCaseno,tvDesc,tvStateCity,tvDate,tvTime,tvBidCount,tvStatus,tvViewBids,tvViewDetails;
         public MyViewHolder(View view) {
             super(view);
             linAllCase = (LinearLayout)view.findViewById(R.id.linAllCase);
@@ -44,6 +47,8 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
             tvTime = (TextView)view.findViewById(R.id.tvTime);
             tvBidCount = (TextView)view.findViewById(R.id.tvBidCount);
             tvStatus = (TextView)view.findViewById(R.id.tvStatus);
+            tvViewBids = (TextView)view.findViewById(R.id.tvViewBids);
+            tvViewDetails = (TextView)view.findViewById(R.id.tvViewDetails);
 
         }
     }
@@ -86,19 +91,34 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         holder.tvCaseno.setText("#"+dataList.get(position).getCaseNumber());
         holder.tvStateCity.setText(dataList.get(position).getState()+" "+dataList.get(position).getCity());
         holder.tvDesc.setText(dataList.get(position).getCaseDetails());
+        holder.tvBidCount.setText("Total Bids : "+dataList.get(position).getBid_count());
         // holder.tvDate.setText("");
         //holder.tvTime.setText("");
         //holder.tvBidCount.setText("");
-        holder.tvStatus.setText(dataList.get(position).getStatus());
+        holder.tvStatus.setText("Status : "+dataList.get(position).getStatus());
         if (dataList.get(position).getStatus().equalsIgnoreCase("Accepted"))
         holder.tvStatus.setTextColor(Color.parseColor("#FF349344"));
 
-        holder.linAllCase.setTag(position);
-        holder.linAllCase.setOnClickListener(new View.OnClickListener() {
+        //holder.linAllCase.setTag(position);
+        holder.tvViewBids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int Pos  = (int) v.getTag();
-                _interface.onItemClick(v.getId(),Pos);
+                /*int Pos  = (int) v.getTag();
+                _interface.onItemClick(v.getId(),Pos);*/
+                Intent case_id=new Intent(mContext,MyBidActivity.class);
+                case_id.putExtra("case_id",dataList.get(position).getId());
+                case_id.putExtra("state",dataList.get(position).getState());
+                case_id.putExtra("city",dataList.get(position).getCity());
+                mContext. startActivity(case_id);
+            }
+        });
+
+        holder.tvViewDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(mContext,CaseDetailsActivity.class);
+                mIntent.putExtra("data",dataList.get(position));
+                mContext.startActivity(mIntent);
             }
         });
 
