@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.Display;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -80,6 +81,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleLoginCompleted mGoogleLoginCompleted;
     public  static final List<Response> caseListData=new ArrayList<>();
     public static DisplayImageOptions cacheOptions;
+    public int height, width;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,6 +106,9 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
                 .displayer(new RoundedBitmapDisplayer(0))
                 .build();
         facebookRegisterCallBack();
+        Display display = getWindowManager().getDefaultDisplay();
+        height = display.getHeight();
+        width = display.getWidth();
 
     }
     public String getCurrentDate(){

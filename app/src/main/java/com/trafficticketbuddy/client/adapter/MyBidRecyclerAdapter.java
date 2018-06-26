@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.trafficticketbuddy.client.BaseActivity;
 import com.trafficticketbuddy.client.MyBidActivity;
 import com.trafficticketbuddy.client.R;
+import com.trafficticketbuddy.client.dialog.DlgRate;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
 import com.trafficticketbuddy.client.model.bids.Response;
 import com.trafficticketbuddy.client.utils.Constant;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private BaseActivity mContext;
     private ItemClickListner _interface;
     private List<Response> dataList=new ArrayList<>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -44,7 +45,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             tvStatus = (TextView)view.findViewById(R.id.tvStatus);
         }
     }
-    public MyBidRecyclerAdapter(Context mContext, List<Response>  projectListingData, ItemClickListner clickHandler) {
+    public MyBidRecyclerAdapter(BaseActivity mContext, List<Response>  projectListingData, ItemClickListner clickHandler) {
         this.mContext=mContext;
         this.dataList=projectListingData;
         this._interface = clickHandler;
@@ -83,7 +84,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             public void onClick(View view) {
                // int posi = (int) view.getTag();
                 if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
-
+                        new DlgRate(mContext).show();
                 }else{
                     _interface.onItemClick(view.getTag(),position);
                 }

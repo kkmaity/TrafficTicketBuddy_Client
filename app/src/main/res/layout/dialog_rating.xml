@@ -1,0 +1,88 @@
+
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="com.oxilo.oioindia.view.fragments.BusinessDetailFragment"
+        android:layout_height="match_parent"
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        >
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:id="@+id/ll_top_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Rate Lawyer"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/ll_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rating="1"
+                android:stepSize="1"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                style="@style/Widget.AppCompat.RatingBar.Indicator"
+                android:layout_below="@+id/ll_top_header"
+                />
+
+            <TextView
+                android:id="@+id/ll_rating_lbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/ll_rating_bar"
+                android:text="Please rate your experience"
+                android:textSize="15dp"
+                />
+
+
+            <EditText
+                android:id="@+id/ll_comment_write"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                android:padding="8dp"
+                android:scrollbars="vertical"
+                android:layout_below="@+id/ll_rating_lbl"
+                android:hint="Write Review"
+                android:inputType="textEmailAddress"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/submit_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_below="@+id/ll_comment_write"
+                android:text="Submit"
+                style="@style/Widget.AppCompat.Button.Colored"/>
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
