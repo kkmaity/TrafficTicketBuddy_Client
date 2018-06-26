@@ -29,18 +29,19 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
     private ItemClickListner _interface;
     private List<Response> dataList=new ArrayList<>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        CardView cardAccept;
+        TextView cardAccept;
         ImageView lawyrImage;
-        TextView tvLawyrName,tvPrice,tvStateCity,tvDetails,tvDateTime;
+        TextView tvLawyrName,tvPrice,tvStateCity,tvDetails,tvDateTime,tvStatus;
         public MyViewHolder(View view) {
             super(view);
-            cardAccept = (CardView)view.findViewById(R.id.cardAccept);
+            cardAccept = (TextView)view.findViewById(R.id.cardAccept);
             lawyrImage = (ImageView)view.findViewById(R.id.lawyrImage);
             tvLawyrName = (TextView)view.findViewById(R.id.tvLawyrName);
             tvStateCity = (TextView)view.findViewById(R.id.tvStateCity);
             tvPrice = (TextView)view.findViewById(R.id.tvPrice);
             tvDetails = (TextView)view.findViewById(R.id.tvDetails);
             tvDateTime = (TextView)view.findViewById(R.id.tvDateTime);
+            tvStatus = (TextView)view.findViewById(R.id.tvStatus);
         }
     }
     public MyBidRecyclerAdapter(Context mContext, List<Response>  projectListingData, ItemClickListner clickHandler) {
@@ -55,16 +56,42 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
         return new MyViewHolder(itemView);
     }
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
        // holder.tvLawyrName.setText(dataList.get(position).getLawyerFirstName()+" "+dataList.get(position).getLawyerLastName());
         holder.tvLawyrName.setText("Lawyer "+ (position+1));
         holder.tvDetails.setText(dataList.get(position).getBidText());
         holder.tvStateCity.setText(MyBidActivity.city+", "+MyBidActivity.state);
         holder.tvPrice.setText(dataList.get(position).getBidAmount());
         holder.tvDateTime.setText(dataList.get(position).getCreated_at());
+        if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
+            holder.cardAccept.setText("Rate Lawyer");
+            holder.tvStatus.setVisibility(View.VISIBLE);
+        }
        // Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
        // ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
-        if (dataList.get(position).getIsAccepted().equalsIgnoreCase("0")){
+
+        /*if(dataList.size() == 1){
+            if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
+                holder.cardAccept.setText("Rate Lawyer");
+            }else{
+
+            }
+        }*/
+
+        holder.cardAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               // int posi = (int) view.getTag();
+                if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
+
+                }else{
+                    _interface.onItemClick(view.getTag(),position);
+                }
+
+
+            }
+        });
+        /*if (dataList.get(position).getIsAccepted().equalsIgnoreCase("0")){
             holder.cardAccept.setTag(position);
             holder.cardAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,7 +104,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             });
         }else {
             holder.cardAccept.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
 
 //        holder.linAddToMylist.setTag(position);

@@ -109,6 +109,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
                 case_id.putExtra("case_id",dataList.get(position).getId());
                 case_id.putExtra("state",dataList.get(position).getState());
                 case_id.putExtra("city",dataList.get(position).getCity());
+                case_id.putExtra("status",dataList.get(position).getStatus());
                 mContext. startActivity(case_id);
             }
         });

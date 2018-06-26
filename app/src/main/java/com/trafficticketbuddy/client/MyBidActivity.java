@@ -41,6 +41,7 @@ public class MyBidActivity extends BaseActivity {
     private MyBidRecyclerAdapter myBidRecyclerAdapter;
     public static  String state;
     public static String city;
+    public static String status;
     private TextView txtNoItem;
 
     @Override
@@ -59,14 +60,16 @@ public class MyBidActivity extends BaseActivity {
        // swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
+        state=  getIntent().getStringExtra("state");
+        city= getIntent().getStringExtra("city");
+        status= getIntent().getStringExtra("status");
        // swipeRefreshLayout.setRefreshing(false);
         mLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
         setAdapterRecyclerView();
         if (getIntent().getStringExtra("case_id")!=null)
             getBids(getIntent().getStringExtra("case_id"));
-        state=  getIntent().getStringExtra("state");
-        city= getIntent().getStringExtra("city");
+
     }
 
     private void getBids(String id) {
@@ -82,13 +85,24 @@ public class MyBidActivity extends BaseActivity {
                     if (res.getStatus()){
 
                         dataList.addAll(res.getResponse());
-                        for (int i=0;i<dataList.size();i++){
+                        if(status.equalsIgnoreCase("Accepted")){
+                            for (int i=0;i<dataList.size();i++){
+                                if (dataList.get(i).getIsAccepted().equalsIgnoreCase("1")){
+                                    tempList.add(dataList.get(i));
+                                    break;
+
+                                }
+                            }
+                        }else{
+                            tempList.addAll(res.getResponse());
+                        }
+                        /*for (int i=0;i<dataList.size();i++){
                             if (dataList.get(i).getIsAccepted().equalsIgnoreCase("1")){
                                 tempList.addAll(res.getResponse());
 
                             }else
                                 tempList.addAll(res.getResponse());
-                        }
+                        }*/
 
                         if(dataList.size()==0){
                             txtNoItem.setVisibility(View.VISIBLE);
@@ -164,6 +178,7 @@ public class MyBidActivity extends BaseActivity {
                         if (object.getBoolean("status")){
                             showDialog(object.getString("message"));
                             getBids(getIntent().getStringExtra("case_id"));
+                            finish();
                         }
                         else
                             showDialog(object.getString("message"));
@@ -199,18 +214,19 @@ public class MyBidActivity extends BaseActivity {
         super.onClick(view);
         switch (view.getId()){
             case R.id.back:
-                onBackPressed();
+                finish();
+              //  onBackPressed();
                /* EventBus.getDefault().post(new BackEvent());
                 finish();*/
                 break;
         }
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         EventBus.getDefault().post(new BackEvent());
         super.onBackPressed();
 
         finish();
-    }
+    }*/
 }

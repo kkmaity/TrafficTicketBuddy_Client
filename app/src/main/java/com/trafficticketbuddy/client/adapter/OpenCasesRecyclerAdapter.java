@@ -82,7 +82,7 @@ public class OpenCasesRecyclerAdapter extends RecyclerView.Adapter<OpenCasesRecy
             @Override
             public void onClick(View v) {
                 Object objects = v.getTag();
-                _interface.onItemClick(objects,v.getId());
+                _interface.onItemClick(v.getId(),0);
             }
         });
     }
