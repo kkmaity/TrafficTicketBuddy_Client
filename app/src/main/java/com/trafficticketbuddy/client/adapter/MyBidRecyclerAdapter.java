@@ -67,6 +67,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
         if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
             holder.cardAccept.setText("Rate Lawyer");
             holder.tvStatus.setVisibility(View.VISIBLE);
+            holder.tvStatus.setText("Completed");
         }
        // Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
        // ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
