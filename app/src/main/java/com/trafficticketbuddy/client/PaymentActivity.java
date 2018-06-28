@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -48,6 +49,7 @@ public class PaymentActivity extends BaseActivity {
     private String amount="0";
     private String bidID;
     private String caseID;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class PaymentActivity extends BaseActivity {
         String refreshedToken2 = FirebaseInstanceId.getInstance().getToken();
         System.out.print("!!!!!!!!!!!!!"+ FirebaseInstanceId.getInstance().getToken());
         setContentView(R.layout.activity_payment);
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
         linSuccessPage=(LinearLayout)findViewById(R.id.linSuccessPage);
         cardPaymantFields=(CardView)findViewById(R.id.cardPaymantFields);
         cardPay=(CardView)findViewById(R.id.cardPay);
@@ -66,6 +69,10 @@ public class PaymentActivity extends BaseActivity {
         et_year=(EditText)findViewById(R.id.et_year);
         cardPaymantFields.setVisibility(View.VISIBLE);
         linSuccessPage.setVisibility(View.GONE);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         if (getIntent().getStringExtra("amount")!=null){
             amount=getIntent().getStringExtra("amount");
             bidID=getIntent().getStringExtra("bid_id");
@@ -120,7 +127,7 @@ public class PaymentActivity extends BaseActivity {
                     public void onSuccess(Token token) {
                         System.out.println("!!!!!!!!!!"+token);
                         // Send token to your server
-                        callPostToken(token.toString());
+                        callPostToken(token.getId());
                     }
 
                     public void onError(Exception error) {
@@ -209,7 +216,7 @@ public class PaymentActivity extends BaseActivity {
     public interface RetrofitService {
         @FormUrlEncoded
         @POST("stripe.php")
-        Call<ResponseBody> paymentApi(@Field("stripeToken") String stripeToken,@Field("price ") String price );
+        Call<ResponseBody> paymentApi(@Field("stripeToken") String stripeToken,@Field("price") String price );
     }
 
 
