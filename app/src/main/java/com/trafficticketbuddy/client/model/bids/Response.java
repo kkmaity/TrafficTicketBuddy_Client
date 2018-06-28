@@ -48,9 +48,14 @@ public class Response {
     @SerializedName("created_at")
     @Expose
     private String created_at;
+
     @SerializedName("accepted_at")
     @Expose
     private String accepted_at;
+
+    @SerializedName("is_rate")
+    @Expose
+    private String is_rate;
 
 
 
@@ -174,5 +179,13 @@ public class Response {
 
     public void setAccepted_at(String accepted_at) {
         this.accepted_at = accepted_at;
+    }
+
+    public String getIs_rate() {
+        return is_rate;
+    }
+
+    public void setIs_rate(String is_rate) {
+        this.is_rate = is_rate;
     }
 }

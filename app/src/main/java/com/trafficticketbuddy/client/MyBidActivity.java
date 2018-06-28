@@ -187,6 +187,10 @@ public class MyBidActivity extends BaseActivity {
         }
     }
 
+    public void refreshBid(String case_id){
+        getBids(case_id);
+    }
+
    /* @Override
     public void onBackPressed() {
         EventBus.getDefault().post(new BackEvent());
