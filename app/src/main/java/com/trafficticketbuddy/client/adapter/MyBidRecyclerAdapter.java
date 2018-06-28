@@ -26,7 +26,7 @@ import java.util.List;
 
 public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdapter.MyViewHolder> {
 
-    private BaseActivity mContext;
+    private MyBidActivity mContext;
     private ItemClickListner _interface;
     private List<Response> dataList=new ArrayList<>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -45,7 +45,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             tvStatus = (TextView)view.findViewById(R.id.tvStatus);
         }
     }
-    public MyBidRecyclerAdapter(BaseActivity mContext, List<Response>  projectListingData, ItemClickListner clickHandler) {
+    public MyBidRecyclerAdapter(MyBidActivity mContext, List<Response>  projectListingData, ItemClickListner clickHandler) {
         this.mContext=mContext;
         this.dataList=projectListingData;
         this._interface = clickHandler;
@@ -68,6 +68,10 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             holder.cardAccept.setText("Rate Lawyer");
             holder.tvStatus.setVisibility(View.VISIBLE);
         }
+
+        if(dataList.get(position).getIs_rate().equalsIgnoreCase("1")){
+            holder.cardAccept.setVisibility(View.GONE);
+        }
        // Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage()).into( holder.lawyrImage);
        // ImageLoader.getInstance().displayImage(Constant.BASE_URL+dataList.get(position).getLawyerProfileImage(), holder.lawyrImage, BaseActivity.cacheOptions);
 
@@ -84,7 +88,12 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
             public void onClick(View view) {
                // int posi = (int) view.getTag();
                 if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
-                        new DlgRate(mContext).show();
+                        new DlgRate(mContext, dataList.get(position).getLawyerId(), dataList.get(position).getCaseId(), dataList.get(position).getId(), new DlgRate.OnRatingListiner() {
+                            @Override
+                            public void onRateDone() {
+                                mContext.refreshBid(dataList.get(position).getCaseId());
+                            }
+                        }).show();
                 }else{
                     _interface.onItemClick(view.getTag(),position);
                 }
