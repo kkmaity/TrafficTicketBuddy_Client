@@ -121,7 +121,7 @@ public interface RestInterface {
  Call<ResponseBody> forgotPassword(@FieldMap Map<String,String> params);
 
  @FormUrlEncoded
- @POST("api/v1/user/rating")
+ @POST("api/v1/user/rate")
  Call<ResponseBody> rating(@FieldMap Map<String,String> params);
 /* user_id
          old_password

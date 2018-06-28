@@ -20,6 +20,7 @@ import com.trafficticketbuddy.client.BaseActivity;
 import com.trafficticketbuddy.client.OTPActivity;
 import com.trafficticketbuddy.client.R;
 import com.trafficticketbuddy.client.RegistrationActivity;
+import com.trafficticketbuddy.client.apis.ApiRating;
 import com.trafficticketbuddy.client.apis.ApiRegistration;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 
@@ -97,7 +98,7 @@ public class DlgRate extends Dialog{
     private void callApi() {
         if (baseActivity.isNetworkConnected()){
             baseActivity.showProgressDialog();
-            new ApiRegistration(getParam(), new OnApiResponseListener() {
+            new ApiRating(getParam(), new OnApiResponseListener() {
                 @Override
                 public <E> void onSuccess(E t) {
                     baseActivity.dismissProgressDialog();
