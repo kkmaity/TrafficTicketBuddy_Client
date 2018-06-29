@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.tvForgetPassword:
                 startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));
+                finish();
                 break;
             case R.id.cvGoogleLogin:
                 signIn(new GoogleLoginCompleted() {
@@ -141,9 +142,11 @@ public class LoginActivity extends BaseActivity {
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
                             startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            finish();
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                            finish();
                         }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
                             new AlertDialog.Builder(LoginActivity.this)
                                     .setCancelable(false)
@@ -160,6 +163,7 @@ public class LoginActivity extends BaseActivity {
                            // startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            finish();
                         }
                     }else{
                         showDialog(mLoginMain.getMessage());
@@ -196,13 +200,16 @@ public class LoginActivity extends BaseActivity {
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
                             startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            finish();
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                            finish();
                         }/*else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }*/else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            finish();
                         }
                     }else{
                         showDialog(mLoginMain.getMessage());
@@ -240,13 +247,16 @@ public class LoginActivity extends BaseActivity {
                         if(mLoginMain.getResponse().getPhone().isEmpty() || mLoginMain.getResponse().getCountry().isEmpty()
                                 || mLoginMain.getResponse().getState().isEmpty() || mLoginMain.getResponse().getCity().isEmpty()){
                             startActivity(new Intent(LoginActivity.this,EditProfileActivity.class));
+                            finish();
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,OTPActivity.class));
+                            finish();
                         }/*else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
                             startActivity(new Intent(LoginActivity.this,EmailOTPActivity.class));
                         }*/else{
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                            finish();
                         }
                     }else{
                         showDialog(mLoginMain.getMessage());

@@ -21,10 +21,10 @@
         android:layout_height="wrap_content"
         android:singleLine="true"
         android:layout_gravity="center"
-        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
         android:text=""
         android:fontFamily="@font/lato_bold"
-        android:textSize="@dimen/_16sdp"
+        android:textSize="@dimen/_15sdp"
         android:textColor="@android:color/white" />
 
 

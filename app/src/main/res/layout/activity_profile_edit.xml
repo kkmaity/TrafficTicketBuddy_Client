@@ -15,7 +15,7 @@
             android:padding="@dimen/_5sdp"
             android:text="Edit Profile"
             android:fontFamily="@font/lato_bold"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_15sdp"
             android:textColor="@color/white"
             android:gravity="center|start"
             android:layout_height="match_parent" />

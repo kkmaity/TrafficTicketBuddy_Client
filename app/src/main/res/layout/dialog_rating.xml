@@ -1,19 +1,10 @@
-
-<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/llMain"
     android:background="@color/white"
-    android:orientation="vertical">
-
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        tools:context="com.oxilo.oioindia.view.fragments.BusinessDetailFragment"
-        android:layout_height="match_parent"
-        android:id="@+id/llMain"
-        android:layout_width="match_parent"
-        >
+    android:layout_width="wrap_content">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,17 +22,26 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <RatingBar
+            <!--<RatingBar
                 android:id="@+id/ll_rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:rating="1"
-                android:stepSize="1"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_below="@+id/ll_top_header"
-                />
+                />-->
+            <RatingBar
+                android:id="@+id/ll_rating_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="@dimen/_40sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:rating="1"
+               />
 
             <TextView
                 android:id="@+id/ll_rating_lbl"
@@ -71,7 +71,7 @@
                 android:id="@+id/submit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="@dimen/_12sdp"
                 android:layout_below="@+id/ll_comment_write"
                 android:text="Submit"
                 style="@style/Widget.AppCompat.Button.Colored"/>
@@ -85,4 +85,3 @@
 
 
 
-</LinearLayout>

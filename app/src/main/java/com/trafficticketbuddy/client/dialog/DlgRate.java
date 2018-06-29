@@ -71,7 +71,7 @@ public class DlgRate extends Dialog{
         ll_comment_write = (EditText) findViewById(R.id.ll_comment_write);
         ll_rating_bar = (RatingBar) findViewById(R.id.ll_rating_bar);
         submit_btn = (AppCompatButton) findViewById(R.id.submit_btn);
-        llMain.getLayoutParams().height = (int) (baseActivity.height * 0.70);
+        llMain.getLayoutParams().height = (int) (baseActivity.height * 0.55);
         llMain.getLayoutParams().width = (int) (baseActivity.width * 0.85);
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override

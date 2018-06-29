@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.stripe.android.Stripe;
@@ -50,33 +51,39 @@ public class PaymentActivity extends BaseActivity {
     private String bidID;
     private String caseID;
     private Toolbar toolbar;
+    private TextView tvAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        String refreshedToken1 = FirebaseInstanceId.getInstance().getToken();
-        String refreshedToken2 = FirebaseInstanceId.getInstance().getToken();
-        System.out.print("!!!!!!!!!!!!!"+ FirebaseInstanceId.getInstance().getToken());
+
         setContentView(R.layout.activity_payment);
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         linSuccessPage=(LinearLayout)findViewById(R.id.linSuccessPage);
         cardPaymantFields=(CardView)findViewById(R.id.cardPaymantFields);
         cardPay=(CardView)findViewById(R.id.cardPay);
+        tvAmount=(TextView)findViewById(R.id.tvAmount);
         etCardnumber=(EditText)findViewById(R.id.etCardnumber);
         et_cvv=(EditText)findViewById(R.id.et_cvv);
         et_month=(EditText)findViewById(R.id.et_month);
         et_year=(EditText)findViewById(R.id.et_year);
         cardPaymantFields.setVisibility(View.VISIBLE);
         linSuccessPage.setVisibility(View.GONE);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         if (getIntent().getStringExtra("amount")!=null){
             amount=getIntent().getStringExtra("amount");
             bidID=getIntent().getStringExtra("bid_id");
             caseID=getIntent().getStringExtra("case_id");
+            tvAmount.setText(amount);
         }
 
         et_month.setOnClickListener(new View.OnClickListener() {

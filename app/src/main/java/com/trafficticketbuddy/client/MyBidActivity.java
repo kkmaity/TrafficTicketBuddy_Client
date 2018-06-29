@@ -58,13 +58,13 @@ public class MyBidActivity extends BaseActivity {
     private void initialize() {
         rvRecycler = (RecyclerView)findViewById(R.id.rvRecycler);
         txtNoItem = (TextView) findViewById(R.id.txtNoItem);
-       // swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
+        // swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.swipeRefreshLayout);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         state=  getIntent().getStringExtra("state");
         city= getIntent().getStringExtra("city");
         status= getIntent().getStringExtra("status");
-       // swipeRefreshLayout.setRefreshing(false);
+        // swipeRefreshLayout.setRefreshing(false);
         mLayoutManager= new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvRecycler.setLayoutManager(mLayoutManager);
         setAdapterRecyclerView();
@@ -164,9 +164,9 @@ public class MyBidActivity extends BaseActivity {
                 intent.putExtra("case_id",dataList.get(position).getCaseId());
                 intent.putExtra("amount",dataList.get(position).getBidAmount());
                 startActivity(intent);
+                finish();
 
-
-               // callAcceptBid(dataList.get(position).getId(),dataList.get(position).getCaseId());
+                // callAcceptBid(dataList.get(position).getId(),dataList.get(position).getCaseId());
             }
         });
         rvRecycler.setAdapter(myBidRecyclerAdapter);
@@ -180,7 +180,7 @@ public class MyBidActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.back:
                 finish();
-              //  onBackPressed();
+                //  onBackPressed();
                /* EventBus.getDefault().post(new BackEvent());
                 finish();*/
                 break;
