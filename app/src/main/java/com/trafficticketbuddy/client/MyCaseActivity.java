@@ -176,6 +176,8 @@ public class MyCaseActivity extends BaseActivity {
                         mAllCasesRecyclerAdapter=new AllCasesRecyclerAdapter(MyCaseActivity.this, caseListData, new ItemClickListner() {
                             @Override
                             public void onItemClick(Object viewID, int position) {
+                                Intent intent=new Intent(MyCaseActivity.this,FullScreenImageActivity.class);
+
                                 int vID= (int) viewID;
                                 switch (vID){
                                     case R.id.linAllCase:
@@ -186,6 +188,18 @@ public class MyCaseActivity extends BaseActivity {
                                         case_id.putExtra("status",caseListData.get(position).getStatus());
                                         startActivity(case_id);
 
+                                        break;
+                                    case R.id.ivLicense:
+                                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getDrivingLicense());
+                                        startActivity(intent);
+                                        break;
+                                    case R.id.ivFontImage:
+                                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getCaseFrontImg());
+                                        startActivity(intent);
+                                        break;
+                                    case R.id.ivBackImage:
+                                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getCaseRearImg());
+                                        startActivity(intent);
                                         break;
                                 }
                             }

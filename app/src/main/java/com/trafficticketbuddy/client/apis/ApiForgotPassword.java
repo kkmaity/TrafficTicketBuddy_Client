@@ -25,7 +25,7 @@ public class ApiForgotPassword {
 
     public void doWebServiceCall() {
 
-        Call<ResponseBody> data = RestService.getInstance().restInterface.resetpassword(param);
+        Call<ResponseBody> data = RestService.getInstance().restInterface.forgotPassword(param);
         APIHelper.enqueueWithRetry(data, new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

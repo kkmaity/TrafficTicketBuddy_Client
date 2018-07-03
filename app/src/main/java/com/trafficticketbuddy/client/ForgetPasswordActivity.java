@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -8,9 +9,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.trafficticketbuddy.client.apis.ApiForgotPassword;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +32,8 @@ public class ForgetPasswordActivity extends BaseActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
         setContentView(R.layout.activity_forgot_password);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle("Forgot Password");
+        //getSupportActionBar().setTitle("Change Password");
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +41,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                 onBackPressed();
             }
         });
+
         etEmail=findViewById(R.id.etEmail);
         tvSubmit=findViewById(R.id.tvSubmit);
         tvSubmit.setOnClickListener(this);
@@ -49,7 +57,7 @@ public class ForgetPasswordActivity extends BaseActivity {
                 }else if (!isValidEmail(etEmail.getText().toString())){
                     showDialog("Please enter a valid email.");
                 }else{
-                     //callApi();
+                     callApi();
                 }
 
                 break;
@@ -63,7 +71,23 @@ public class ForgetPasswordActivity extends BaseActivity {
                 @Override
                 public <E> void onSuccess(E t) {
                     dismissProgressDialog();
+                    String res=(String)t;
+                    try {
+                        JSONObject object=new JSONObject(res);
+                        if (object.getBoolean("status")){
+                            Toast.makeText(ForgetPasswordActivity.this, ""+object.optString("message"), Toast.LENGTH_LONG).show();
+                           // startActivity(new Intent(ForgetPasswordActivity.this,LoginActivity.class));
+                           // finish();
 
+                        }
+                        else{
+                            Toast.makeText(ForgetPasswordActivity.this, "Something wrong", Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.print(res);
                 }
 
                 @Override

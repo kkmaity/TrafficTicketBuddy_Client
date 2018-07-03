@@ -79,7 +79,7 @@ public class LoginActivity extends BaseActivity {
         switch (v.getId()){
             case R.id.tvForgetPassword:
                 startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));
-                finish();
+                //finish();
                 break;
             case R.id.cvGoogleLogin:
                 signIn(new GoogleLoginCompleted() {

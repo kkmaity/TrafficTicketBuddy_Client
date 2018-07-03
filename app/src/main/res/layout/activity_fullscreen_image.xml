@@ -8,9 +8,11 @@
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/photo_view"
         android:layout_width="match_parent"
-        android:scaleType="centerCrop"
         android:src="@drawable/placeholder"
-        android:layout_height="match_parent"/>
+        android:minHeight="@dimen/_200sdp"
+        android:minWidth="@dimen/_200sdp"
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/ivClose"
         android:layout_width="wrap_content"
