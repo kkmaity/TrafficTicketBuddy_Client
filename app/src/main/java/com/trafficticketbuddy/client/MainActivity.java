@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity {
     private CircleIndicator indicator;
     private DrawerLayout drawer;
     private LinearLayout ll_side_panel_profile;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +130,7 @@ public class MainActivity extends BaseActivity {
                 if (drawer.isDrawerOpen(GravityCompat.START)) {
                     drawer.closeDrawer(GravityCompat.START);
                 }
+                shareApp();
                 break;
             case R.id.ll_side_panel_profile:
             case R.id.linMyProfile:
@@ -180,10 +183,17 @@ public class MainActivity extends BaseActivity {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            exitApplication();
         }
     }
 
+    private void shareApp(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Hey check out the app at: https://play.google.com/store/apps/details?id=com.trafficticketbuddy.client");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
 
     private void closeDrawer(){
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -283,6 +293,26 @@ public class MainActivity extends BaseActivity {
             });
         }
     }
+
+
+    private void exitApplication() {
+
+            if (doubleBackToExitPressedOnce) {
+                super.onBackPressed();
+                return;
+            }
+
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, R.string.double_tap_to_exit, Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
+        }
 
 
 }

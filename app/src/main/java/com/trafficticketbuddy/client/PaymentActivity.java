@@ -1,5 +1,6 @@
 package com.trafficticketbuddy.client;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -52,6 +53,7 @@ public class PaymentActivity extends BaseActivity {
     private String caseID;
     private Toolbar toolbar;
     private TextView tvAmount;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,9 @@ public class PaymentActivity extends BaseActivity {
 
         setContentView(R.layout.activity_payment);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-
+        progressDialog=new ProgressDialog(PaymentActivity.this);
+        progressDialog.setMessage("Loading Please Wait...");
+        progressDialog.setCancelable(false);
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,6 +109,7 @@ public class PaymentActivity extends BaseActivity {
         cardPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.show();
 
                 setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());
             }
@@ -192,6 +197,7 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
+                    progressDialog.dismiss();
                     String res=response.body().string();
                     JSONObject object=new JSONObject(res);
                     if (object.getBoolean("status")){
@@ -209,7 +215,7 @@ public class PaymentActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                progressDialog.dismiss();
             }
         });
     }

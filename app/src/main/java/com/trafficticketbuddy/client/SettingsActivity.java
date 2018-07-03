@@ -3,6 +3,7 @@ package com.trafficticketbuddy.client;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -22,15 +23,27 @@ public class SettingsActivity extends BaseActivity {
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
   */      setContentView(R.layout.activity_settings);
-        tvHeading = (TextView)findViewById(R.id.tvHeading);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar.setTitle("Settings");
+        //getSupportActionBar().setTitle("Change Password");
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+
+       // tvHeading = (TextView)findViewById(R.id.tvHeading);
         linAboutUs = (LinearLayout)findViewById(R.id.linAboutUs);
         linCntactUs = (LinearLayout)findViewById(R.id.linCntactUs);
         linPrivacyPolicy = (LinearLayout)findViewById(R.id.linPrivacyPolicy);
         linTramsCondition = (LinearLayout)findViewById(R.id.linTramsCondition);
         linChangePAss = (LinearLayout)findViewById(R.id.linChangePAss);
-        tvHeading.setText("Settings");
-        back = (ImageView) findViewById(R.id.back);
-        back.setOnClickListener(this);
+       /* tvHeading.setText("Settings");
+        back = (ImageView) findViewById(R.id.back);*/
+        //back.setOnClickListener(this);
         linAboutUs.setOnClickListener(this);
         linTramsCondition.setOnClickListener(this);
         linCntactUs.setOnClickListener(this);

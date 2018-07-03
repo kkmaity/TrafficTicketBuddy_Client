@@ -25,7 +25,7 @@ import com.trafficticketbuddy.client.interfaces.MyCaseOpenCaseDataLoaded;
 import com.trafficticketbuddy.client.model.cases.GetAllCasesMain;
 import com.trafficticketbuddy.client.model.cases.Response;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
-
+import com.trafficticketbuddy.client.utils.Constant;
 
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public class MyCaseActivity extends BaseActivity {
     private final int NOTIFICATION_ACCESS = 102;
     private TextView tvHeading;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
-   // private MyCaseAllCaseDataLoaded allcaselistener;
+    // private MyCaseAllCaseDataLoaded allcaselistener;
     //private MyCaseOpenCaseDataLoaded opencaselistener;
     private ImageView back;
 
@@ -69,7 +69,7 @@ public class MyCaseActivity extends BaseActivity {
         Gson gson = new Gson();
         String json = preference.getString("login_user", "");
         mLogin = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
-       // viewPager = (ViewPager) findViewById(R.id.id_viewpager);
+        // viewPager = (ViewPager) findViewById(R.id.id_viewpager);
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         mMyCaseAdapter = new MyCaseAdapter(getSupportFragmentManager());
@@ -85,7 +85,7 @@ public class MyCaseActivity extends BaseActivity {
         tvHeading = (TextView)findViewById(R.id.tvHeading);
         tvHeading.setText("My Case");
         //mActivity.setMyCaseAllCaseListener(this);
-       // setAdapterRecyclerView();
+        // setAdapterRecyclerView();
 
        /* OpenCaseFragment mOpenCaseFragment= new OpenCaseFragment();
         mMyCaseAdapter.addFragment(mOpenCaseFragment, "Open Cases");*/
@@ -123,6 +123,7 @@ public class MyCaseActivity extends BaseActivity {
         mAllCasesRecyclerAdapter=new AllCasesRecyclerAdapter(MyCaseActivity.this, caseListData, new ItemClickListner() {
             @Override
             public void onItemClick(Object viewID, int position) {
+                Intent intent=new Intent(MyCaseActivity.this,FullScreenImageActivity.class);
                 int vID= (int) viewID;
                 switch (vID){
                     case R.id.linAllCase:
@@ -133,6 +134,18 @@ public class MyCaseActivity extends BaseActivity {
                         case_id.putExtra("status",caseListData.get(position).getStatus());
                         startActivity(case_id);
 
+                        break;
+                    case R.id.ivLicense:
+                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getDrivingLicense());
+                        startActivity(intent);
+                        break;
+                    case R.id.ivFontImage:
+                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getCaseFrontImg());
+                        startActivity(intent);
+                        break;
+                    case R.id.ivBackImage:
+                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getCaseRearImg());
+                        startActivity(intent);
                         break;
                 }
             }
@@ -157,8 +170,8 @@ public class MyCaseActivity extends BaseActivity {
                     GetAllCasesMain main=(GetAllCasesMain)t;
                     if (main.getStatus()){
                         caseListData.addAll(main.getResponse());
-                       // allcaselistener.allCaseDataLoaded(caseListData);
-                      //  opencaselistener.openCaseDataLoaded(caseListData);
+                        // allcaselistener.allCaseDataLoaded(caseListData);
+                        //  opencaselistener.openCaseDataLoaded(caseListData);
 
                         mAllCasesRecyclerAdapter=new AllCasesRecyclerAdapter(MyCaseActivity.this, caseListData, new ItemClickListner() {
                             @Override
@@ -203,11 +216,11 @@ public class MyCaseActivity extends BaseActivity {
 
 
     public void setMyCaseAllCaseListener(MyCaseAllCaseDataLoaded listener) {
-       // this.allcaselistener = listener;
+        // this.allcaselistener = listener;
     }
 
     public void setMyCaseOpenCaseListener(MyCaseOpenCaseDataLoaded listener) {
-       // this.opencaselistener = listener;
+        // this.opencaselistener = listener;
     }
 
     @Override

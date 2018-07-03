@@ -122,8 +122,31 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
                 mContext.startActivity(mIntent);
             }
         });
+        holder.ivLicense.setTag(position);
+        holder.ivLicense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);
 
-
+            }
+        });
+        holder.ivFontImage.setTag(position);
+        holder.ivFontImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);
+            }
+        });
+        holder.ivBackImage.setTag(position);
+        holder.ivBackImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);
+            }
+        });
     }
     @Override
     public int getItemCount() {

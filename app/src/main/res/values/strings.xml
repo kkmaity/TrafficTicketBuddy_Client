@@ -18,4 +18,5 @@
         <item>Others</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="double_tap_to_exit">Double Tap to Exit!</string>
 </resources>
