@@ -217,8 +217,14 @@ public class MainActivity extends BaseActivity {
                 tvEmail.setText(mLogin.getEmail());
             }
             if (mLogin.getProfileImage() != null) {
-                String path = Constant.BASE_URL + mLogin.getProfileImage();
-                Glide.with(this).load(path).into(profile_image);
+                if(mLogin.getProfileImage().startsWith("http")){
+                    Glide.with(this).load(mLogin.getProfileImage()).into(profile_image);
+                }else{
+                    String path = Constant.BASE_URL+mLogin.getProfileImage();
+                    Glide.with(this).load(path).into(profile_image);
+                }
+               /* String path = Constant.BASE_URL + mLogin.getProfileImage();
+                Glide.with(this).load(path).into(profile_image);*/
             }
         }
 
