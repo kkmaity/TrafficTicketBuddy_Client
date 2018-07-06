@@ -126,6 +126,10 @@ public interface RestInterface {
  @FormUrlEncoded
  @POST("api/v1/user/forgotpassword")
  Call<ResponseBody> forgotpassword(@FieldMap Map<String,String> params);
+
+ @FormUrlEncoded
+ @POST("api/v1/user/isCaseOpen")
+ Call<ResponseBody> checkcasestatus(@FieldMap Map<String,String> params);
 /* user_id
          old_password
  new_password  */
