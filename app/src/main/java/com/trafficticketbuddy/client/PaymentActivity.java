@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.stripe.android.Stripe;
@@ -206,6 +207,7 @@ public class PaymentActivity extends BaseActivity {
                     String res=response.body().string();
                     JSONObject object=new JSONObject(res);
                     if (object.getBoolean("status")){
+                        //Toast.makeText(getApplicationContext(), "Payment Done",Toast.LENGTH_LONG).show();
                         callAcceptBid(bidID,caseID);
 
                     }
@@ -359,6 +361,7 @@ public class PaymentActivity extends BaseActivity {
                     try {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
+                            //Toast.makeText(getApplicationContext(), "ISBid Active",Toast.LENGTH_LONG).show();
                             setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());
                             /*// showDialog(object.getString("message"));
                             //getBids(getIntent().getStringExtra("case_id"));
