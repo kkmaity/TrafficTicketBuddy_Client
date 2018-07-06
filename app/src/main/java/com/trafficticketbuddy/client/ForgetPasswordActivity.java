@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.trafficticketbuddy.client.apis.ApiForgotPassword;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
+import com.trafficticketbuddy.client.utils.Constant;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -108,7 +109,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     private Map<String, String> getParam() {
         Map<String,String> map=new HashMap<>();
         map.put("email",etEmail.getText().toString());
-
+        map.put("user_type", Constant.USER_TYPE);
         return map;
     }
 }
