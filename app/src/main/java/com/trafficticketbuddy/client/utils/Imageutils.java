@@ -634,7 +634,7 @@ public class Imageutils
                         // Log.i("selected","path"+selected_path);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
                         // Log.i("file","name"+file_name);
-                        bitmap =compressImage(imageUri.toString(),616,512);
+                        bitmap =compressImage(imageUri.toString(),640,500);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,imageUri);
                     }
                     catch(Exception e)
@@ -657,7 +657,7 @@ public class Imageutils
                         selected_path=null;
                         selected_path=getPath(selectedImage);
                         file_name =selected_path.substring(selected_path.lastIndexOf("/")+1);
-                        bitmap =compressImage(selectedImage.toString(),250,250);
+                        bitmap =compressImage(selectedImage.toString(),640,500);
                         imageAttachment_callBack.image_attachment(from, file_name, bitmap,selectedImage);
                     }
                     catch(Exception e)
@@ -789,7 +789,7 @@ public class Imageutils
      */
 
 
-    public void createImage(Bitmap bitmap, String file_name, String filepath, boolean file_replace)
+    public File createImage(Bitmap bitmap, String file_name, String filepath, boolean file_replace)
     {
 
         path = new File(filepath);
@@ -815,7 +815,7 @@ public class Imageutils
         {
             store_image(file,bitmap);
         }
-
+      return file;
     }
 
 
