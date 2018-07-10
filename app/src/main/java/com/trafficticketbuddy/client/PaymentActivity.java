@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.stripe.android.Stripe;
@@ -18,6 +19,7 @@ import com.stripe.android.TokenCallback;
 import com.stripe.android.model.Card;
 import com.stripe.android.model.Token;
 import com.trafficticketbuddy.client.apis.ApiAcceptBids;
+import com.trafficticketbuddy.client.apis.ApiCheckCaseStatus;
 import com.trafficticketbuddy.client.restservice.OnApiResponseListener;
 
 import org.json.JSONException;
@@ -53,7 +55,8 @@ public class PaymentActivity extends BaseActivity {
     private String caseID;
     private Toolbar toolbar;
     private TextView tvAmount;
-    private ProgressDialog progressDialog;
+   // private ProgressDialog progressDialog;
+    private boolean isBidSuccess = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +64,9 @@ public class PaymentActivity extends BaseActivity {
 
         setContentView(R.layout.activity_payment);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        progressDialog=new ProgressDialog(PaymentActivity.this);
+       /* progressDialog=new ProgressDialog(PaymentActivity.this);
         progressDialog.setMessage("Loading Please Wait...");
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(false);*/
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,9 +112,11 @@ public class PaymentActivity extends BaseActivity {
         cardPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog.show();
+               // progressDialog.show();
+                showProgressDialog();
+                callCheckCaseStatus(caseID);
 
-                setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());
+               /* setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());*/
             }
         });
     }
@@ -197,10 +202,12 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
-                    progressDialog.dismiss();
+                   // progressDialog.dismiss();
+                    dismissProgressDialog();
                     String res=response.body().string();
                     JSONObject object=new JSONObject(res);
                     if (object.getBoolean("status")){
+                        //Toast.makeText(getApplicationContext(), "Payment Done",Toast.LENGTH_LONG).show();
                         callAcceptBid(bidID,caseID);
 
                     }
@@ -215,12 +222,14 @@ public class PaymentActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                progressDialog.dismiss();
+               // progressDialog.dismiss();
+                dismissProgressDialog();
             }
         });
     }
 
     private void callSuccess() {
+        isBidSuccess = true;
         cardPaymantFields.setVisibility(View.GONE);
         linSuccessPage.setVisibility(View.VISIBLE);
     }
@@ -229,7 +238,7 @@ public class PaymentActivity extends BaseActivity {
     public interface RetrofitService {
         @FormUrlEncoded
         @POST("stripe.php")
-        Call<ResponseBody> paymentApi(@Field("stripeToken") String stripeToken,@Field("price") String price );
+        Call<ResponseBody> paymentApi(@Field("stripeToken") String stripeToken, @Field("price") String price);
     }
 
 
@@ -339,5 +348,65 @@ public class PaymentActivity extends BaseActivity {
         map.put("bid_id",id);
         return map;
     }
+
+
+    private void callCheckCaseStatus(String caseId) {
+        if (isNetworkConnected()){
+            showProgressDialog();
+            new ApiCheckCaseStatus(getCheckCaseStatus(caseId), new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                   // dismissProgressDialog();
+                    String res=(String)t;
+                    try {
+                        JSONObject object=new JSONObject(res);
+                        if (object.getBoolean("status")){
+                            //Toast.makeText(getApplicationContext(), "ISBid Active",Toast.LENGTH_LONG).show();
+                            setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());
+                            /*// showDialog(object.getString("message"));
+                            //getBids(getIntent().getStringExtra("case_id"));
+                            // finish();
+                            callSuccess();*/
+                        }
+                        else{
+                            showDialog(object.getString("message"));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+    }
+
+    private Map<String, String> getCheckCaseStatus(String caseId) {
+        Map<String,String> map=new HashMap<>();
+        map.put("case_id",caseId);
+        return map;
+
+    }
+
+/*    @Override
+    public void onBackPressed() {
+        if(isBidSuccess){
+            MyBidActivity.myBidActivity.finish();
+            finish();
+        }else{
+            finish();
+        }
+
+    }*/
 }
 
