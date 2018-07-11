@@ -15,6 +15,7 @@ import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.trafficticketbuddy.client.adapter.AllCasesRecyclerAdapter;
 import com.trafficticketbuddy.client.adapter.MyBidRecyclerAdapter;
 import com.trafficticketbuddy.client.apis.ApiAcceptBids;
+import com.trafficticketbuddy.client.apis.ApiCheckCaseStatus;
 import com.trafficticketbuddy.client.apis.ApiGetBids;
 import com.trafficticketbuddy.client.evt.BackEvent;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
@@ -159,14 +160,15 @@ public class MyBidActivity extends BaseActivity {
             @Override
             public void onItemClick(Object viewID, int position) {
 
-                Intent intent=new Intent(MyBidActivity.this,PaymentActivity.class);
+              /*  Intent intent=new Intent(MyBidActivity.this,PaymentActivity.class);
                 intent.putExtra("bid_id",dataList.get(position).getId());
                 intent.putExtra("case_id",dataList.get(position).getCaseId());
                 intent.putExtra("amount",dataList.get(position).getBidAmount());
                 startActivity(intent);
                 finish();
-
+*/
                 // callAcceptBid(dataList.get(position).getId(),dataList.get(position).getCaseId());
+                callCheckCaseStatus(dataList.get(position).getCaseId(),dataList.get(position).getId());
             }
         });
         rvRecycler.setAdapter(myBidRecyclerAdapter);
@@ -174,6 +176,103 @@ public class MyBidActivity extends BaseActivity {
 
 
 
+
+    private void callCheckCaseStatus(final String caseId, final String bidID) {
+        if (isNetworkConnected()){
+            showProgressDialog();
+            new ApiCheckCaseStatus(getCheckCaseStatus(caseId), new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    // dismissProgressDialog();
+                    String res=(String)t;
+                    try {
+                        JSONObject object=new JSONObject(res);
+                        if (object.getBoolean("status")){
+                            //Toast.makeText(getApplicationContext(), "ISBid Active",Toast.LENGTH_LONG).show();
+                           // setCardDetails(etCardnumber.getText().toString(),Integer.parseInt(month[0]),Integer.parseInt(et_year.getText().toString()),et_cvv.getText().toString());
+                            /*// showDialog(object.getString("message"));
+                            //getBids(getIntent().getStringExtra("case_id"));
+                            // finish();
+                            callSuccess();*/
+
+                            callAcceptBid(bidID,caseId);
+                        }
+                        else{
+                            showDialog(object.getString("message"));
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+    }
+
+    private Map<String, String> getCheckCaseStatus(String caseId) {
+        Map<String,String> map=new HashMap<>();
+        map.put("case_id",caseId);
+        return map;
+
+    }
+    private void callAcceptBid(String id, String caseId) {
+        if (isNetworkConnected()){
+            showProgressDialog();
+            new ApiAcceptBids(getParamAccept(id,caseId), new OnApiResponseListener() {
+                @Override
+                public <E> void onSuccess(E t) {
+                    dismissProgressDialog();
+                    String res=(String)t;
+                    try {
+                        JSONObject object=new JSONObject(res);
+                        if (object.getBoolean("status")){
+                            // showDialog(object.getString("message"));
+                            //getBids(getIntent().getStringExtra("case_id"));
+                            // finish();
+                           // callSuccess();
+                            showDialog(object.getString("message"));
+                            if (getIntent().getStringExtra("case_id")!=null)
+                                getBids(getIntent().getStringExtra("case_id"));
+                        }
+                        else
+                            showDialog(object.getString("message"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public <E> void onError(E t) {
+                    dismissProgressDialog();
+                }
+
+                @Override
+                public void onError() {
+                    dismissProgressDialog();
+                }
+            });
+        }
+    }
+
+    private Map<String, String> getParamAccept(String id, String caseId) {
+
+        Map<String,String> map=new HashMap<>();
+        map.put("case_id",caseId);
+        map.put("bid_id",id);
+        return map;
+    }
     @Override
     public void onClick(View view) {
         super.onClick(view);

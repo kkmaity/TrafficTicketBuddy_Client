@@ -319,10 +319,12 @@ public class EditProfileActivity extends BaseActivity {
                         }
                         else if(mLoginMain.getResponse().getIsPhoneVerified().equalsIgnoreCase("0")){
                             recendOTP();
-                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
-                            startActivity(new Intent(EditProfileActivity.this,EmailOTPActivity.class));
-                            finish();
-                        }else{
+//                        }else if(mLoginMain.getResponse().getIsEmailVerified().equalsIgnoreCase("0")){
+//                            startActivity(new Intent(EditProfileActivity.this,EmailOTPActivity.class));
+//                            finish();
+//                        }
+                        }
+                       else{
                             startActivity(new Intent(EditProfileActivity.this,MainActivity.class));
                             finish();
                         }

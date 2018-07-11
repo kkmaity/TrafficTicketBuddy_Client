@@ -59,7 +59,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
        // holder.tvLawyrName.setText(dataList.get(position).getLawyerFirstName()+" "+dataList.get(position).getLawyerLastName());
-        holder.tvLawyrName.setText("Lawyer "+ (position+1));
+        holder.tvLawyrName.setText(dataList.get(position).getLawyerFirstName()+ " "+dataList.get(position).getLawyerLastName());
         holder.tvDetails.setText(dataList.get(position).getBidText());
         holder.tvStateCity.setText(MyBidActivity.city+", "+MyBidActivity.state);
         holder.tvPrice.setText(dataList.get(position).getBidAmount());

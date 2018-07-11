@@ -354,7 +354,7 @@
                     android:lines="4"
                     android:padding="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:hint="--Enter your case description--"
+                    android:hint="Enter High way traffic Act number\nRemove my demerit point\nAny other details ..."
                     />
                 <!--<View
                     android:layout_width="match_parent"

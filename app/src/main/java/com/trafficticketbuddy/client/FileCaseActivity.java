@@ -220,21 +220,21 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
 
 
         String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
-        imageutils.createImage(file, filename, path, false);
+        File filepath = imageutils.createImage(file, filename, path, false);
         switch (imgPosition) {
             case 1:
                 bitmapFontImage = file;
-                uriFontImage = uri;
+                uriFontImage = Uri.fromFile(filepath);
                 ivFontImage.setImageBitmap(file);
                 break;
             case 2:
                 bitmapBackImage = file;
-                uriBackImage = uri;
+                uriBackImage = Uri.fromFile(filepath);;
                 ivBackImage.setImageBitmap(file);
                 break;
             case 3:
                 bitmapDrivingLicence = file;
-                uriDrivingLicence = uri;
+                uriDrivingLicence = Uri.fromFile(filepath);;
                 ivDrivingLiImage.setImageBitmap(file);
                 break;
         }
