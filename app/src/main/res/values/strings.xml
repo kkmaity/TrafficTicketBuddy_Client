@@ -20,7 +20,7 @@
     <string name="title_activity_maps">Map</string>
     <string name="double_tap_to_exit">Double Tap to Exit!</string>
     <string name="ee">Double Tap to Exit!</string>
-    <string name="html"><![CDATA[
+    <string name="about_us_html"><![CDATA[
     <p>Traffic Ticket Buddy is owned and operated by (Company name), which is a registered legal document assistant company, that specializes in helping motorists to fight their (country/state) traffic tickets through the Trial by Declaration process.<p>
     <p>We are registered to cover all of (state you cover), and we take pride in custom preparing each Trial by declaration defense package by hand. Our goal is to give our customers the best chance to get their tickets dismissed as fast as possible. No points, no school.<p>
     <p>Our experience and excellent track record in providing legal services to motorists charged with traffic offenses like speeding, suspended license and DUI has made us everyone\'s choice.<p>
@@ -30,5 +30,28 @@
 <p>We never use computer software to generate our defense packages and this is what makes us stand out.<p>
 <p>If you have a traffic ticket or warrant out of in (state you cover) or GC Services has sent you a letter charging you a big fine or your license is suspended because of a traffic ticket and you need help clearing it up, feel free to call us for a free legal consultation (phone number) within our business hours. We will answer all of your questions and offer advice on how to fix your traffic ticket problem.<p>
 <p>At <a href="http://www.trafficticketbuddy.ca">TrafficTicket</a> Buddy, we work hard to protect your rights!<p>
+]]></string>
+    <string name="trams_condition_html"><![CDATA[
+    <p>Protecting your personal information is our top priority.<p>
+    <p>This Privacy Policy applies to the products and services of <a href="http://www.trafficticketbuddy.ca">TRAFFICTICKETBUDDY.CA </a>(“TRAFFICTICKETBUDDY,” “TTB,” “we,” “us,” or “our,” for the rest of this agreement) on all platforms and mediums (including the website TrafficTicketBuddy.Ca, our mobile website, apps, emails, and agreements generated using TRAFFICTICKETBUDDY). We are only an intermediary and will not be responsible for anything in the course of this service. By using <a href="http://www.trafficticketbuddy.ca">TRAFFICTICKETBUDDY</a> , you consent to this Policy.<p>
+   <h1 style="font-size:15px;"><font color="#109af5">Collection Of Your Personal Information</font></h1>
+    <p>The information TRAFFICTICKETBUDDY collects about you can be described as either “personally identifiable” or “non-personally identifiable.”<p>
+<h1 style="font-size:15px;"><font color="#109af5">Personally Identifiable Information –</font></h1>
+<p>When registering for TRAFFICTICKETBUDDY service, and creating your legal documents using the TRAFFICTICKETBUDDY application, you provide us with personal information that is unique to you alone (“Personally Identifiable Information”), including but not limited to:<p>
+
+<ul>
+  <li>Personal contact information (name, email address, physical address)</li>
+  <li>Your birthday</li>
+  <li>Information appearing on your driver\’s license</li>
+  <li>Information appearing on your traffic ticket citation</li>
+  <li>Billing or credit card information to complete your order</li>
+</ul>
+
+<p>We can\’t provide you with our key services without you providing us with some Personally Identifiable Information. To avoid sharing any Personally Identifiable Information with us, do not register with <a href="http://www.trafficticketbuddy.ca">TRAFFICTICKETBUDDY</a> or use our service.<p>
+
+<h1 style="font-size:15px;"><font color="#109af5">Non-Personally Identifiable Information -</font></h1>
+<p>We may also collect the following data that is not unique to you, in order to improve our service:<p>
+
+
 ]]></string>
 </resources>

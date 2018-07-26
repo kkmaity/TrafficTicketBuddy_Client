@@ -1,12 +1,9 @@
 package com.trafficticketbuddy.client;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -66,16 +63,16 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(new Intent(SettingsActivity.this,ChangePAsswordActivity.class));
                 break;
                 case R.id.linTramsCondition:
-                    Intent intent2=new Intent(SettingsActivity.this,AboutUsActivity.class);
+                    Intent intent2=new Intent(SettingsActivity.this,ContactUsActivity.class);
                     intent2.putExtra("key","Trams and Condition");
                     startActivity(intent2);                break;
                 case R.id.linPrivacyPolicy:
-                    Intent intent3=new Intent(SettingsActivity.this,AboutUsActivity.class);
+                    Intent intent3=new Intent(SettingsActivity.this,ContactUsActivity.class);
                     intent3.putExtra("key","Privacy Policy");
                     startActivity(intent3);
                     break;
                 case R.id.linCntactUs:
-                    Intent intent4=new Intent(SettingsActivity.this,AboutUsActivity.class);
+                    Intent intent4=new Intent(SettingsActivity.this,ContactUsActivity.class);
                     intent4.putExtra("key","Contact Us");
                     startActivity(intent4);
                 break;

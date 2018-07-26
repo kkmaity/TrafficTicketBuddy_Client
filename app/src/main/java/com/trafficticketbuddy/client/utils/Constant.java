@@ -11,6 +11,9 @@ import java.util.Locale;
 
 public class Constant {
     public static  String BASE_URL="http://www.trafficticketbuddy.ca/buddy/";
+    public static  String ABOUT_US_URL="http://www.trafficticketbuddy.ca/contact.php";
+    public static  String TERMS_URL="http://www.trafficticketbuddy.ca/terms-conditions.php";
+    public static  String PRIVACY_URL="http://www.trafficticketbuddy.ca/privacy-policy.php";
   //  public static  String BASE_URL="http://13.58.150.208/buddy/";
    // public static  String BASE_URL=getBaseURL();
     public static  String API_KEY="0a2b8d7f9243305f2a4700e1870f673a";
@@ -83,4 +86,6 @@ public class Constant {
     }
 
 
+    public class ABOUT_US {
+    }
 }
