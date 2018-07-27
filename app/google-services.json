@@ -1,31 +1,58 @@
 {
   "project_info": {
-    "project_number": "176293790700",
-    "firebase_url": "https://trafficticketbuddyclient.firebaseio.com",
-    "project_id": "trafficticketbuddyclient",
-    "storage_bucket": "trafficticketbuddyclient.appspot.com"
+    "project_number": "121489879394",
+    "firebase_url": "https://traffictticketbuddy-clientf.firebaseio.com",
+    "project_id": "traffictticketbuddy-clientf",
+    "storage_bucket": "traffictticketbuddy-clientf.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:176293790700:android:88c588fd1a7eb791",
+        "mobilesdk_app_id": "1:121489879394:android:88c588fd1a7eb791",
         "android_client_info": {
           "package_name": "com.trafficticketbuddy.client"
         }
       },
       "oauth_client": [
         {
-          "client_id": "176293790700-j215t18tbv6e8gq0ne73sr2c6taa7fuf.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "176293790700-j215t18tbv6e8gq0ne73sr2c6taa7fuf.apps.googleusercontent.com",
+          "client_id": "121489879394-1jrs3gp8tj3a85k71ocn76dfcllomhlp.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCW4HwkQpVJ_xmPGAjQTx3BCUrqW2rZZz4"
+          "current_key": "AIzaSyD8-Gd0XjunQVYymWreX_iY0pGdMcb61zA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121489879394:android:f19ea921e3fb2a7e",
+        "android_client_info": {
+          "package_name": "com.trafficticketbuddy.lawyer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121489879394-1jrs3gp8tj3a85k71ocn76dfcllomhlp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8-Gd0XjunQVYymWreX_iY0pGdMcb61zA"
         }
       ],
       "services": {
