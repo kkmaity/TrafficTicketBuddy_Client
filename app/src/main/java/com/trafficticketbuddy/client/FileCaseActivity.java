@@ -261,7 +261,39 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
             Call<ResponseBody> getDepartment = RestService.getInstance().restInterface.fileACase(use_id_body,
                     description_body,state_body,city_body,body_case_front_img,body_case_back_img,body_driving_lic);
 
-            APIHelper.enqueueWithRetry(getDepartment,new Callback<ResponseBody>() {
+            getDepartment.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    dismissProgressDialog();
+                    String main= null;
+                    try {
+                        main = response.body().string();
+                        try {
+                            JSONObject object=new JSONObject(main);
+                            if (object.getBoolean("status")){
+                                showDialog(object.getString("message"));
+                                finish();
+                            }
+                            else {
+                                showDialog(object.getString("message"));
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    dismissProgressDialog();
+                }
+            });
+
+           /* APIHelper.enqueueWithRetry(getDepartment,new Callback<ResponseBody>() {
 
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -294,7 +326,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
                     dismissProgressDialog();
 
                 }
-            });
+            });*/
         }
 
 

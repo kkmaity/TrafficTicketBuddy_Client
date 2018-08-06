@@ -2,6 +2,7 @@ package com.trafficticketbuddy.client.restservice;
 
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -18,6 +19,7 @@ public class RestService {
     public RestService() {
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
        // if (BuildConfig.DEBUG) {
+        clientBuilder.connectTimeout(60, TimeUnit.SECONDS);
             HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
             httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
             clientBuilder.addInterceptor(httpLoggingInterceptor);

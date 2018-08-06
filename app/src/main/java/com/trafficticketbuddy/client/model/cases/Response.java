@@ -41,6 +41,10 @@ public class Response implements Serializable {
     @Expose
     private int bid_count;
 
+    @SerializedName("created_at")
+    @Expose
+    private String created_at;
+
     public String getId() {
         return id;
     }
@@ -127,5 +131,13 @@ public class Response implements Serializable {
 
     public void setBid_count(int bid_count) {
         this.bid_count = bid_count;
+    }
+
+    public String getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        this.created_at = created_at;
     }
 }

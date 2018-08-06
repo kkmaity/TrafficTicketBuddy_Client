@@ -15,7 +15,9 @@ import com.bumptech.glide.Glide;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.trafficticketbuddy.client.BaseActivity;
 import com.trafficticketbuddy.client.CaseDetailsActivity;
+import com.trafficticketbuddy.client.FullImageZoomActivity;
 import com.trafficticketbuddy.client.MyBidActivity;
+import com.trafficticketbuddy.client.MyCaseActivity;
 import com.trafficticketbuddy.client.R;
 import com.trafficticketbuddy.client.interfaces.ItemClickListner;
 import com.trafficticketbuddy.client.model.cases.Response;
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecyclerAdapter.MyViewHolder> {
 
-    private Context mContext;
+    private BaseActivity mContext;
     private ItemClickListner _interface;
     private List<Response> dataList=new ArrayList<>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -54,7 +56,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
     }
 
 
-    public AllCasesRecyclerAdapter(Context mContext, List<Response> caseListData, ItemClickListner clickHandler) {
+    public AllCasesRecyclerAdapter(BaseActivity mContext, List<Response> caseListData, ItemClickListner clickHandler) {
         this.mContext=mContext;
         this.dataList=caseListData;
         this._interface = clickHandler;
@@ -71,7 +73,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         /*Glide.with(mContext).load(Constant.BASE_URL+dataList.get(position).getDrivingLicense())
                 .thumbnail(0.5f)
                 .into(holder.ivLicense);
@@ -92,9 +94,14 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         holder.tvStateCity.setText(dataList.get(position).getState()+" "+dataList.get(position).getCity());
         holder.tvDesc.setText(dataList.get(position).getCaseDetails());
         holder.tvBidCount.setText("Total Bids : "+dataList.get(position).getBid_count());
-        // holder.tvDate.setText("");
-        //holder.tvTime.setText("");
-        //holder.tvBidCount.setText("");
+
+        String date = dataList.get(position).getCreated_at().split(" ")[0];
+        String time = dataList.get(position).getCreated_at().split(" ")[1];
+        time = time.substring(0,5);
+
+        holder.tvDate.setText(date);
+        holder.tvTime.setText(time);
+        holder.tvBidCount.setText(""+dataList.get(position).getBid_count());
         holder.tvStatus.setText("Status : "+dataList.get(position).getStatus());
         if (dataList.get(position).getStatus().equalsIgnoreCase("Accepted"))
         holder.tvStatus.setTextColor(Color.parseColor("#FF349344"));
@@ -126,8 +133,9 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         holder.ivLicense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos= (int) view.getTag();
-                _interface.onItemClick(view.getId(),pos);
+                /*int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);*/
+                FullImageZoomActivity.start(mContext, dataList.get(position).getDrivingLicense(),  holder.ivLicense);
 
             }
         });
@@ -135,16 +143,18 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
         holder.ivFontImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos= (int) view.getTag();
-                _interface.onItemClick(view.getId(),pos);
+                /*int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);*/
+                FullImageZoomActivity.start(mContext, dataList.get(position).getCaseFrontImg(),  holder.ivFontImage);
             }
         });
         holder.ivBackImage.setTag(position);
         holder.ivBackImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos= (int) view.getTag();
-                _interface.onItemClick(view.getId(),pos);
+              /*  int pos= (int) view.getTag();
+                _interface.onItemClick(view.getId(),pos);*/
+                FullImageZoomActivity.start(mContext, dataList.get(position).getCaseRearImg(),  holder.ivBackImage);
             }
         });
     }

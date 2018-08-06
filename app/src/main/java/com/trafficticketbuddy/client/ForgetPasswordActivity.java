@@ -1,5 +1,7 @@
 package com.trafficticketbuddy.client;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,7 +78,19 @@ public class ForgetPasswordActivity extends BaseActivity {
                     try {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
-                            Toast.makeText(ForgetPasswordActivity.this, ""+object.optString("message"), Toast.LENGTH_LONG).show();
+                            new AlertDialog.Builder(ForgetPasswordActivity.this)
+                                    .setTitle("Success")
+                                    .setMessage("A reset password link has been sent to your register email address. Please clieck that link and reset your passowrd")
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
+
+
+                           // Toast.makeText(ForgetPasswordActivity.this, ""+object.optString("message"), Toast.LENGTH_LONG).show();
                            // startActivity(new Intent(ForgetPasswordActivity.this,LoginActivity.class));
                            // finish();
 

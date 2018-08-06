@@ -190,8 +190,9 @@ public class MyCaseActivity extends BaseActivity {
 
                                         break;
                                     case R.id.ivLicense:
-                                        intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getDrivingLicense());
-                                        startActivity(intent);
+                                       /* intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getDrivingLicense());
+                                        startActivity(intent);*/
+                                        /*FullImageZoomActivity.start(MyCaseActivity.this, mCaseResponse.getDrivingLicense(), ivLicense);*/
                                         break;
                                     case R.id.ivFontImage:
                                         intent.putExtra("url", Constant.BASE_URL+caseListData.get(position).getCaseFrontImg());

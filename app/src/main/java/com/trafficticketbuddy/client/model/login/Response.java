@@ -51,6 +51,10 @@ public class Response {
     @Expose
     private String city;
 
+    @SerializedName("register_from")
+    @Expose
+    private String register_from;
+
     public String getId() {
         return id;
     }
@@ -171,6 +175,13 @@ public class Response {
         this.city = city;
     }
 
+    public String getRegister_from() {
+        return register_from;
+    }
+
+    public void setRegister_from(String register_from) {
+        this.register_from = register_from;
+    }
 }
 
 

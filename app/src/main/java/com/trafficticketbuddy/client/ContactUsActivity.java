@@ -102,16 +102,18 @@ public class ContactUsActivity extends BaseActivity implements AdvancedWebView.L
 
     @Override
     public void onPageStarted(String url, Bitmap favicon) {
-        //progressDialog.show();
+        progressDialog.show();
     }
 
     @Override
     public void onPageFinished(String url) {
-       // progressDialog.dismiss();
+        progressDialog.dismiss();
     }
 
     @Override
-    public void onPageError(int errorCode, String description, String failingUrl) { }
+    public void onPageError(int errorCode, String description, String failingUrl) {
+        progressDialog.dismiss();
+    }
 
     @Override
     public void onDownloadRequested(String url, String suggestedFilename, String mimeType, long contentLength, String contentDisposition, String userAgent) { }

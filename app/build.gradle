@@ -59,6 +59,7 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     implementation 'com.stripe:stripe-android:6.1.2'
     implementation 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
+    implementation 'com.github.chrisbanes:PhotoView:+'
 
 }
 

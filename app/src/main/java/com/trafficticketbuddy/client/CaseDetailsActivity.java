@@ -55,6 +55,9 @@ public class CaseDetailsActivity extends BaseActivity {
             tvDesc.setText(mCaseResponse.getCaseDetails());
             tvCaseno.setText("Case details for case no. "+mCaseResponse.getCaseNumber());
         }
+
+
+
     }
 
     @Override
@@ -64,16 +67,13 @@ public class CaseDetailsActivity extends BaseActivity {
 
         switch (view.getId()){
             case R.id.ivFontImage:
-                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getCaseFrontImg());
-                startActivity(intent);
+                FullImageZoomActivity.start(CaseDetailsActivity.this,mCaseResponse.getCaseFrontImg(), ivFontImage);
                 break;
             case R.id.ivLicense:
-                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getDrivingLicense());
-                startActivity(intent);
+                FullImageZoomActivity.start(CaseDetailsActivity.this,mCaseResponse.getDrivingLicense(), ivLicense);
                 break;
             case R.id.ivBackImage:
-                intent.putExtra("url",Constant.BASE_URL+mCaseResponse.getCaseRearImg());
-                startActivity(intent);
+                FullImageZoomActivity.start(CaseDetailsActivity.this,mCaseResponse.getCaseRearImg(), ivBackImage);
                 break;
                 case R.id.back:
                finish();

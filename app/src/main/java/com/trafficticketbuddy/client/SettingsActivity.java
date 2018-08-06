@@ -50,6 +50,10 @@ public class SettingsActivity extends BaseActivity {
     @Override
     public void onClick(View view) {
         super.onClick(view);
+
+        if(!isNetworkConnected()){
+            return;
+        }
         switch (view.getId()){
             case R.id.back:
                 finish();

@@ -11,7 +11,7 @@ import java.util.Locale;
 
 public class Constant {
     public static  String BASE_URL="http://www.trafficticketbuddy.ca/buddy/";
-    public static  String ABOUT_US_URL="http://www.trafficticketbuddy.ca/contact.php";
+    public static  String ABOUT_US_URL="http://www.trafficticketbuddy.ca/contact-mobile.php";
     public static  String TERMS_URL="http://www.trafficticketbuddy.ca/terms-conditions.php";
     public static  String PRIVACY_URL="http://www.trafficticketbuddy.ca/privacy-policy.php";
   //  public static  String BASE_URL="http://13.58.150.208/buddy/";

@@ -2,6 +2,7 @@ package com.trafficticketbuddy.client;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -38,6 +40,7 @@ import com.trafficticketbuddy.client.utils.Constant;
 
 import com.trafficticketbuddy.client.adapter.MyAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -169,6 +172,7 @@ public class MainActivity extends BaseActivity {
                     }
                     confirmLogoutDialog();
 
+
                 break;
 
         }
@@ -245,14 +249,15 @@ public class MainActivity extends BaseActivity {
         dialog.findViewById(R.id.tvConfirm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                preference.clearData();
+               // preference.clearData();
                 dialog.dismiss();
-                Intent in=new Intent(MainActivity.this,LoginActivity.class);
+                deleteToken();
+                /*Intent in=new Intent(MainActivity.this,LoginActivity.class);
                 in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                startActivity(in);
+                startActivity(in);*/
             }
         });
         dialog.show();
@@ -319,6 +324,45 @@ public class MainActivity extends BaseActivity {
                 }
             }, 2000);
         }
+
+    public void deleteToken(){
+        new AsyncTask<Void,Void,Void>()
+        {
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                showProgressDialog();
+            }
+
+            @Override
+            protected Void doInBackground(Void... params)
+            {
+                {
+                    try
+                    {
+                        FirebaseInstanceId.getInstance().deleteInstanceId();
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+                return null;
+            }
+            @Override
+            protected void onPostExecute(Void result)
+            {
+                dismissProgressDialog();
+                preference.clearData();
+                Intent in=new Intent(MainActivity.this,LoginActivity.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                startActivity(in);
+            }
+        }.execute();
+    }
 
 
 }

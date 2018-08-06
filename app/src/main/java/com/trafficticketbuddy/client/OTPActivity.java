@@ -101,8 +101,17 @@ public void startTimer(){
                     try {
                         JSONObject object=new JSONObject(res);
                         if (object.getBoolean("status")){
-                            startActivity(new Intent(OTPActivity.this, LoginActivity.class));
-                            finish();
+                            Gson gson = new Gson();
+                            String json = preference.getString("login_user", "");
+                            Response mLoginMain = gson.fromJson(json, Response.class);
+                            if(mLoginMain.getRegister_from().equals("NORMAL")){
+                                startActivity(new Intent(OTPActivity.this, LoginActivity.class));
+                                finish();
+                            }else{
+                                startActivity(new Intent(OTPActivity.this, MainActivity.class));
+                                finish();
+                            }
+
                            /* mLogin.setIsPhoneVerified("1");
                             preference.setLoggedInUser(new Gson().toJson(mLogin));
                             if(mLogin.getIsEmailVerified().equalsIgnoreCase("0")) {

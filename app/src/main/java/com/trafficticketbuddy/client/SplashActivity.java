@@ -78,7 +78,7 @@ public class SplashActivity extends BaseActivity {
                 String json = preference.getString("login_user", "");
                 Response mLoginMain = gson.fromJson(json, Response.class);
                 if (mLoginMain != null) {
-                    if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")) {
+                    if (mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0") && mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")  && mLoginMain.getRegister_from().equals("NORMAL")) {
                         startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         finish();
                     }/* else if (mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")) {
