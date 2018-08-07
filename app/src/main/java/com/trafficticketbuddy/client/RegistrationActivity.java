@@ -96,6 +96,27 @@ public class RegistrationActivity extends BaseActivity {
         etState.setOnClickListener(this);
         carSignUp.setOnClickListener(this);
         tvCountry.setOnClickListener(this);
+
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        tvTramsCondition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNetworkConnected()){
+                    Intent intent2=new Intent(getApplicationContext(),ContactUsActivity.class);
+                    intent2.putExtra("key","Trams and Condition");
+                    startActivity(intent2);
+                }
+
+            }
+        });
     }
 
     @Override
