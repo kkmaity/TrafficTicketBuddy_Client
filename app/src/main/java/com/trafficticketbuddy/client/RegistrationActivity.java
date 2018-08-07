@@ -117,6 +117,7 @@ public class RegistrationActivity extends BaseActivity {
 
             }
         });
+        //
     }
 
     @Override
