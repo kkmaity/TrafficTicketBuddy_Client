@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
                             new AlertDialog.Builder(LoginActivity.this)
                                     .setCancelable(false)
                                     .setTitle("Verify Email")
-                                    .setMessage("An email verification linbk send to your register email id. Please click on that link and verify your email id.")
+                                    .setMessage("An email verification link has been sent to your register email id. Please click on that link and verify your email id.")
                                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

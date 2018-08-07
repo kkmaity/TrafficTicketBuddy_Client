@@ -101,7 +101,7 @@ public class AllCasesRecyclerAdapter extends RecyclerView.Adapter<AllCasesRecycl
 
         holder.tvDate.setText(date);
         holder.tvTime.setText(time);
-        holder.tvBidCount.setText(""+dataList.get(position).getBid_count());
+       // holder.tvBidCount.setText(""+dataList.get(position).getBid_count());
         holder.tvStatus.setText("Status : "+dataList.get(position).getStatus());
         if (dataList.get(position).getStatus().equalsIgnoreCase("Accepted"))
         holder.tvStatus.setTextColor(Color.parseColor("#FF349344"));

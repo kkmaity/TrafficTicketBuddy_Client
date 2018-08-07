@@ -1,11 +1,14 @@
 package com.trafficticketbuddy.client;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
+import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +104,24 @@ public class RegistrationActivity extends BaseActivity {
         switch (view.getId()){
             case R.id.cardSignUp:
                 if (validate()){
-                    callApi();
+                    new AlertDialog.Builder(RegistrationActivity.this)
+                            .setTitle("Alert")
+                            .setMessage(Html.fromHtml("1. An OTP will be send to verify your mobile number : <b>"+etPhone.getText().toString()+"</b>.  \n\n2. An Email verification link will be sent to your register email :<b>"+etEmail.getText().toString()+"</b>.\n\nPlease recheck your mobile number and email address before submit"))
+                            .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    callApi();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+
                 }
                 break;
             case R.id.tvCountry:
