@@ -64,7 +64,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
         holder.tvLawyrName.setText(dataList.get(position).getLawyerFirstName()+ " "+dataList.get(position).getLawyerLastName());
         holder.tvDetails.setText(dataList.get(position).getBidText());
         holder.tvStateCity.setText(MyBidActivity.city+", "+MyBidActivity.state);
-        holder.tvPrice.setText(dataList.get(position).getBidAmount());
+        holder.tvPrice.setText("Bid Price $"+dataList.get(position).getBidAmount());
         holder.tvDateTime.setText(dataList.get(position).getCreated_at());
         if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
             holder.cardAccept.setText("Rate Lawyer");
