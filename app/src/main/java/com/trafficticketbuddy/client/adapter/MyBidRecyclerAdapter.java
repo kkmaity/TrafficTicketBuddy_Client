@@ -1,6 +1,8 @@
 package com.trafficticketbuddy.client.adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -86,7 +88,7 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
 
         holder.cardAccept.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                // int posi = (int) view.getTag();
                 if(dataList.get(position).getIsAccepted().equalsIgnoreCase("1")){
                         new DlgRate(mContext, dataList.get(position).getLawyerId(), dataList.get(position).getCaseId(), dataList.get(position).getId(), new DlgRate.OnRatingListiner() {
@@ -96,7 +98,24 @@ public class MyBidRecyclerAdapter extends RecyclerView.Adapter<MyBidRecyclerAdap
                             }
                         }).show();
                 }else{
-                    _interface.onItemClick(view.getTag(),position);
+                    new AlertDialog.Builder(mContext)
+                            .setTitle("Alert")
+                            .setMessage("Are you sure?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                    _interface.onItemClick(view.getTag(),position);
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            })
+                            .show();
+
                 }
 
 
