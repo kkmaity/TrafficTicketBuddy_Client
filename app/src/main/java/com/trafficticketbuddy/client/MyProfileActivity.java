@@ -36,6 +36,7 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
     private ImageView image,ivLicense;
     private EditText tv_email, tv_phone, tv_country, tv_state, tv_city;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
+    public static MyProfileActivity myProfileActivity;
 
     private boolean isHideToolbarView = false;
     @Override
@@ -43,6 +44,8 @@ public class MyProfileActivity extends BaseActivity implements AppBarLayout.OnOf
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_my_profile);
+
+        myProfileActivity = this;
 
         image = (ImageView)findViewById(R.id.image);
         ivLicense = (ImageView)findViewById(R.id.ivLicense);

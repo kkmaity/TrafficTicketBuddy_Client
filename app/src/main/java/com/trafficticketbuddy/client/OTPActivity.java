@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.trafficticketbuddy.client.apis.ApiResendOTP;
@@ -108,7 +109,12 @@ public void startTimer(){
                                 startActivity(new Intent(OTPActivity.this, LoginActivity.class));
                                 finish();
                             }else{
-                                startActivity(new Intent(OTPActivity.this, MainActivity.class));
+
+                                mLoginMain.setIsPhoneVerified("1");
+                                preference.setLoggedInUser(new Gson().toJson(mLoginMain));
+                                EditProfileActivity.editProfileActivity.finish();
+                                MyProfileActivity.myProfileActivity.finish();
+                               // startActivity(new Intent(OTPActivity.this, MainActivity.class));
                                 finish();
                             }
 
@@ -119,6 +125,8 @@ public void startTimer(){
                             }else{
 
                             }*/
+                        }else{
+                            Toast.makeText(OTPActivity.this, "OTP does not match", Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

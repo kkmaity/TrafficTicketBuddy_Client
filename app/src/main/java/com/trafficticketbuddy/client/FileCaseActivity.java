@@ -95,6 +95,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
     private CardView cardSubmit;
     private com.trafficticketbuddy.client.model.login.Response mLogin;
     private ImageView back;
+    private com.trafficticketbuddy.client.model.login.Response mLoginMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,6 +110,9 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
         back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         initView();
+        Gson gson = new Gson();
+        String json = preference.getString("login_user", "");
+        mLoginMain = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
     }
 
     private void initView() {
@@ -494,5 +498,7 @@ public class FileCaseActivity extends BaseActivity implements Imageutils.ImageAt
             e.printStackTrace();
         }
     }
+
+
 
 }

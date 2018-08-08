@@ -65,6 +65,7 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout drawer;
     private LinearLayout ll_side_panel_profile;
     private boolean doubleBackToExitPressedOnce = false;
+    private com.trafficticketbuddy.client.model.login.Response mLoginMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +107,9 @@ public class MainActivity extends BaseActivity {
         String deviceToken=    preference.getDeviceToken();
         System.out.println("!!!!!!!!!!!"+deviceToken);
         init();
+        Gson gson = new Gson();
+        String json = preference.getString("login_user", "");
+        mLoginMain = gson.fromJson(json, com.trafficticketbuddy.client.model.login.Response.class);
 
 
     }
@@ -152,7 +156,10 @@ public class MainActivity extends BaseActivity {
                     if (drawer.isDrawerOpen(GravityCompat.START)) {
                         drawer.closeDrawer(GravityCompat.START);
                     }
-                startActivity(new Intent(MainActivity.this,FileCaseActivity.class));
+                    if(canUserPostACase()){
+                        startActivity(new Intent(MainActivity.this,FileCaseActivity.class));
+                    }
+
                 break;
                 case R.id.linMyCase:
                     if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -362,6 +369,37 @@ public class MainActivity extends BaseActivity {
                 startActivity(in);
             }
         }.execute();
+    }
+
+
+    public boolean canUserPostACase(){
+        boolean f = true;
+        if(mLoginMain.getIsEmailVerified().equalsIgnoreCase("0")){
+            Toast.makeText(this, "Your email id is not verified. Please verify your email", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getIsPhoneVerified().equalsIgnoreCase("0")){
+            Toast.makeText(this, "Your phone is not verified. Please verify your phone", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getCountry() ==null){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your country", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getCountry().length() == 0){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your country", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getState() ==null){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your State/Province", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getState().length() == 0){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your State/Province", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getCity() ==null){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your City", Toast.LENGTH_SHORT).show();
+            f = false;
+        }else if(mLoginMain.getCity().length() == 0){
+            Toast.makeText(this, "Your profile is incomplete. Plesea select your City", Toast.LENGTH_SHORT).show();
+            f = false;
+        }
+        return f;
     }
 
 

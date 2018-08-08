@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
@@ -86,6 +87,7 @@ public class SplashActivity extends BaseActivity {
                         finish();
                     } else if (mLoginMain.getPhone().isEmpty() || mLoginMain.getCountry().isEmpty()
                             || mLoginMain.getState().isEmpty() || mLoginMain.getCity().isEmpty()) {
+                        Toast.makeText(SplashActivity.this, "Please complete your profile information", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SplashActivity.this, EditProfileActivity.class));
                         finish();
 

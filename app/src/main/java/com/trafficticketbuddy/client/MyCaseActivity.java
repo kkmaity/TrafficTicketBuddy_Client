@@ -206,16 +206,37 @@ public class MyCaseActivity extends BaseActivity {
                             }
                         });
                         rvRecycler.setAdapter(mAllCasesRecyclerAdapter);
+                        if(caseListData.size()==0){
+                            txtNoItem.setVisibility(View.VISIBLE);
+                        }else{
+                            txtNoItem.setVisibility(View.GONE);
+                        }
+                    }else{
+                        if(caseListData.size()==0){
+                            txtNoItem.setVisibility(View.VISIBLE);
+                        }else{
+                            txtNoItem.setVisibility(View.GONE);
+                        }
                     }
                 }
                 @Override
                 public <E> void onError(E t) {
                     dismissProgressDialog();
+                    if(caseListData.size()==0){
+                        txtNoItem.setVisibility(View.VISIBLE);
+                    }else{
+                        txtNoItem.setVisibility(View.GONE);
+                    }
 
                 }
                 @Override
                 public void onError() {
                     dismissProgressDialog();
+                    if(caseListData.size()==0){
+                        txtNoItem.setVisibility(View.VISIBLE);
+                    }else{
+                        txtNoItem.setVisibility(View.GONE);
+                    }
 
                 }
             });

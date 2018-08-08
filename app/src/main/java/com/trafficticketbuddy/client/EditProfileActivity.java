@@ -111,13 +111,14 @@ public class EditProfileActivity extends BaseActivity {
     private int image_type = 1;
     private File Image_profile,Image_license;
     private CardView cardUpdate;
+    public static EditProfileActivity editProfileActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_edit);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-
+        editProfileActivity = this;
         toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_arrow_back_white_24dp));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
