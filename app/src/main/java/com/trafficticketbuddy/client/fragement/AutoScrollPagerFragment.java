@@ -105,9 +105,9 @@ public class AutoScrollPagerFragment extends Fragment {
                 if (toast != null) {
                     toast.cancel();
                 }
-                toast = Toast.makeText(getActivity(), "You clicked page: " + (position + 1),
+               /* toast = Toast.makeText(getActivity(), "You clicked page: " + (position + 1),
                         Toast.LENGTH_SHORT);
-                toast.show();
+                toast.show();*/
             }
         });
     }

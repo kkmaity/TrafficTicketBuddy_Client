@@ -112,8 +112,15 @@ public void startTimer(){
 
                                 mLoginMain.setIsPhoneVerified("1");
                                 preference.setLoggedInUser(new Gson().toJson(mLoginMain));
-                                EditProfileActivity.editProfileActivity.finish();
-                                MyProfileActivity.myProfileActivity.finish();
+                                if(EditProfileActivity.editProfileActivity!=null){
+                                    EditProfileActivity.editProfileActivity.finish();
+                                }
+
+                                if(MyProfileActivity.myProfileActivity!=null){
+                                    MyProfileActivity.myProfileActivity.finish();
+                                }
+
+
                                // startActivity(new Intent(OTPActivity.this, MainActivity.class));
                                 finish();
                             }
