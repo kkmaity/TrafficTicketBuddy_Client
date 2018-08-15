@@ -10,7 +10,7 @@ public class APIHelper {
     public static final int DEFAULT_RETRIES = 5;
 
     public static <T> void enqueueWithRetry(Call<T> call, final int retryCount, final Callback<T> callback) {
-        call.enqueue(new RetryableCallback<T>(call, retryCount) {
+       /* call.enqueue(new RetryableCallback<T>(call, retryCount) {
 
             @Override
             public void onFinalResponse(Call<T> call, Response<T> response) {
@@ -21,7 +21,19 @@ public class APIHelper {
             public void onFinalFailure(Call<T> call, Throwable t) {
                 callback.onFailure(call, t);
             }
-        });
+        });*/
+
+               call.enqueue(new Callback<T>() {
+                @Override
+                public void onResponse(Call<T> call, Response<T> response) {
+                   callback.onResponse(call, response);
+                }
+
+                @Override
+                public void onFailure(Call<T> call, Throwable t) {
+                    callback.onFailure(call, t);
+                }
+            });
     }
 
     public static <T> void enqueueWithRetry(Call<T> call, final Callback<T> callback) {
